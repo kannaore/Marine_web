@@ -49,28 +49,20 @@ export function Header() {
                 )}
             </AnimatePresence>
 
-            {/* Full-width Opaque Background Bar (Appears when menu open) */}
-            <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{
-                    opacity: isMenuOpen ? 1 : 0,
-                    height: isMenuOpen ? "72px" : 0
-                }}
-                className="fixed top-0 inset-x-0 bg-marine-dark z-[45] border-b border-white/5"
-                transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
-            />
-
             <header
                 className={cn(
                     "fixed top-4 inset-x-0 mx-auto z-50 transition-all duration-500 ease-out",
-                    "w-[90%] max-w-[1240px] rounded-2xl py-2 px-6",
-                    isMenuOpen || isScrolled
-                        ? "bg-marine-dark/40 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3)]"
-                        : "bg-transparent border-transparent"
+                    "w-[90%] max-w-[1240px] rounded-2xl py-1 px-6",
+                    "border border-transparent", // Always have border to prevent layout shift
+                    isMenuOpen
+                        ? "bg-transparent" // Transparent so solid background behind shows through
+                        : isScrolled
+                            ? "bg-marine-dark/40 !border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3)]"
+                            : ""
                 )}
                 style={{
-                    WebkitBackdropFilter: (isMenuOpen || isScrolled) ? "blur(32px) saturate(180%) brightness(1.1)" : "none",
-                    backdropFilter: (isMenuOpen || isScrolled) ? "blur(32px) saturate(180%) brightness(1.1)" : "none",
+                    WebkitBackdropFilter: isMenuOpen ? "none" : (isScrolled ? "blur(32px) saturate(180%) brightness(1.1)" : "none"),
+                    backdropFilter: isMenuOpen ? "none" : (isScrolled ? "blur(32px) saturate(180%) brightness(1.1)" : "none"),
                 }}
             >
                 <div className="flex items-center justify-between">
