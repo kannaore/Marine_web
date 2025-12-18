@@ -1,0 +1,104 @@
+{
+    "metadata": {
+        "title": "마린리서치 | 해양조사 전문기업",
+        "description": "해상풍력, 지구물리탐사, 지반조사 전문 기업. 안전하고 지속 가능한 해양의 미래를 만들어갑니다."
+    },
+    "common": {
+        "learnMore": "자세히 보기",
+        "viewAll": "전체 보기",
+        "contact": "문의하기",
+        "download": "다운로드",
+        "back": "뒤로가기",
+        "home": "홈",
+        "retry": "다시 시도"
+    },
+    "nav": {
+        "services": "서비스",
+        "projects": "프로젝트",
+        "about": "회사소개",
+        "news": "뉴스",
+        "contact": "문의"
+    },
+    "hero": {
+        "badge": "해양조사 전문기업",
+        "title": "안전하고 지속 가능한",
+        "titleHighlight": "해양의 미래",
+        "titleEnd": "를 만듭니다",
+        "description": "마린리서치는 해상풍력, 지구물리탐사, 지반조사 분야에서 최고의 전문성과 기술력으로 바다의 가능성을 발견합니다",
+        "cta": "서비스 알아보기",
+        "ctaSecondary": "회사소개",
+        "scroll": "스크롤"
+    },
+    "services": {
+        "title": "핵심 서비스",
+        "subtitle": "마린리서치는 해양조사의 모든 영역에서 전문적인 서비스를 제공합니다",
+        "offshoreWind": {
+            "title": "해상풍력 조사",
+            "description": "해상풍력발전단지 건설을 위한 종합적인 해양조사 서비스를 제공합니다."
+        },
+        "geophysical": {
+            "title": "지구물리탐사",
+            "description": "최첨단 멀티빔 음향측심기, 사이드스캔소나, 서브바텀프로파일러를 활용합니다."
+        },
+        "geotechnical": {
+            "title": "지오테크니컬",
+            "description": "CPT, Vibrocore, Borehole 등 다양한 지반조사 장비를 보유하고 있습니다."
+        }
+    },
+    "projects": {
+        "title": "프로젝트 실적",
+        "subtitle": "다양한 해양 프로젝트에서 축적한 전문성과 노하우"
+    },
+    "about": {
+        "badge": "회사소개",
+        "title": "바다의 가능성을",
+        "titleHighlight": "발견합니다",
+        "description": "마린리서치는 2004년 설립 이래 대한민국 해양조사 산업을 선도해 왔습니다.",
+        "downloadBrochure": "회사소개서 다운로드",
+        "viewHistory": "연혁 보기",
+        "stats": {
+            "years": "Years Experience",
+            "projects": "Projects Completed",
+            "team": "Expert Team",
+            "countries": "Countries Served"
+        }
+    },
+    "news": {
+        "title": "뉴스 & 소식",
+        "subtitle": "마린리서치의 최신 소식을 확인하세요",
+        "viewAll": "전체 뉴스 보기",
+        "categories": {
+            "contract": "수주소식",
+            "company": "회사소식",
+            "certification": "인증",
+            "technology": "기술"
+        }
+    },
+    "cta": {
+        "title": "다음 프로젝트를 함께",
+        "titleHighlight": "시작하세요",
+        "description": "해양조사에 관한 모든 문의를 환영합니다.",
+        "inquiry": "프로젝트 문의하기",
+        "download": "회사소개서 다운로드"
+    },
+    "footer": {
+        "description": "해양조사 전문기업 마린리서치는 해상풍력, 지구물리탐사, 지오테크니컬 분야에서 최고의 전문성과 기술력으로 안전하고 지속 가능한 해양 미래를 만들어갑니다.",
+        "services": "서비스",
+        "company": "회사",
+        "support": "고객지원",
+        "copyright": "© {year} 마린리서치. All rights reserved."
+    },
+    "error": {
+        "title": "오류가 발생했습니다",
+        "description": "페이지를 불러오는 중 문제가 발생했습니다.",
+        "retry": "다시 시도",
+        "home": "홈으로 이동"
+    },
+    "notFound": {
+        "title": "404",
+        "subtitle": "페이지를 찾을 수 없습니다",
+        "description": "요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다.",
+        "home": "홈으로 이동",
+        "back": "이전 페이지"
+    }
+}

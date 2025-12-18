@@ -1,0 +1,104 @@
+{
+    "metadata": {
+        "title": "Marine Research | Marine Survey Specialists",
+        "description": "Specialists in offshore wind, geophysical surveys, and geotechnical investigations."
+    },
+    "common": {
+        "learnMore": "Learn More",
+        "viewAll": "View All",
+        "contact": "Contact Us",
+        "download": "Download",
+        "back": "Back",
+        "home": "Home",
+        "retry": "Retry"
+    },
+    "nav": {
+        "services": "Services",
+        "projects": "Projects",
+        "about": "About",
+        "news": "News",
+        "contact": "Contact"
+    },
+    "hero": {
+        "badge": "Marine Survey Specialists",
+        "title": "Creating a Safe and Sustainable",
+        "titleHighlight": "Ocean Future",
+        "titleEnd": "",
+        "description": "Marine Research discovers the possibilities of the sea with expertise in offshore wind, geophysical surveys, and geotechnical investigations.",
+        "cta": "Explore Services",
+        "ctaSecondary": "About Us",
+        "scroll": "Scroll"
+    },
+    "services": {
+        "title": "Core Services",
+        "subtitle": "Marine Research provides professional services across all areas of marine survey",
+        "offshoreWind": {
+            "title": "Offshore Wind Survey",
+            "description": "Comprehensive marine survey services for offshore wind farm construction."
+        },
+        "geophysical": {
+            "title": "Geophysical Survey",
+            "description": "Utilizing state-of-the-art multibeam echosounders, side-scan sonar, and sub-bottom profilers."
+        },
+        "geotechnical": {
+            "title": "Geotechnical Investigation",
+            "description": "Equipped with various geotechnical survey equipment including CPT, Vibrocore, and Borehole."
+        }
+    },
+    "projects": {
+        "title": "Project Portfolio",
+        "subtitle": "Expertise and know-how accumulated from diverse marine projects"
+    },
+    "about": {
+        "badge": "About Us",
+        "title": "Discovering the",
+        "titleHighlight": "Possibilities of the Sea",
+        "description": "Since its establishment in 2004, Marine Research has been leading Korea's marine survey industry.",
+        "downloadBrochure": "Download Brochure",
+        "viewHistory": "View History",
+        "stats": {
+            "years": "Years Experience",
+            "projects": "Projects Completed",
+            "team": "Expert Team",
+            "countries": "Countries Served"
+        }
+    },
+    "news": {
+        "title": "News & Updates",
+        "subtitle": "Stay updated with the latest from Marine Research",
+        "viewAll": "View All News",
+        "categories": {
+            "contract": "Contract News",
+            "company": "Company News",
+            "certification": "Certification",
+            "technology": "Technology"
+        }
+    },
+    "cta": {
+        "title": "Start Your Next Project",
+        "titleHighlight": "With Us",
+        "description": "We welcome all inquiries about marine surveys.",
+        "inquiry": "Project Inquiry",
+        "download": "Download Brochure"
+    },
+    "footer": {
+        "description": "Marine Research creates a safe and sustainable ocean future with expertise in offshore wind, geophysical surveys, and geotechnical fields.",
+        "services": "Services",
+        "company": "Company",
+        "support": "Support",
+        "copyright": "© {year} Marine Research. All rights reserved."
+    },
+    "error": {
+        "title": "Something went wrong",
+        "description": "There was a problem loading this page.",
+        "retry": "Try Again",
+        "home": "Go to Home"
+    },
+    "notFound": {
+        "title": "404",
+        "subtitle": "Page Not Found",
+        "description": "The page you requested does not exist or may have been moved.",
+        "home": "Go to Home",
+        "back": "Go Back"
+    }
+}
