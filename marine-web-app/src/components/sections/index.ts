@@ -4,3 +4,7 @@ export { CaseStudiesSection } from "./CaseStudiesSection";
 export { AboutSection } from "./AboutSection";
 export { NewsSection } from "./NewsSection";
 export { CTASection } from "./CTASection";
+export { CategoryLandingPage } from "./CategoryLandingPage";
+export { AboutPageSpacex } from "./AboutPageSpacex";
+export { AboutPageToss } from "./AboutPageToss";
+export { AboutPagePremium } from "./AboutPagePremium";
