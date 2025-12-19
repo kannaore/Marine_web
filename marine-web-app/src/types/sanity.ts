@@ -94,6 +94,49 @@ export interface Equipment {
     }>;
 }
 
+export interface VesselSpecItem {
+    label: string;
+    value: string;
+    valueEn?: string;
+}
+
+export interface VesselEquipmentItem {
+    text: string;
+    textEn?: string;
+}
+
+export interface VesselEquipmentGroup {
+    category: "seismic3d" | "seismicHighRes" | "gravityMagnetic" | "marineGeology";
+    items: VesselEquipmentItem[];
+}
+
+export interface VesselDeckItem {
+    label: "seaCrane" | "aFrame" | "deepSeaWinch";
+    value: string;
+    valueEn?: string;
+}
+
+export interface Vessel {
+    _id: string;
+    name: string;
+    nameEn?: string;
+    slug: SanitySlug;
+    heroSubtitle?: string;
+    heroSubtitleEn?: string;
+    heroImage?: SanityImage;
+    summary?: VesselSpecItem[];
+    mainDimensions?: VesselSpecItem[];
+    capacity?: VesselSpecItem[];
+    performance?: VesselSpecItem[];
+    conditions?: VesselSpecItem[];
+    accommodation?: VesselSpecItem[];
+    equipmentGroups?: VesselEquipmentGroup[];
+    deckMachinery?: VesselDeckItem[];
+    certifications?: Array<"iso9001" | "iso14001" | "iso45001" | "gwoBst">;
+    featured?: boolean;
+    order?: number;
+}
+
 export interface SiteSettings {
     companyName?: string;
     companyNameEn?: string;

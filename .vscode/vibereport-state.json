@@ -1,0 +1,395 @@
+{
+  "lastSnapshot": {
+    "generatedAt": "2025-12-19T00:40:42.494Z",
+    "rootPath": "c:\\Users\\Administrator\\Desktop\\00.Coding\\projects\\Marine_web",
+    "projectName": "Marine_web",
+    "filesCount": 82,
+    "dirsCount": 24,
+    "languageStats": {
+      "tsx": 37,
+      "ts": 25,
+      "json": 5,
+      "md": 1,
+      "css": 1
+    },
+    "mainConfigFiles": {
+      "otherConfigs": []
+    },
+    "importantFiles": [],
+    "fileList": [
+      "New_logo.png",
+      "marine-web-app/next.config.ts",
+      "marine-web-app/next-env.d.ts",
+      "marine-web-app/README.md",
+      "marine-web-app/postcss.config.mjs",
+      "marine-web-app/package.json",
+      "marine-web-app/package-lock.json",
+      "marine-web-app/tsconfig.tsbuildinfo",
+      "marine-web-app/tsconfig.json",
+      "marine-web-app/tailwind.config.ts",
+      "marine-web-app/messages/ko.json",
+      "marine-web-app/messages/en.json",
+      "marine-web-app/eslint.config.mjs",
+      "marine-web-app/.gitignore",
+      "marine-web-app/.env.local",
+      "marine-web-app/public/window.svg",
+      "marine-web-app/public/vercel.svg",
+      "marine-web-app/public/next.svg",
+      "marine-web-app/public/logo.png",
+      "marine-web-app/public/globe.svg",
+      "marine-web-app/public/file.svg",
+      "marine-web-app/src/types/sanity.ts",
+      "marine-web-app/src/types/index.ts",
+      "marine-web-app/src/sanity/schemas/siteSettings.ts",
+      "marine-web-app/src/sanity/schemas/service.ts",
+      "marine-web-app/src/sanity/schemas/project.ts",
+      "marine-web-app/src/sanity/schemas/news.ts",
+      "marine-web-app/src/sanity/schemas/index.ts",
+      "marine-web-app/src/sanity/schemas/equipment.ts",
+      "marine-web-app/src/sanity/lib/queries.ts",
+      "marine-web-app/src/sanity/lib/image.ts",
+      "marine-web-app/src/sanity/lib/client.ts",
+      "marine-web-app/src/sanity/env.ts",
+      "marine-web-app/src/middleware.ts",
+      "marine-web-app/src/lib/utils.ts",
+      "marine-web-app/src/lib/navData.ts",
+      "marine-web-app/src/i18n/routing.ts",
+      "marine-web-app/src/i18n/request.ts",
+      "marine-web-app/src/components/ui/section.tsx",
+      "marine-web-app/src/components/ui/section-heading.tsx",
+      "marine-web-app/src/components/ui/index.ts",
+      "marine-web-app/src/components/ui/container.tsx",
+      "marine-web-app/src/components/ui/card.tsx",
+      "marine-web-app/src/components/ui/button.tsx",
+      "marine-web-app/src/components/ui/BokehBackground.tsx",
+      "marine-web-app/src/components/sections/ServicesSection.tsx",
+      "marine-web-app/src/components/sections/NewsSection.tsx",
+      "marine-web-app/src/components/sections/index.ts",
+      "marine-web-app/src/components/sections/HeroSection.tsx",
+      "marine-web-app/src/components/sections/CTASection.tsx",
+      "marine-web-app/src/components/sections/CategoryLandingPage.tsx",
+      "marine-web-app/src/components/sections/CaseStudiesSection.tsx",
+      "marine-web-app/src/components/sections/AboutSection.tsx",
+      "marine-web-app/src/components/sections/AboutPageToss.tsx",
+      "marine-web-app/src/components/sections/AboutPageSpacex.tsx",
+      "marine-web-app/src/components/sections/AboutPagePremium.tsx",
+      "marine-web-app/src/components/providers/MotionProvider.tsx",
+      "marine-web-app/src/components/providers/index.ts",
+      "marine-web-app/src/components/layout/MorphingDesktopNav.tsx",
+      "marine-web-app/src/components/layout/index.ts",
+      "marine-web-app/src/components/layout/Header.tsx",
+      "marine-web-app/src/components/layout/Footer.tsx",
+      "marine-web-app/src/components/LanguageSwitcher.tsx",
+      "marine-web-app/src/components/ErrorBoundary.tsx",
+      "marine-web-app/src/components/animations/TextReveal.tsx",
+      "marine-web-app/src/components/animations/ScrollReveal.tsx",
+      "marine-web-app/src/components/animations/ParallaxSection.tsx",
+      "marine-web-app/src/components/animations/index.ts",
+      "marine-web-app/src/components/animations/FadeIn.tsx",
+      "marine-web-app/src/app/[locale]/sustainability/page.tsx",
+      "marine-web-app/src/app/[locale]/services/page.tsx",
+      "marine-web-app/src/app/[locale]/page.tsx",
+      "marine-web-app/src/app/[locale]/layout.tsx",
+      "marine-web-app/src/app/[locale]/contact/page.tsx",
+      "marine-web-app/src/app/[locale]/careers/page.tsx",
+      "marine-web-app/src/app/[locale]/about/page.tsx",
+      "marine-web-app/src/app/not-found.tsx",
+      "marine-web-app/src/app/layout.tsx",
+      "marine-web-app/src/app/globals.css",
+      "marine-web-app/src/app/global-error.tsx",
+      "marine-web-app/src/app/favicon.ico",
+      "marine-web-app/src/app/error.tsx"
+    ],
+    "structureSummary": [
+      {
+        "name": "marine-web-app",
+        "type": "directory",
+        "children": [
+          {
+            "name": "messages",
+            "type": "directory",
+            "children": [
+              {
+                "name": "en.json",
+                "type": "file",
+                "extension": "json"
+              },
+              {
+                "name": "ko.json",
+                "type": "file",
+                "extension": "json"
+              }
+            ]
+          },
+          {
+            "name": "public",
+            "type": "directory",
+            "children": [
+              {
+                "name": "file.svg",
+                "type": "file",
+                "extension": "svg"
+              },
+              {
+                "name": "globe.svg",
+                "type": "file",
+                "extension": "svg"
+              },
+              {
+                "name": "logo.png",
+                "type": "file",
+                "extension": "png"
+              },
+              {
+                "name": "next.svg",
+                "type": "file",
+                "extension": "svg"
+              },
+              {
+                "name": "vercel.svg",
+                "type": "file",
+                "extension": "svg"
+              },
+              {
+                "name": "window.svg",
+                "type": "file",
+                "extension": "svg"
+              }
+            ]
+          },
+          {
+            "name": "src",
+            "type": "directory",
+            "children": [
+              {
+                "name": "app",
+                "type": "directory",
+                "children": [
+                  {
+                    "name": "[locale]",
+                    "type": "directory"
+                  },
+                  {
+                    "name": "error.tsx",
+                    "type": "file",
+                    "extension": "tsx"
+                  },
+                  {
+                    "name": "favicon.ico",
+                    "type": "file",
+                    "extension": "ico"
+                  },
+                  {
+                    "name": "global-error.tsx",
+                    "type": "file",
+                    "extension": "tsx"
+                  },
+                  {
+                    "name": "globals.css",
+                    "type": "file",
+                    "extension": "css"
+                  },
+                  {
+                    "name": "layout.tsx",
+                    "type": "file",
+                    "extension": "tsx"
+                  },
+                  {
+                    "name": "not-found.tsx",
+                    "type": "file",
+                    "extension": "tsx"
+                  }
+                ]
+              },
+              {
+                "name": "components",
+                "type": "directory",
+                "children": [
+                  {
+                    "name": "animations",
+                    "type": "directory"
+                  },
+                  {
+                    "name": "layout",
+                    "type": "directory"
+                  },
+                  {
+                    "name": "providers",
+                    "type": "directory"
+                  },
+                  {
+                    "name": "sections",
+                    "type": "directory"
+                  },
+                  {
+                    "name": "ui",
+                    "type": "directory"
+                  },
+                  {
+                    "name": "ErrorBoundary.tsx",
+                    "type": "file",
+                    "extension": "tsx"
+                  },
+                  {
+                    "name": "LanguageSwitcher.tsx",
+                    "type": "file",
+                    "extension": "tsx"
+                  }
+                ]
+              },
+              {
+                "name": "i18n",
+                "type": "directory",
+                "children": [
+                  {
+                    "name": "request.ts",
+                    "type": "file",
+                    "extension": "ts"
+                  },
+                  {
+                    "name": "routing.ts",
+                    "type": "file",
+                    "extension": "ts"
+                  }
+                ]
+              },
+              {
+                "name": "lib",
+                "type": "directory",
+                "children": [
+                  {
+                    "name": "navData.ts",
+                    "type": "file",
+                    "extension": "ts"
+                  },
+                  {
+                    "name": "utils.ts",
+                    "type": "file",
+                    "extension": "ts"
+                  }
+                ]
+              },
+              {
+                "name": "sanity",
+                "type": "directory",
+                "children": [
+                  {
+                    "name": "lib",
+                    "type": "directory"
+                  },
+                  {
+                    "name": "schemas",
+                    "type": "directory"
+                  },
+                  {
+                    "name": "env.ts",
+                    "type": "file",
+                    "extension": "ts"
+                  }
+                ]
+              },
+              {
+                "name": "types",
+                "type": "directory",
+                "children": [
+                  {
+                    "name": "index.ts",
+                    "type": "file",
+                    "extension": "ts"
+                  },
+                  {
+                    "name": "sanity.ts",
+                    "type": "file",
+                    "extension": "ts"
+                  }
+                ]
+              },
+              {
+                "name": "middleware.ts",
+                "type": "file",
+                "extension": "ts"
+              }
+            ]
+          },
+          {
+            "name": "eslint.config.mjs",
+            "type": "file",
+            "extension": "mjs"
+          },
+          {
+            "name": "next-env.d.ts",
+            "type": "file",
+            "extension": "ts"
+          },
+          {
+            "name": "next.config.ts",
+            "type": "file",
+            "extension": "ts"
+          },
+          {
+            "name": "package-lock.json",
+            "type": "file",
+            "extension": "json"
+          },
+          {
+            "name": "package.json",
+            "type": "file",
+            "extension": "json"
+          },
+          {
+            "name": "postcss.config.mjs",
+            "type": "file",
+            "extension": "mjs"
+          },
+          {
+            "name": "README.md",
+            "type": "file",
+            "extension": "md"
+          },
+          {
+            "name": "tailwind.config.ts",
+            "type": "file",
+            "extension": "ts"
+          },
+          {
+            "name": "tsconfig.json",
+            "type": "file",
+            "extension": "json"
+          },
+          {
+            "name": "tsconfig.tsbuildinfo",
+            "type": "file",
+            "extension": "tsbuildinfo"
+          }
+        ]
+      },
+      {
+        "name": "sample",
+        "type": "directory"
+      },
+      {
+        "name": "New_logo.png",
+        "type": "file",
+        "extension": "png"
+      }
+    ],
+    "structureDiagram": "### 📐 기능 기반 프로젝트 구조\n\n**프로젝트**: `Marine_web`\n**타입**: ⚡ Next.js 앱\n\n| 기능 영역 | 설명 | 파일 수 |\n|:---|:---|:---:|\n\n#### 주요 진입점\n- _(엔트리포인트 자동 감지 실패)_\n"
+  },
+  "sessions": [
+    {
+      "id": "session_mjc581z9_qdhnwe",
+      "timestamp": "2025-12-19T00:40:42.501Z",
+      "userPrompt": "프로젝트 초기 분석",
+      "changesSummary": "초기 보고서 생성 (이전 스냅샷 없음)",
+      "diffSummary": {
+        "newFilesCount": 0,
+        "removedFilesCount": 0,
+        "changedConfigsCount": 0,
+        "totalChanges": 0
+      }
+    }
+  ],
+  "appliedImprovements": [],
+  "lastUpdated": "2025-12-19T00:40:42.501Z",
+  "version": 1
+}

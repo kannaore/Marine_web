@@ -49,6 +49,91 @@
         "title": "Project Portfolio",
         "subtitle": "Expertise and know-how accumulated from diverse marine projects"
     },
+    "vessel": {
+        "hero": {
+            "badge": "Survey Vessel",
+            "ctaPrimary": "Project Inquiry",
+            "ctaSecondary": "Download Brochure"
+        },
+        "sections": {
+            "specs": {
+                "title": "Main Dimensions",
+                "subtitle": "Key Specs"
+            },
+            "capacity": {
+                "title": "Capacity & Area",
+                "subtitle": "Capacity & Area"
+            },
+            "performance": {
+                "title": "Performance & Conditions",
+                "subtitle": "Operating Limits",
+                "performanceTitle": "Performance",
+                "conditionsTitle": "Operating Conditions"
+            },
+            "accommodation": {
+                "title": "Accommodation",
+                "subtitle": "Accommodation"
+            },
+            "equipment": {
+                "title": "Scientific Equipment",
+                "subtitle": "Survey & Observation Systems",
+                "note": "Equipment configuration may vary by project."
+            },
+            "deck": {
+                "title": "Deck Machinery",
+                "subtitle": "Deck Machinery"
+            },
+            "certifications": {
+                "title": "Certifications & Training",
+                "subtitle": "Compliance"
+            }
+        },
+        "labels": {
+            "lengthOverall": "Length Overall",
+            "breadth": "Breadth",
+            "depth": "Depth",
+            "draught": "Draught",
+            "grossTonnage": "Gross Tonnage",
+            "workDeck": "Work Deck Area",
+            "laboratory": "Laboratory Area",
+            "maxSpeed": "Max Speed",
+            "bollardPull": "Bollard Pull",
+            "endurance": "Endurance",
+            "seaState": "Sea State",
+            "windSpeed": "Wind Speed",
+            "totalPersons": "Total Persons",
+            "researchers": "Researchers",
+            "singleCabins": "Single Cabins",
+            "doubleCabins": "Double Cabins",
+            "hospital": "Hospital"
+        },
+        "equipmentCategories": {
+            "seismic3d": "3D Seismic",
+            "seismicHighRes": "High-Resolution Seismic & Sub-bottom",
+            "gravityMagnetic": "Gravity & Magnetic",
+            "marineGeology": "Marine Geology"
+        },
+        "deckMachinery": {
+            "seaCrane": "Sea Crane",
+            "aFrame": "A-Frame",
+            "deepSeaWinch": "Deep Sea Winch"
+        },
+        "certifications": {
+            "iso9001": "ISO 9001",
+            "iso14001": "ISO 14001",
+            "iso45001": "ISO 45001",
+            "gwoBst": "GWO BST"
+        },
+        "units": {
+            "meters": "m",
+            "squareMeters": "m²",
+            "knots": "knots",
+            "tonnes": "tonnes",
+            "days": "days",
+            "persons": "persons",
+            "cabins": "cabins"
+        }
+    },
     "about": {
         "badge": "About Us",
         "title": "Discovering the",

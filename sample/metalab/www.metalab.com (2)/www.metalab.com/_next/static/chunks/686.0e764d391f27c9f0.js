@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[686],{7686:function(e,t,i){i.r(t);var n=i(5893),o=i(9879);let LottieContainer=e=>{let{src:t,style:i,direction:a}=e;return(0,n.jsx)(o.J5,{autoplay:!0,loop:!0,src:t,style:i,lottieRef:e=>{-1===a&&e.setDirection(-1),e.setSpeed(1)}})};LottieContainer.displayName="LottieContainer",t.default=LottieContainer}}]);

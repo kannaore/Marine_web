@@ -1,0 +1,464 @@
+:root {
+  --bg-dark: #0a0a0a;
+  --bg-light: #f5f5f5;
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.6);
+  --accent: #0066ff;
+  --accent-orange: #ff6b35;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto; /* Lenis handles smooth scroll */
+}
+
+body {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+/* ============================================
+   Hero Section
+   ============================================ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 20%;
+  right: 20%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(0, 102, 255, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-title {
+  font-size: clamp(3rem, 10vw, 8rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.hero-word {
+  display: inline-block;
+  margin-right: 0.3em;
+  overflow: hidden;
+}
+
+.video-placeholder {
+  display: inline-flex;
+  align-items: center;
+}
+
+.video-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.2em;
+  height: 0.8em;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border-radius: 0.15em;
+  font-size: 0.6em;
+  overflow: hidden;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.02); }
+}
+
+.hero-cta {
+  margin-top: 3rem;
+}
+
+.cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 1.1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.cta-link:hover {
+  color: var(--text-primary);
+  border-color: var(--text-primary);
+  padding-left: 1rem;
+}
+
+/* ============================================
+   Locations Scroller
+   ============================================ */
+.locations-scroller {
+  position: relative;
+  min-height: 150vh;
+  padding: 10rem 4rem;
+  overflow: hidden;
+}
+
+.locations-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120%;
+  z-index: 0;
+}
+
+.locations-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.4);
+}
+
+.locations-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, 
+    var(--bg-dark) 0%, 
+    transparent 20%, 
+    transparent 80%, 
+    var(--bg-dark) 100%
+  );
+}
+
+.locations-content {
+  position: relative;
+  z-index: 1;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.locations-title {
+  font-size: clamp(2rem, 6vw, 5rem);
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.locations-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  margin-bottom: 2rem;
+}
+
+.locations-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+}
+
+.location-item {
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  font-weight: 300;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+}
+
+.location-item:hover {
+  color: var(--text-primary);
+}
+
+/* ============================================
+   Stats Section
+   ============================================ */
+.stats-section {
+  padding: 8rem 4rem;
+  background: var(--bg-dark);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.stat-item {
+  padding: 2rem 0;
+}
+
+.stat-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  margin-bottom: 1.5rem;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+}
+
+.stat-value {
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.stat-suffix {
+  color: var(--accent);
+}
+
+/* ============================================
+   Reviews Section (Draggable)
+   ============================================ */
+.reviews-section {
+  padding: 6rem 0;
+  overflow: hidden;
+}
+
+.reviews-title {
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 700;
+  padding: 0 4rem;
+  margin-bottom: 3rem;
+}
+
+.reviews-container {
+  display: flex;
+  gap: 2rem;
+  padding: 0 4rem;
+  overflow-x: auto;
+  cursor: grab;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-behavior: smooth;
+}
+
+.reviews-container::-webkit-scrollbar {
+  display: none;
+}
+
+.reviews-container.dragging {
+  cursor: grabbing;
+  scroll-behavior: auto;
+}
+
+.review-card {
+  flex: 0 0 400px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  transition: transform 0.3s ease, background 0.3s ease;
+  user-select: none;
+}
+
+.review-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.review-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.review-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.review-quote {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+}
+
+.review-author {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.author-name {
+  font-weight: 600;
+}
+
+.author-role {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+/* ============================================
+   Info Drawers (Accordion)
+   ============================================ */
+.drawers-section {
+  padding: 8rem 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.drawers-title {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 700;
+  margin-bottom: 4rem;
+}
+
+.drawers-title span {
+  display: block;
+}
+
+.drawers-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.drawer-item {
+  padding: 1.5rem 0;
+}
+
+.drawer-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  padding: 0;
+}
+
+.drawer-title {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 500;
+  text-align: left;
+  transition: opacity 0.3s ease;
+}
+
+.drawer-item:not(.open) .drawer-title {
+  opacity: 0.6;
+}
+
+.drawer-item.open .drawer-title,
+.drawer-item:hover .drawer-title {
+  opacity: 1;
+}
+
+.drawer-icon {
+  font-size: 2rem;
+  font-weight: 300;
+  transition: transform 0.3s ease;
+}
+
+.drawer-item.open .drawer-icon {
+  transform: rotate(180deg);
+}
+
+.drawer-content {
+  overflow: hidden;
+  transition: height 0.4s ease, opacity 0.3s ease;
+  padding-left: 0;
+}
+
+.drawer-content p {
+  padding: 1.5rem 0;
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+}
+
+.drawer-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.15);
+  margin-top: 1.5rem;
+}
+
+/* ============================================
+   CTA Section
+   ============================================ */
+.cta-section {
+  padding: 10rem 4rem;
+  text-align: center;
+  background: var(--bg-dark);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cta-section h2 {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 700;
+  margin-bottom: 3rem;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.25rem 2.5rem;
+  background: var(--text-primary);
+  color: var(--bg-dark);
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 100px;
+  transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 40px rgba(255, 255, 255, 0.2);
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+@media (max-width: 768px) {
+  .hero,
+  .locations-scroller,
+  .stats-section,
+  .drawers-section,
+  .cta-section {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .reviews-container {
+    padding: 0 1.5rem;
+  }
+
+  .reviews-title {
+    padding: 0 1.5rem;
+  }
+
+  .review-card {
+    flex: 0 0 300px;
+  }
+}

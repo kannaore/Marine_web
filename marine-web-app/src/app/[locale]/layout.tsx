@@ -7,7 +7,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "../globals.css";
 import { Header, Footer } from "@/components/layout";
-import { MotionProvider } from "@/components/providers";
+import { MotionProvider, LenisProvider } from "@/components/providers";
 import { BokehBackground } from "@/components/ui/BokehBackground";
 import { routing } from "@/i18n/routing";
 
@@ -102,10 +102,12 @@ export default async function LocaleLayout({
             <body className="font-sans antialiased">
                 <NextIntlClientProvider messages={messages}>
                     <MotionProvider>
-                        <BokehBackground />
-                        <Header />
-                        <main>{children}</main>
-                        <Footer />
+                        <LenisProvider>
+                            <BokehBackground />
+                            <Header />
+                            <main>{children}</main>
+                            <Footer />
+                        </LenisProvider>
                     </MotionProvider>
                 </NextIntlClientProvider>
                 <Analytics />

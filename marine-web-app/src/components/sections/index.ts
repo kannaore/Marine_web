@@ -8,3 +8,9 @@ export { CategoryLandingPage } from "./CategoryLandingPage";
 export { AboutPageSpacex } from "./AboutPageSpacex";
 export { AboutPageToss } from "./AboutPageToss";
 export { AboutPagePremium } from "./AboutPagePremium";
+export { AccordionCardsSection } from "./AccordionCardsSection";
+export { AboutPageTossStyle } from "./AboutPageTossStyle";
+export { AboutPageLocomotiveStyle } from "./AboutPageLocomotiveStyle";
+
+
+

@@ -2,7 +2,7 @@ import { groq } from "next-sanity";
 
 // Get all projects
 export const projectsQuery = groq`
-  *[_type == "project"] | order(period.end desc) {
+  *[_type == "project" && !(_id in path("drafts.**"))] | order(period.end desc) {
     _id,
     title,
     slug,
@@ -18,7 +18,7 @@ export const projectsQuery = groq`
 
 // Get single project by slug
 export const projectBySlugQuery = groq`
-  *[_type == "project" && slug.current == $slug][0] {
+  *[_type == "project" && slug.current == $slug && !(_id in path("drafts.**"))][0] {
     _id,
     title,
     slug,
@@ -39,7 +39,7 @@ export const projectBySlugQuery = groq`
 
 // Get all services
 export const servicesQuery = groq`
-  *[_type == "service"] | order(order asc) {
+  *[_type == "service" && !(_id in path("drafts.**"))] | order(order asc) {
     _id,
     title,
     slug,
@@ -51,7 +51,7 @@ export const servicesQuery = groq`
 
 // Get single service by slug
 export const serviceBySlugQuery = groq`
-  *[_type == "service" && slug.current == $slug][0] {
+  *[_type == "service" && slug.current == $slug && !(_id in path("drafts.**"))][0] {
     _id,
     title,
     slug,
@@ -64,7 +64,7 @@ export const serviceBySlugQuery = groq`
 
 // Get all news articles
 export const newsQuery = groq`
-  *[_type == "news"] | order(publishedAt desc) [0...10] {
+  *[_type == "news" && !(_id in path("drafts.**"))] | order(publishedAt desc) [0...10] {
     _id,
     title,
     slug,
@@ -77,7 +77,7 @@ export const newsQuery = groq`
 
 // Get single news by slug
 export const newsBySlugQuery = groq`
-  *[_type == "news" && slug.current == $slug][0] {
+  *[_type == "news" && slug.current == $slug && !(_id in path("drafts.**"))][0] {
     _id,
     title,
     slug,
@@ -91,7 +91,7 @@ export const newsBySlugQuery = groq`
 
 // Get site settings
 export const siteSettingsQuery = groq`
-  *[_type == "siteSettings"][0] {
+  *[_type == "siteSettings" && !(_id in path("drafts.**"))][0] {
     companyName,
     logo,
     contact,
@@ -100,9 +100,88 @@ export const siteSettingsQuery = groq`
   }
 `;
 
+// Get all vessels
+export const vesselsQuery = groq`
+  *[_type == "vessel" && !(_id in path("drafts.**"))] | order(order asc, name asc) {
+    _id,
+    name,
+    nameEn,
+    slug,
+    heroSubtitle,
+    heroSubtitleEn,
+    heroImage,
+    featured
+  }
+`;
+
+// Get vessel by slug
+export const vesselBySlugQuery = groq`
+  *[_type == "vessel" && slug.current == $slug && !(_id in path("drafts.**"))][0] {
+    _id,
+    name,
+    nameEn,
+    slug,
+    heroSubtitle,
+    heroSubtitleEn,
+    heroImage,
+    summary[] {
+      label,
+      value,
+      valueEn
+    },
+    mainDimensions[] {
+      label,
+      value,
+      valueEn
+    },
+    capacity[] {
+      label,
+      value,
+      valueEn
+    },
+    performance[] {
+      label,
+      value,
+      valueEn
+    },
+    conditions[] {
+      label,
+      value,
+      valueEn
+    },
+    accommodation[] {
+      label,
+      value,
+      valueEn
+    },
+    equipmentGroups[] {
+      category,
+      items[] {
+        text,
+        textEn
+      }
+    },
+    deckMachinery[] {
+      label,
+      value,
+      valueEn
+    },
+    certifications,
+    featured,
+    order
+  }
+`;
+
+// Get vessel slugs
+export const vesselSlugsQuery = groq`
+  *[_type == "vessel" && defined(slug.current) && !(_id in path("drafts.**"))]{
+    "slug": slug.current
+  }
+`;
+
 // Get projects by category
 export const projectsByCategoryQuery = groq`
-  *[_type == "project" && category == $category] | order(period.end desc) {
+  *[_type == "project" && category == $category && !(_id in path("drafts.**"))] | order(period.end desc) {
     _id,
     title,
     slug,
@@ -117,7 +196,7 @@ export const projectsByCategoryQuery = groq`
 
 // Get featured projects (limit 5)
 export const featuredProjectsQuery = groq`
-  *[_type == "project" && featured == true] | order(period.end desc) [0...5] {
+  *[_type == "project" && featured == true && !(_id in path("drafts.**"))] | order(period.end desc) [0...5] {
     _id,
     title,
     slug,
@@ -129,7 +208,7 @@ export const featuredProjectsQuery = groq`
 
 // Get latest news (limit 3)
 export const latestNewsQuery = groq`
-  *[_type == "news"] | order(publishedAt desc) [0...3] {
+  *[_type == "news" && !(_id in path("drafts.**"))] | order(publishedAt desc) [0...3] {
     _id,
     title,
     slug,

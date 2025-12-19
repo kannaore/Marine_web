@@ -1,11 +1,12 @@
-"use client";
+﻿"use client";
 
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Quote, Play, ChevronDown, Anchor, Ship, Compass, Target, Users, Globe, Award, TrendingUp } from "lucide-react";
+import { ArrowRight, Quote, Play, ChevronDown, Anchor, Ship, Compass, Target, Users, Globe, Award } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { AccordionCardsSection as NavigationCardsSection } from "./AccordionCardsSection";
 
 // Animated Counter Hook
 function useCounter(end: number, duration: number = 2000) {
@@ -31,15 +32,30 @@ function useCounter(end: number, duration: number = 2000) {
 
 // Floating Particles Background
 function FloatingParticles() {
+    const [particles, setParticles] = useState(
+        [] as { id: number; left: number; top: number; duration: number; delay: number }[]
+    );
+
+    useEffect(() => {
+        const next = Array.from({ length: 20 }, (_, index) => ({
+            id: index,
+            left: Math.random() * 100,
+            top: Math.random() * 100,
+            duration: 4 + Math.random() * 4,
+            delay: Math.random() * 2,
+        }));
+        setParticles(next);
+    }, []);
+
     return (
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            {[...Array(20)].map((_, i) => (
+            {particles.map((particle) => (
                 <motion.div
-                    key={i}
+                    key={particle.id}
                     className="absolute w-1 h-1 bg-cyan-400/30 rounded-full"
                     style={{
-                        left: `${Math.random() * 100}%`,
-                        top: `${Math.random() * 100}%`,
+                        left: `${particle.left}%`,
+                        top: `${particle.top}%`,
                     }}
                     animate={{
                         y: [-20, 20, -20],
@@ -48,9 +64,9 @@ function FloatingParticles() {
                         scale: [1, 1.5, 1],
                     }}
                     transition={{
-                        duration: 4 + Math.random() * 4,
+                        duration: particle.duration,
                         repeat: Infinity,
-                        delay: Math.random() * 2,
+                        delay: particle.delay,
                     }}
                 />
             ))}
@@ -87,7 +103,15 @@ function HeroSection({ image, title, subtitle }: { image: string; title: string;
         <section ref={ref} className="relative h-screen w-full overflow-hidden">
             {/* Parallax Background */}
             <motion.div style={{ y }} className="absolute inset-0">
-                <Image src={image} alt={title} fill className="object-cover scale-110" priority quality={90} />
+                <Image
+                    src={image}
+                    alt={title}
+                    fill
+                    sizes="100vw"
+                    className="object-cover scale-110"
+                    priority
+                    quality={90}
+                />
                 <div className="absolute inset-0 bg-gradient-to-b from-[#050b14]/80 via-[#050b14]/40 to-[#050b14]" />
                 <div className="absolute inset-0 bg-gradient-to-r from-[#050b14]/60 to-transparent" />
             </motion.div>
@@ -112,9 +136,8 @@ function HeroSection({ image, title, subtitle }: { image: string; title: string;
                     className="text-4xl md:text-5xl lg:text-7xl font-bold text-white font-display mb-6 max-w-5xl leading-tight"
                 >
                     <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
-                        바다의 미래
+                        바다의 미래를
                     </span>
-                    를
                     <br />
                     <span className="text-white">개척합니다</span>
                 </motion.h1>
@@ -212,10 +235,10 @@ function VisionMissionSection() {
                 >
                     <span className="text-cyan-600 font-semibold tracking-wider uppercase text-sm">Our Vision</span>
                     <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 font-display mt-4 leading-tight">
-                        해양의 무한한 가능성을
+                        해양의 무한한 가능성
                         <br />
                         <span className="bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">
-                            현실로 만듭니다
+                            현실로 만들어갑니다
                         </span>
                     </h2>
                 </motion.div>
@@ -225,13 +248,13 @@ function VisionMissionSection() {
                         {
                             icon: <Target size={48} className="text-cyan-600" />,
                             title: "미션",
-                            desc: "첨단 해양조사 기술로 대한민국의 해양 인프라 발전에 기여하고, 안전하고 지속 가능한 바다를 만들어갑니다.",
+                            desc: "첨단 해양조사 기술로 국내 해양 인프라 발전에 기여하고, 안전하고 지속가능한 바다를 만들어갑니다.",
                             gradient: "from-cyan-500/20 to-blue-500/20",
                         },
                         {
                             icon: <Compass size={48} className="text-purple-600" />,
                             title: "비전",
-                            desc: "2030년까지 아시아 태평양 지역 최고의 해양조사 전문기업으로 성장하여, 글로벌 해양 산업을 선도합니다.",
+                            desc: "2030년까지 아시아-태평양 지역 최고 해양조사 전문기업으로 성장하여, 글로벌 해양 산업을 선도합니다.",
                             gradient: "from-purple-500/20 to-pink-500/20",
                         },
                     ].map((item, index) => (
@@ -273,7 +296,13 @@ function CEOSection({ quote, name, title, image }: { quote: string; name: string
                         className="relative"
                     >
                         <div className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
-                            <Image src={image} alt={name} fill className="object-cover" />
+                            <Image
+                                src={image}
+                                alt={name}
+                                fill
+                                sizes="(min-width: 768px) 50vw, 100vw"
+                                className="object-cover"
+                            />
                             <div className="absolute inset-0 bg-gradient-to-t from-gray-900/50 to-transparent" />
                         </div>
                         {/* Floating Badge */}
@@ -313,15 +342,47 @@ function CEOSection({ quote, name, title, image }: { quote: string; name: string
     );
 }
 
-// Timeline / History Section
+// Interactive Timeline / History Section - Click on year to see details
 function HistorySection() {
+    const [selectedYear, setSelectedYear] = useState<string | null>(null);
+
     const milestones = [
-        { year: "2004", title: "회사 설립", desc: "해양조사 전문기업 마린리서치 창립" },
-        { year: "2010", title: "첫 대형 프로젝트", desc: "국가 해양조사 사업 첫 수주" },
-        { year: "2015", title: "해상풍력 진출", desc: "서남해 해상풍력 조사 착수" },
-        { year: "2018", title: "글로벌 확장", desc: "동남아시아 지역 진출" },
-        { year: "2022", title: "기술 혁신", desc: "AI 기반 해저 분석 시스템 개발" },
-        { year: "2024", title: "업계 선도", desc: "아시아 태평양 Top 10 기업 선정" },
+        {
+            year: "2004",
+            title: "회사 설립",
+            desc: "해양조사 전문기업 마린리서치 창립",
+            details: "해양 지구물리 탐사 전문가들이 모여 마린리서치를 설립. 첨단 해양조사 기술의 국산화를 목표로 시작했습니다."
+        },
+        {
+            year: "2010",
+            title: "해외 프로젝트 수주",
+            desc: "국제 해양조사 사업 첫 수주",
+            details: "동남아시아 해저케이블 조사 프로젝트를 첫 해외 수주. 국제 시장에서 기술력을 인정받는 계기가 되었습니다."
+        },
+        {
+            year: "2015",
+            title: "해상풍력 진출",
+            desc: "서남권 해상풍력 조사 착수",
+            details: "국내 최대 해상풍력 단지 조성을 위한 해저지반조사 착수. 재생에너지 분야 핵심 파트너로 자리매김했습니다."
+        },
+        {
+            year: "2018",
+            title: "글로벌 확장",
+            desc: "동남아시아 시장 진출",
+            details: "베트남, 인도네시아, 필리핀 등 아시아-태평양 15개국 이상으로 사업 영역을 확대했습니다."
+        },
+        {
+            year: "2022",
+            title: "기술 혁신",
+            desc: "AI 기반 해저 분석 시스템 개발",
+            details: "자체 개발 AI 엔진을 활용한 해저지형 자동 분석 시스템 상용화. 데이터 처리 효율 300% 향상을 달성했습니다."
+        },
+        {
+            year: "2024",
+            title: "업계 선도",
+            desc: "아시아-태평양 Top 10 기업 선정",
+            details: "글로벌 해양조사 업계 Top 10 선정. 누적 프로젝트 2,400억 원 돌파, 직원 수 50명 이상 규모로 성장했습니다."
+        },
     ];
 
     return (
@@ -335,45 +396,94 @@ function HistorySection() {
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-center mb-20"
+                    className="text-center mb-16"
                 >
                     <span className="text-cyan-400 font-semibold tracking-wider uppercase text-sm">Our Journey</span>
                     <h2 className="text-4xl md:text-5xl font-bold text-white font-display mt-4">
                         20년의 <span className="text-cyan-400">도전과 성장</span>
                     </h2>
+                    <p className="text-white/50 mt-4">년도를 클릭하면 상세 내용을 확인할 수 있습니다</p>
                 </motion.div>
 
-                <div className="relative">
-                    {/* Timeline Line */}
-                    <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-cyan-500 to-transparent" />
-
+                {/* Interactive Year Selector */}
+                <div className="flex justify-center gap-4 md:gap-8 mb-12 flex-wrap">
                     {milestones.map((milestone, index) => (
-                        <motion.div
+                        <motion.button
                             key={milestone.year}
-                            initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                            whileInView={{ opacity: 1, x: 0 }}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: index * 0.1 }}
+                            transition={{ delay: index * 0.1 }}
+                            onClick={() => setSelectedYear(selectedYear === milestone.year ? null : milestone.year)}
                             className={cn(
-                                "relative flex items-center mb-12",
-                                index % 2 === 0 ? "flex-row" : "flex-row-reverse"
+                                "relative px-6 py-3 rounded-full font-bold text-lg transition-all duration-300",
+                                selectedYear === milestone.year
+                                    ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-[0_0_30px_rgba(6,182,212,0.5)] scale-110"
+                                    : "bg-white/5 text-white/60 hover:bg-white/10 hover:text-white border border-white/10"
                             )}
                         >
-                            <div className={cn("w-1/2 px-8", index % 2 === 0 ? "text-right" : "text-left")}>
-                                <GlassCard className="p-6 inline-block hover:scale-105 transition-transform duration-300">
-                                    <div className="text-cyan-400 font-bold text-2xl mb-2">{milestone.year}</div>
-                                    <div className="text-white font-semibold text-lg mb-1">{milestone.title}</div>
-                                    <div className="text-white/60 text-sm">{milestone.desc}</div>
-                                </GlassCard>
-                            </div>
-
-                            {/* Center Dot */}
-                            <div className="absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-cyan-400 rounded-full shadow-[0_0_20px_rgba(6,182,212,0.8)]" />
-
-                            <div className="w-1/2" />
-                        </motion.div>
+                            {milestone.year}
+                        </motion.button>
                     ))}
                 </div>
+
+                {/* Selected Year Details */}
+                <AnimatePresence mode="wait">
+                    {selectedYear && (
+                        <motion.div
+                            key={selectedYear}
+                            initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: -20, scale: 0.95 }}
+                            transition={{ duration: 0.4, ease: "easeOut" }}
+                            className="max-w-3xl mx-auto"
+                        >
+                            <GlassCard className="p-8 md:p-10">
+                                {(() => {
+                                    const milestone = milestones.find(m => m.year === selectedYear);
+                                    if (!milestone) return null;
+                                    return (
+                                        <>
+                                            <div className="flex items-center gap-4 mb-6">
+                                                <span className="text-5xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent font-display">
+                                                    {milestone.year}
+                                                </span>
+                                                <div className="w-px h-12 bg-white/20" />
+                                                <div>
+                                                    <h3 className="text-2xl font-bold text-white">{milestone.title}</h3>
+                                                    <p className="text-cyan-400 text-sm">{milestone.desc}</p>
+                                                </div>
+                                            </div>
+                                            <p className="text-white/70 text-lg leading-relaxed">
+                                                {milestone.details}
+                                            </p>
+                                        </>
+                                    );
+                                })()}
+                            </GlassCard>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+
+                {/* Timeline visualization (when no year selected) */}
+                {!selectedYear && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="relative h-2 bg-white/10 rounded-full max-w-4xl mx-auto mt-8"
+                    >
+                        <div className="absolute inset-y-0 left-0 w-full bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full" />
+                        {milestones.map((milestone, index) => (
+                            <motion.div
+                                key={milestone.year}
+                                className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full shadow-lg cursor-pointer hover:scale-150 transition-transform"
+                                style={{ left: `${(index / (milestones.length - 1)) * 100}%`, marginLeft: '-8px' }}
+                                onClick={() => setSelectedYear(milestone.year)}
+                                whileHover={{ scale: 1.5 }}
+                            />
+                        ))}
+                    </motion.div>
+                )}
             </div>
         </section>
     );
@@ -383,8 +493,8 @@ function HistorySection() {
 function ValuesSection() {
     const values = [
         { icon: <Ship size={32} />, title: "도전", desc: "미지의 바다를 향한 끊임없는 도전 정신", color: "from-cyan-500 to-blue-500" },
-        { icon: <Users size={32} />, title: "협력", desc: "팀워크와 파트너십을 통한 시너지 창출", color: "from-blue-500 to-purple-500" },
-        { icon: <Award size={32} />, title: "전문성", desc: "최고 수준의 기술력과 품질 추구", color: "from-purple-500 to-pink-500" },
+        { icon: <Users size={32} />, title: "협력", desc: "파트너십을 통한 시너지 창출", color: "from-blue-500 to-purple-500" },
+        { icon: <Award size={32} />, title: "전문성", desc: "최고 수준의 기술력과 품질을 추구합니다.", color: "from-purple-500 to-pink-500" },
         { icon: <Globe size={32} />, title: "지속가능성", desc: "환경과 공존하는 책임있는 경영", color: "from-pink-500 to-orange-500" },
     ];
 
@@ -399,7 +509,7 @@ function ValuesSection() {
                 >
                     <span className="text-cyan-600 font-semibold tracking-wider uppercase text-sm">Core Values</span>
                     <h2 className="text-4xl md:text-5xl font-bold text-gray-900 font-display mt-4">
-                        우리의 <span className="text-cyan-600">핵심 가치</span>
+                        우리는 <span className="text-cyan-600">핵심 가치</span>를 지킵니다
                     </h2>
                 </motion.div>
 
@@ -449,10 +559,10 @@ function CompetencySection({ competencies }: { competencies: { id: string; icon:
                 >
                     <span className="text-cyan-600 font-semibold tracking-wider uppercase text-sm">Capabilities</span>
                     <h2 className="text-4xl md:text-5xl font-bold text-gray-900 font-display mt-4">
-                        우수한 <span className="text-cyan-600">기술 경쟁력</span>
+                        최고의 <span className="text-cyan-600">기술 경쟁력</span>
                     </h2>
                     <p className="text-gray-500 max-w-2xl mx-auto mt-4">
-                        최첨단 장비와 전문 인력을 바탕으로 최고 수준의 해양조사 서비스를 제공합니다
+                        최첨단 장비와 전문 인력, 현장 경험을 바탕으로 최고의 해양조사 서비스를 제공합니다.
                     </p>
                 </motion.div>
 
@@ -472,6 +582,7 @@ function CompetencySection({ competencies }: { competencies: { id: string; icon:
                                     src={item.image}
                                     alt={item.title}
                                     fill
+                                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent" />
@@ -527,7 +638,13 @@ function NewsSection({ news }: { news: { id: string; date: string; title: string
                         >
                             {item.thumbnail && (
                                 <div className="relative w-32 h-24 rounded-xl overflow-hidden shrink-0 shadow-lg">
-                                    <Image src={item.thumbnail} alt={item.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                                    <Image
+                                        src={item.thumbnail}
+                                        alt={item.title}
+                                        fill
+                                        sizes="128px"
+                                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                    />
                                 </div>
                             )}
                             <div className="flex-1">
@@ -568,7 +685,7 @@ function CTASection() {
                         함께 <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">미래</span>를 만들어갑니다
                     </h2>
                     <p className="text-xl text-white/60 mb-10 max-w-2xl mx-auto">
-                        마린리서치와 함께 해양의 무한한 가능성을 탐험하세요
+                        마린리서치와 함께 해양의 무한한 가능성을 탐험하세요.
                     </p>
                     <div className="flex flex-wrap gap-4 justify-center">
                         <Link
@@ -582,7 +699,7 @@ function CTASection() {
                             href="/services"
                             className="px-10 py-5 border border-white/20 rounded-full text-white font-semibold hover:bg-white/10 transition-colors"
                         >
-                            서비스 살펴보기
+                            서비스 둘러보기
                         </Link>
                     </div>
                 </motion.div>
@@ -591,13 +708,24 @@ function CTASection() {
     );
 }
 
+// Navigation Card type for accordion section
+interface NavigationCard {
+    id: string;
+    category: string;
+    title: string;
+    description: string;
+    image: string;
+    href: string;
+    linkText?: string;
+}
+
 // Main Component
 interface AboutPagePremiumProps {
     heroImage: string;
     heroSubtitle: string;
     stats: { value: number; suffix: string; label: string; icon: React.ReactNode }[];
     ceoMessage: { quote: string; name: string; title: string; image: string };
-    competencies: { id: string; icon: string; title: string; description: string; image: string }[];
+    navigationCards: NavigationCard[];
     news: { id: string; date: string; title: string; category: string; thumbnail?: string }[];
 }
 
@@ -606,18 +734,22 @@ export function AboutPagePremium({
     heroSubtitle,
     stats,
     ceoMessage,
-    competencies,
+    navigationCards,
     news,
 }: AboutPagePremiumProps) {
     return (
         <div className="overflow-hidden">
-            <HeroSection image={heroImage} title="바다의 미래를, 개척합니다" subtitle={heroSubtitle} />
+            <HeroSection image={heroImage} title="바다의 미래를 개척합니다" subtitle={heroSubtitle} />
             <StatsSection stats={stats} />
             <VisionMissionSection />
             <CEOSection {...ceoMessage} />
             <HistorySection />
             <ValuesSection />
-            <CompetencySection competencies={competencies} />
+            <NavigationCardsSection
+                sectionTitle="더 알아보기"
+                sectionSubtitle="마린리서치의 조직, 인증 및 면허 현황을 확인해보세요."
+                cards={navigationCards}
+            />
             <NewsSection news={news} />
             <CTASection />
         </div>

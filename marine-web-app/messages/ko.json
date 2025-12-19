@@ -49,6 +49,91 @@
         "title": "프로젝트 실적",
         "subtitle": "다양한 해양 프로젝트에서 축적한 전문성과 노하우"
     },
+    "vessel": {
+        "hero": {
+            "badge": "대표 조사선",
+            "ctaPrimary": "프로젝트 문의하기",
+            "ctaSecondary": "회사소개서 다운로드"
+        },
+        "sections": {
+            "specs": {
+                "title": "주요 제원",
+                "subtitle": "Main Dimensions"
+            },
+            "capacity": {
+                "title": "용량 및 면적",
+                "subtitle": "Capacity & Area"
+            },
+            "performance": {
+                "title": "운항 및 운용 능력",
+                "subtitle": "Performance & Conditions",
+                "performanceTitle": "운항 성능",
+                "conditionsTitle": "운용 한계 조건"
+            },
+            "accommodation": {
+                "title": "거주 공간 및 탑승 인원",
+                "subtitle": "Accommodation"
+            },
+            "equipment": {
+                "title": "탐사 및 관측 장비",
+                "subtitle": "Scientific Equipment",
+                "note": "장비 구성은 프로젝트에 따라 변경될 수 있습니다."
+            },
+            "deck": {
+                "title": "데크 기계",
+                "subtitle": "Deck Machinery"
+            },
+            "certifications": {
+                "title": "인증 및 교육",
+                "subtitle": "Certifications & Training"
+            }
+        },
+        "labels": {
+            "lengthOverall": "전장",
+            "breadth": "선폭",
+            "depth": "심도",
+            "draught": "흘수",
+            "grossTonnage": "총톤수",
+            "workDeck": "작업 면적",
+            "laboratory": "실험실 면적",
+            "maxSpeed": "최대 선속",
+            "bollardPull": "예인 능력",
+            "endurance": "항해 지속일수",
+            "seaState": "파고 높이",
+            "windSpeed": "풍속",
+            "totalPersons": "총 탑승 인원",
+            "researchers": "연구원",
+            "singleCabins": "1인용 선실",
+            "doubleCabins": "2인용 선실",
+            "hospital": "의무실"
+        },
+        "equipmentCategories": {
+            "seismic3d": "3차원 탄성파 탐사",
+            "seismicHighRes": "고해상 탄성파 탐사 및 지층 탐사",
+            "gravityMagnetic": "중·자력 탐사장비",
+            "marineGeology": "해저지형 및 저질 조사장비"
+        },
+        "deckMachinery": {
+            "seaCrane": "해상 크레인",
+            "aFrame": "A-프레임",
+            "deepSeaWinch": "심해용 윈치"
+        },
+        "certifications": {
+            "iso9001": "ISO 9001",
+            "iso14001": "ISO 14001",
+            "iso45001": "ISO 45001",
+            "gwoBst": "GWO BST 교육"
+        },
+        "units": {
+            "meters": "m",
+            "squareMeters": "m²",
+            "knots": "knots",
+            "tonnes": "tonnes",
+            "days": "일",
+            "persons": "명",
+            "cabins": "실"
+        }
+    },
     "about": {
         "badge": "회사소개",
         "title": "바다의 가능성을",
