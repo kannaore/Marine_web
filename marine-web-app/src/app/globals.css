@@ -17,14 +17,18 @@
   --color-ocean-900: #0c4a6e;
   --color-ocean-950: #082f49;
 
-  /* Deep Marine & Accents */
-  --color-marine-dark: #050b14;
-  --color-marine-glass: rgba(5, 11, 20, 0.7);
-  --color-marine-hero: #0a1628;
+  /* Deep Marine - Premium Dark Tones */
+  --color-marine-dark: #030608;
+  --color-marine-deeper: #010203;
+  --color-marine-glass: rgba(3, 6, 8, 0.85);
+  --color-marine-hero: #070d15;
 
+  /* Premium Accent Colors */
   --color-accent-blue: #38bdf8;
   --color-accent-purple: #818cf8;
   --color-accent-cyan: #22d3ee;
+  --color-accent-red: #ef4444;
+  --color-accent-coral: #f97316;
 
   /* Ease Curves */
   --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -106,7 +110,8 @@ body {
 }
 
 /* Container Utilities */
-.container-responsive, .container-custom {
+.container-responsive,
+.container-custom {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
@@ -115,13 +120,17 @@ body {
 }
 
 @media (min-width: 640px) {
-  .container-responsive, .container-custom {
+
+  .container-responsive,
+  .container-custom {
     max-width: 640px;
   }
 }
 
 @media (min-width: 768px) {
-  .container-responsive, .container-custom {
+
+  .container-responsive,
+  .container-custom {
     max-width: 768px;
     padding-left: 2rem;
     padding-right: 2rem;
@@ -129,19 +138,25 @@ body {
 }
 
 @media (min-width: 1024px) {
-  .container-responsive, .container-custom {
+
+  .container-responsive,
+  .container-custom {
     max-width: 1024px;
   }
 }
 
 @media (min-width: 1280px) {
-  .container-responsive, .container-custom {
+
+  .container-responsive,
+  .container-custom {
     max-width: 1280px;
   }
 }
 
 @media (min-width: 1536px) {
-  .container-responsive, .container-custom {
+
+  .container-responsive,
+  .container-custom {
     max-width: 1400px;
   }
 }

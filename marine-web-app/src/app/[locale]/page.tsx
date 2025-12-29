@@ -1,10 +1,12 @@
 import { setRequestLocale } from "next-intl/server";
 import {
     HeroSection,
-    ServicesSection,
+    TrustBar,
+    StatsShowcase,
+    CapabilitiesSection,
+    FleetSection,
+    CertificationsGallery,
     CaseStudiesSection,
-    AboutSection,
-    NewsSection,
     CTASection,
 } from "@/components/sections";
 
@@ -19,11 +21,15 @@ export default async function HomePage({
     return (
         <>
             <HeroSection />
-            <ServicesSection />
+            <StatsShowcase />
+            <CapabilitiesSection />
+            <FleetSection />
+            <CertificationsGallery />
             <CaseStudiesSection />
-            <AboutSection />
-            <NewsSection />
+            <TrustBar />
             <CTASection />
         </>
     );
 }
+
+

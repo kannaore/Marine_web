@@ -12,5 +12,13 @@ export { AccordionCardsSection } from "./AccordionCardsSection";
 export { AboutPageTossStyle } from "./AboutPageTossStyle";
 export { AboutPageLocomotiveStyle } from "./AboutPageLocomotiveStyle";
 
+// Premium Homepage Components
+export { TrustBar } from "./TrustBar";
+export { StatsShowcase } from "./StatsShowcase";
+export { CapabilitiesSection } from "./CapabilitiesSection";
+export { CertificationsGallery } from "./CertificationsGallery";
+export { FleetSection } from "./FleetSection";
+
+
 
 

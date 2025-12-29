@@ -57,7 +57,7 @@ export function CaseStudiesSection() {
         <section
             id="projects"
             ref={containerRef}
-            className="section-padding bg-marine-deeper overflow-hidden"
+            className="section-padding bg-marine-dark overflow-hidden"
         >
             <div className="container-custom mb-12">
                 <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
