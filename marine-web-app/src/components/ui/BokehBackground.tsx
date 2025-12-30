@@ -1,59 +1,105 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
+import { gsap, useGSAP } from "@/lib/gsap";
 
 const BOKEH_COUNT = 6;
 
+interface BokehCircle {
+    id: number;
+    width: number;
+    height: number;
+    initialX: string;
+    initialY: string;
+    scale: number;
+    color: string;
+    duration: number;
+    targetX: string[];
+    targetY: string[];
+}
+
 export function BokehBackground() {
     const [mounted, setMounted] = useState(false);
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    // Generate stable random values on mount
+    const bokehCircles = useMemo<BokehCircle[]>(() => {
+        return [...Array(BOKEH_COUNT)].map((_, i) => ({
+            id: i,
+            width: Math.random() * 400 + 300,
+            height: Math.random() * 400 + 300,
+            initialX: Math.random() * 100 + "%",
+            initialY: Math.random() * 100 + "%",
+            scale: Math.random() * 1 + 0.5,
+            color:
+                i % 3 === 0
+                    ? "var(--color-ocean-400)"
+                    : i % 3 === 1
+                        ? "var(--color-accent-purple)"
+                        : "var(--color-accent-cyan)",
+            duration: Math.random() * 20 + 20,
+            targetX: [
+                Math.random() * 100 + "%",
+                Math.random() * 100 + "%",
+                Math.random() * 100 + "%",
+            ],
+            targetY: [
+                Math.random() * 100 + "%",
+                Math.random() * 100 + "%",
+                Math.random() * 100 + "%",
+            ],
+        }));
+    }, []);
 
     useEffect(() => {
         setMounted(true);
     }, []);
 
+    useGSAP(
+        () => {
+            if (!containerRef.current || !mounted) return;
+
+            const circles = containerRef.current.querySelectorAll(".bokeh-circle");
+
+            circles.forEach((circle, i) => {
+                const bokeh = bokehCircles[i];
+                if (!bokeh) return;
+
+                // Create infinite animation loop
+                const tl = gsap.timeline({ repeat: -1 });
+
+                bokeh.targetX.forEach((x, j) => {
+                    tl.to(circle, {
+                        left: x,
+                        top: bokeh.targetY[j],
+                        duration: bokeh.duration / 3,
+                        ease: "none",
+                    });
+                });
+            });
+        },
+        { scope: containerRef, dependencies: [mounted, bokehCircles] }
+    );
+
     if (!mounted) return null;
 
     return (
-        <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+        <div ref={containerRef} className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
             {/* Base gradient layer */}
             <div className="absolute inset-0 bg-marine-dark" />
 
             {/* Animated Bokeh Circles */}
-            {[...Array(BOKEH_COUNT)].map((_, i) => (
-                <motion.div
-                    key={i}
-                    className="absolute rounded-full blur-[120px] opacity-[0.15] will-change-transform"
-                    initial={{
-                        x: Math.random() * 100 + "%",
-                        y: Math.random() * 100 + "%",
-                        scale: Math.random() * 1 + 0.5,
-                    }}
-                    animate={{
-                        x: [
-                            Math.random() * 100 + "%",
-                            Math.random() * 100 + "%",
-                            Math.random() * 100 + "%",
-                        ],
-                        y: [
-                            Math.random() * 100 + "%",
-                            Math.random() * 100 + "%",
-                            Math.random() * 100 + "%",
-                        ],
-                    }}
-                    transition={{
-                        duration: Math.random() * 20 + 20,
-                        repeat: Infinity,
-                        ease: "linear",
-                    }}
+            {bokehCircles.map((bokeh) => (
+                <div
+                    key={bokeh.id}
+                    className="bokeh-circle absolute rounded-full blur-[120px] opacity-[0.15] will-change-transform"
                     style={{
-                        width: Math.random() * 400 + 300 + "px",
-                        height: Math.random() * 400 + 300 + "px",
-                        background: i % 3 === 0
-                            ? "var(--color-ocean-400)"
-                            : i % 3 === 1
-                                ? "var(--color-accent-purple)"
-                                : "var(--color-accent-cyan)",
+                        width: bokeh.width + "px",
+                        height: bokeh.height + "px",
+                        left: bokeh.initialX,
+                        top: bokeh.initialY,
+                        transform: `scale(${bokeh.scale})`,
+                        background: bokeh.color,
                     }}
                 />
             ))}

@@ -13,11 +13,34 @@
         "retry": "다시 시도"
     },
     "nav": {
+        "aboutUs": "회사 소개",
         "services": "서비스",
-        "projects": "프로젝트",
-        "about": "회사소개",
-        "news": "뉴스",
-        "contact": "문의"
+        "assets": "장비",
+        "sustainability": "ESG",
+        "careers": "채용",
+        "contact": "고객지원"
+    },
+    "navCategories": {
+        "certifications": "인증 및 자격",
+        "organization": "조직",
+        "performance": "실적",
+        "history": "연혁",
+        "clients": "고객사",
+        "offshoreWind": "해상풍력",
+        "geophysical": "지구물리조사",
+        "hydrographic": "수로조사",
+        "marinePhysics": "해양물리조사",
+        "fishery": "수산자원조사",
+        "rnd": "R&D",
+        "vessels": "선박",
+        "equipment": "장비",
+        "safety": "안전보건경영",
+        "environment": "환경경영",
+        "social": "인권경영",
+        "governance": "윤리경영",
+        "jobs": "채용 공고",
+        "inquiry": "문의하기",
+        "location": "찾아오시는 길"
     },
     "hero": {
         "badge": "해양조사 전문기업",
@@ -33,16 +56,28 @@
         "title": "핵심 서비스",
         "subtitle": "마린리서치는 해양조사의 모든 영역에서 전문적인 서비스를 제공합니다",
         "offshoreWind": {
-            "title": "해상풍력 조사",
+            "title": "해상풍력",
             "description": "해상풍력발전단지 건설을 위한 종합적인 해양조사 서비스를 제공합니다."
         },
         "geophysical": {
-            "title": "지구물리탐사",
+            "title": "지구물리조사",
             "description": "최첨단 멀티빔 음향측심기, 사이드스캔소나, 서브바텀프로파일러를 활용합니다."
         },
-        "geotechnical": {
-            "title": "지오테크니컬",
-            "description": "CPT, Vibrocore, Borehole 등 다양한 지반조사 장비를 보유하고 있습니다."
+        "hydrographic": {
+            "title": "수로조사",
+            "description": "정밀 수심 측량과 해도 제작을 위한 통합 수로조사 서비스입니다."
+        },
+        "marinePhysics": {
+            "title": "해양물리조사",
+            "description": "물리환경 데이터를 기반으로 해양 프로젝트의 리스크를 줄입니다."
+        },
+        "fishery": {
+            "title": "수산자원조사",
+            "description": "어장 환경과 자원 평가를 통해 지속 가능한 관리 기반을 제공합니다."
+        },
+        "rnd": {
+            "title": "R&D",
+            "description": "해양조사 기술 혁신을 위한 연구개발 활동입니다."
         }
     },
     "projects": {
@@ -142,10 +177,55 @@
         "downloadBrochure": "회사소개서 다운로드",
         "viewHistory": "연혁 보기",
         "stats": {
-            "years": "Years Experience",
-            "projects": "Projects Completed",
-            "team": "Expert Team",
-            "countries": "Countries Served"
+            "years": "설립",
+            "projects": "프로젝트",
+            "vessels": "보유선박",
+            "patents": "특허",
+            "revenue": "수주금액"
+        },
+        "greeting": {
+            "title": "인사말",
+            "description": "바다를 향한 약속과 비전, 그리고 고객과의 신뢰를 전합니다."
+        },
+        "vision": {
+            "title": "비전 및 이념",
+            "description": "지속 가능한 해양조사를 위한 핵심 가치와 철학을 소개합니다."
+        }
+    },
+    "sustainability": {
+        "title": "ESG 경영",
+        "subtitle": "환경과 안전, 윤리를 기반으로 지속 가능한 해양조사를 실천합니다",
+        "safety": {
+            "title": "안전보건경영",
+            "description": "현장 안전과 건강을 최우선으로 관리합니다."
+        },
+        "environment": {
+            "title": "환경경영",
+            "description": "해양 환경 보전을 위한 친환경 운영 원칙입니다."
+        },
+        "social": {
+            "title": "인권경영",
+            "description": "존중과 배려를 바탕으로 인권경영을 실천합니다."
+        },
+        "governance": {
+            "title": "윤리경영",
+            "description": "투명한 경영과 공정한 윤리 기준을 준수합니다."
+        }
+    },
+    "careers": {
+        "title": "채용",
+        "subtitle": "Marine Research와 함께할 인재를 기다립니다",
+        "hrSystem": {
+            "title": "인사 제도",
+            "description": "성장과 전문성을 존중하는 인사 제도를 소개합니다."
+        },
+        "talent": {
+            "title": "인재상",
+            "description": "Marine Research가 찾는 인재상입니다."
+        },
+        "jobs": {
+            "title": "채용 공고",
+            "description": "현재 진행 중인 채용 포지션과 지원 절차를 확인하세요."
         }
     },
     "news": {
@@ -164,12 +244,32 @@
         "titleHighlight": "시작하세요",
         "description": "해양조사에 관한 모든 문의를 환영합니다.",
         "inquiry": "프로젝트 문의하기",
-        "download": "회사소개서 다운로드"
+        "download": "회사소개서 다운로드",
+        "contactSales": "영업팀 연락하기",
+        "joinTeam": "채용 문의하기"
+    },
+    "contact": {
+        "title": "고객지원",
+        "subtitle": "문의사항이나 협력 제안을 기다립니다",
+        "inquiry": {
+            "title": "문의하기",
+            "description": "프로젝트 문의 및 협력 제안을 남겨주세요."
+        },
+        "location": {
+            "title": "찾아오시는 길",
+            "description": "본사 위치, 연락처, 방문 안내 정보를 확인하실 수 있습니다."
+        }
     },
     "footer": {
         "description": "해양조사 전문기업 마린리서치는 해상풍력, 지구물리탐사, 지오테크니컬 분야에서 최고의 전문성과 기술력으로 안전하고 지속 가능한 해양 미래를 만들어갑니다.",
-        "services": "서비스",
         "company": "회사",
+        "companyInfo": {
+            "name": "마린리서치",
+            "address": "주소",
+            "ceo": "대표",
+            "registration": "사업자등록번호"
+        },
+        "services": "서비스",
         "support": "고객지원",
         "copyright": "© {year} 마린리서치. All rights reserved."
     },

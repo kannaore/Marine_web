@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
 import { useRef, ReactNode } from "react";
+import { gsap, useGSAP } from "@/lib/gsap";
 
 interface ScrollRevealProps {
     children: ReactNode;
@@ -14,51 +14,55 @@ export function ScrollReveal({
     className = "",
     stagger = 0.1,
 }: ScrollRevealProps) {
-    const ref = useRef(null);
-    const isInView = useInView(ref, { once: true, margin: "-50px" });
+    const ref = useRef<HTMLDivElement>(null);
+
+    useGSAP(
+        () => {
+            if (!ref.current) return;
+
+            // Animate direct children with stagger
+            const items = ref.current.querySelectorAll(":scope > *");
+            if (items.length === 0) return;
+
+            gsap.from(items, {
+                opacity: 0,
+                y: 40,
+                duration: 0.6,
+                stagger,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: ref.current,
+                    start: "top 85%",
+                    toggleActions: "play none none none",
+                },
+            });
+        },
+        { scope: ref, dependencies: [stagger] }
+    );
 
     return (
-        <motion.div
-            ref={ref}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            variants={{
-                visible: {
-                    transition: {
-                        staggerChildren: stagger,
-                    },
-                },
-            }}
-            className={className}
-        >
+        <div ref={ref} className={className}>
             {children}
-        </motion.div>
+        </div>
     );
 }
 
+interface ScrollRevealItemProps {
+    children: ReactNode;
+    className?: string;
+}
+
+/**
+ * ScrollRevealItem - Use this inside ScrollReveal for individual item styling
+ * The animation is handled by the parent ScrollReveal component
+ */
 export function ScrollRevealItem({
     children,
     className = "",
-}: {
-    children: ReactNode;
-    className?: string;
-}) {
+}: ScrollRevealItemProps) {
     return (
-        <motion.div
-            variants={{
-                hidden: { opacity: 0, y: 40 },
-                visible: {
-                    opacity: 1,
-                    y: 0,
-                    transition: {
-                        duration: 0.6,
-                        ease: [0.25, 0.46, 0.45, 0.94],
-                    },
-                },
-            }}
-            className={className}
-        >
+        <div className={className}>
             {children}
-        </motion.div>
+        </div>
     );
 }

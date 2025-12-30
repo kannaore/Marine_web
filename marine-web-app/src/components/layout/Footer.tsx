@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useLocale } from "next-intl";
 import {
     Mail,
     Phone,
@@ -14,21 +14,21 @@ import {
 
 const footerLinks = {
     services: [
-        { name: "해상풍력 조사", href: "#" },
-        { name: "지구물리탐사", href: "#" },
-        { name: "지반조사", href: "#" },
-        { name: "해양환경조사", href: "#" },
+        { nameKo: "해상풍력", nameEn: "Offshore Wind", href: "/services/offshore-wind" },
+        { nameKo: "지구물리조사", nameEn: "Geophysical Survey", href: "/services/geophysical" },
+        { nameKo: "수로조사", nameEn: "Hydrographic Survey", href: "/services/hydrographic" },
+        { nameKo: "해양물리조사", nameEn: "Physical Oceanography", href: "/services/marine-physics" },
     ],
     company: [
-        { name: "회사소개", href: "#about" },
-        { name: "연혁", href: "#" },
-        { name: "인증현황", href: "#" },
-        { name: "채용공고", href: "#" },
+        { nameKo: "회사소개", nameEn: "About Us", href: "/about" },
+        { nameKo: "연혁", nameEn: "History", href: "/about/history" },
+        { nameKo: "인증현황", nameEn: "Certifications", href: "/about/certifications" },
+        { nameKo: "채용공고", nameEn: "Careers", href: "/careers" },
     ],
     support: [
-        { name: "문의하기", href: "#contact" },
-        { name: "자료실", href: "#" },
-        { name: "FAQ", href: "#" },
+        { nameKo: "문의하기", nameEn: "Contact Us", href: "/contact/inquiry" },
+        { nameKo: "찾아오시는 길", nameEn: "Location", href: "/contact/location" },
+        { nameKo: "ESG", nameEn: "Sustainability", href: "/sustainability" },
     ],
 };
 
@@ -39,6 +39,9 @@ const socialLinks = [
 ];
 
 export function Footer() {
+    const locale = useLocale();
+    const isKorean = locale === "ko";
+
     return (
         <footer className="bg-marine-dark border-t border-white/10">
             <div className="container-custom section-padding">
@@ -48,24 +51,24 @@ export function Footer() {
                         <Link href="/" className="flex items-center gap-3 mb-6">
                             <Image
                                 src="/logo.png"
-                                alt="마린리서치"
+                                alt="Marine Research"
                                 width={40}
                                 height={40}
                                 className="w-10 h-10"
                             />
                             <span className="font-display font-bold text-xl text-white">
-                                마린리서치
+                                {isKorean ? "마린리서치" : "Marine Research"}
                             </span>
                         </Link>
                         <p className="text-white/60 text-sm leading-relaxed mb-6 max-w-sm">
-                            해양조사 전문기업 마린리서치는 해상풍력, 지구물리탐사,
-                            지오테크니컬 분야에서 최고의 전문성과 기술력으로 안전하고 지속
-                            가능한 해양 미래를 만들어갑니다.
+                            {isKorean
+                                ? "해양조사 전문기업 마린리서치는 해상풍력, 지구물리탐사, 지오테크니컬 분야에서 최고의 전문성과 기술력으로 안전하고 지속 가능한 해양 미래를 만들어갑니다."
+                                : "Marine Research is a professional marine survey company creating a safe and sustainable ocean future with the highest expertise in offshore wind, geophysical exploration, and geotechnical fields."}
                         </p>
                         <div className="space-y-3">
                             <div className="flex items-center gap-3 text-white/60 text-sm">
                                 <MapPin size={16} className="text-ocean-400" />
-                                <span>서울특별시 강남구 테헤란로 123</span>
+                                <span>{isKorean ? "서울특별시 강남구 테헤란로 123" : "123 Teheran-ro, Gangnam-gu, Seoul"}</span>
                             </div>
                             <div className="flex items-center gap-3 text-white/60 text-sm">
                                 <Phone size={16} className="text-ocean-400" />
@@ -81,16 +84,16 @@ export function Footer() {
                     {/* Services */}
                     <div>
                         <h4 className="font-display font-semibold text-white mb-6">
-                            서비스
+                            {isKorean ? "서비스" : "Services"}
                         </h4>
                         <ul className="space-y-3">
                             {footerLinks.services.map((link) => (
-                                <li key={link.name}>
+                                <li key={link.href}>
                                     <Link
                                         href={link.href}
                                         className="text-white/60 hover:text-ocean-300 text-sm transition-colors"
                                     >
-                                        {link.name}
+                                        {isKorean ? link.nameKo : link.nameEn}
                                     </Link>
                                 </li>
                             ))}
@@ -100,16 +103,16 @@ export function Footer() {
                     {/* Company */}
                     <div>
                         <h4 className="font-display font-semibold text-white mb-6">
-                            회사
+                            {isKorean ? "회사" : "Company"}
                         </h4>
                         <ul className="space-y-3">
                             {footerLinks.company.map((link) => (
-                                <li key={link.name}>
+                                <li key={link.href}>
                                     <Link
                                         href={link.href}
                                         className="text-white/60 hover:text-ocean-300 text-sm transition-colors"
                                     >
-                                        {link.name}
+                                        {isKorean ? link.nameKo : link.nameEn}
                                     </Link>
                                 </li>
                             ))}
@@ -119,16 +122,16 @@ export function Footer() {
                     {/* Support */}
                     <div>
                         <h4 className="font-display font-semibold text-white mb-6">
-                            고객지원
+                            {isKorean ? "고객지원" : "Support"}
                         </h4>
                         <ul className="space-y-3">
                             {footerLinks.support.map((link) => (
-                                <li key={link.name}>
+                                <li key={link.href}>
                                     <Link
                                         href={link.href}
                                         className="text-white/60 hover:text-ocean-300 text-sm transition-colors"
                                     >
-                                        {link.name}
+                                        {isKorean ? link.nameKo : link.nameEn}
                                     </Link>
                                 </li>
                             ))}
@@ -139,19 +142,17 @@ export function Footer() {
                 {/* Bottom */}
                 <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6">
                     <p className="text-white/40 text-sm">
-                        © 2024 마린리서치. All rights reserved.
+                        © 2024 {isKorean ? "마린리서치" : "Marine Research"}. All rights reserved.
                     </p>
                     <div className="flex items-center gap-4">
                         {socialLinks.map((social) => (
-                            <motion.a
+                            <a
                                 key={social.name}
                                 href={social.href}
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.95 }}
-                                className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-ocean-300 hover:border-ocean-500/50 transition-colors"
+                                className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-ocean-300 hover:border-ocean-500/50 hover:scale-110 active:scale-95 transition-all duration-200"
                             >
                                 <social.icon size={18} />
-                            </motion.a>
+                            </a>
                         ))}
                     </div>
                 </div>

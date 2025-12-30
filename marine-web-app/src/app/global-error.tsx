@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { gsap } from "@/lib/gsap";
 import { AlertOctagon, RefreshCcw } from "lucide-react";
 
 export default function GlobalError({
@@ -10,15 +11,23 @@ export default function GlobalError({
     error: Error & { digest?: string };
     reset: () => void;
 }) {
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (containerRef.current) {
+            gsap.from(containerRef.current, {
+                opacity: 0,
+                y: 20,
+                duration: 0.5,
+            });
+        }
+    }, []);
+
     return (
         <html lang="ko">
             <body className="bg-marine-dark">
                 <div className="min-h-screen flex items-center justify-center px-6">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-center max-w-md"
-                    >
+                    <div ref={containerRef} className="text-center max-w-md">
                         <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-red-500/20 flex items-center justify-center">
                             <AlertOctagon size={40} className="text-red-400" />
                         </div>
@@ -39,7 +48,7 @@ export default function GlobalError({
                             <RefreshCcw size={18} />
                             새로고침
                         </button>
-                    </motion.div>
+                    </div>
                 </div>
             </body>
         </html>

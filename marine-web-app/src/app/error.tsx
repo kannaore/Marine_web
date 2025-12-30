@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { gsap } from "@/lib/gsap";
 import { AlertTriangle, RefreshCcw, Home } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 export default function Error({
     error,
@@ -12,26 +12,38 @@ export default function Error({
     error: Error & { digest?: string };
     reset: () => void;
 }) {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const iconRef = useRef<HTMLDivElement>(null);
+
     useEffect(() => {
-        // Log the error to an error reporting service
         console.error("Page Error:", error);
+
+        // Entrance animation
+        if (containerRef.current) {
+            gsap.from(containerRef.current, {
+                opacity: 0,
+                y: 20,
+                duration: 0.5,
+            });
+        }
+        if (iconRef.current) {
+            gsap.from(iconRef.current, {
+                scale: 0.8,
+                duration: 0.4,
+                delay: 0.1,
+            });
+        }
     }, [error]);
 
     return (
         <div className="min-h-screen bg-marine-dark flex items-center justify-center px-6">
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-center max-w-md"
-            >
-                <motion.div
-                    initial={{ scale: 0.8 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: 0.1 }}
+            <div ref={containerRef} className="text-center max-w-md">
+                <div
+                    ref={iconRef}
                     className="w-20 h-20 mx-auto mb-6 rounded-full bg-red-500/20 flex items-center justify-center"
                 >
                     <AlertTriangle size={40} className="text-red-400" />
-                </motion.div>
+                </div>
 
                 <h1 className="font-display text-3xl font-bold text-white mb-4">
                     오류가 발생했습니다
@@ -48,7 +60,6 @@ export default function Error({
                     </p>
                 )}
 
-                {/* Debug: Show error message in development */}
                 {process.env.NODE_ENV === 'development' && (
                     <pre className="text-left text-xs text-red-400 bg-red-500/10 p-4 rounded-lg mb-6 overflow-auto max-h-40">
                         {error.message}
@@ -73,7 +84,7 @@ export default function Error({
                         홈으로 이동
                     </Link>
                 </div>
-            </motion.div>
+            </div>
         </div>
     );
 }

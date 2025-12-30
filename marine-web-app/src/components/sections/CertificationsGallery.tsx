@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { gsap, useGSAP } from "@/lib/gsap";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 
@@ -68,7 +68,55 @@ export function CertificationsGallery() {
     const [currentIndex, setCurrentIndex] = useState(0);
     const itemsPerView = 4;
     const maxIndex = Math.max(0, certifications.length - itemsPerView);
-    const containerRef = useRef<HTMLDivElement>(null);
+    const sectionRef = useRef<HTMLElement>(null);
+    const trackRef = useRef<HTMLDivElement>(null);
+    const headerRef = useRef<HTMLDivElement>(null);
+
+    // Carousel slide animation
+    useEffect(() => {
+        if (!trackRef.current) return;
+
+        gsap.to(trackRef.current, {
+            x: `-${currentIndex * (100 / itemsPerView)}%`,
+            duration: 0.5,
+            ease: "power3.out",
+        });
+    }, [currentIndex, itemsPerView]);
+
+    useGSAP(
+        () => {
+            if (!sectionRef.current) return;
+
+            // Header animation
+            if (headerRef.current) {
+                gsap.from(headerRef.current, {
+                    opacity: 0,
+                    y: 30,
+                    duration: 0.6,
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top 80%",
+                        toggleActions: "play none none none",
+                    },
+                });
+            }
+
+            // Cards stagger animation
+            const cards = sectionRef.current.querySelectorAll(".cert-card");
+            gsap.from(cards, {
+                opacity: 0,
+                y: 20,
+                stagger: 0.05,
+                duration: 0.4,
+                scrollTrigger: {
+                    trigger: sectionRef.current,
+                    start: "top 75%",
+                    toggleActions: "play none none none",
+                },
+            });
+        },
+        { scope: sectionRef }
+    );
 
     const handlePrev = () => {
         setCurrentIndex((prev) => Math.max(0, prev - 1));
@@ -79,14 +127,11 @@ export function CertificationsGallery() {
     };
 
     return (
-        <section className="py-24 bg-marine-dark overflow-hidden">
+        <section ref={sectionRef} className="py-24 bg-marine-dark overflow-hidden">
             <div className="container-custom">
                 {/* Header */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
+                <div
+                    ref={headerRef}
                     className="flex items-end justify-between mb-12"
                 >
                     <div>
@@ -115,28 +160,18 @@ export function CertificationsGallery() {
                             <ChevronRight className="w-5 h-5 text-white" />
                         </button>
                     </div>
-                </motion.div>
+                </div>
 
                 {/* Carousel Track */}
-                <div ref={containerRef} className="relative">
-                    <motion.div
+                <div className="relative overflow-hidden">
+                    <div
+                        ref={trackRef}
                         className="flex gap-4"
-                        animate={{ x: `-${currentIndex * (100 / itemsPerView)}%` }}
-                        transition={{
-                            type: "spring",
-                            stiffness: 300,
-                            damping: 35,
-                            mass: 0.8
-                        }}
                     >
-                        {certifications.map((cert, index) => (
-                            <motion.div
+                        {certifications.map((cert) => (
+                            <div
                                 key={cert.id}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.05, duration: 0.4 }}
-                                className="min-w-[calc(100%/2-0.5rem)] md:min-w-[calc(100%/4-0.75rem)] flex-shrink-0"
+                                className="cert-card min-w-[calc(100%/2-0.5rem)] md:min-w-[calc(100%/4-0.75rem)] flex-shrink-0"
                             >
                                 <div className="group relative h-[280px] rounded-2xl bg-white/[0.02] border border-white/5 overflow-hidden hover:border-ocean-400/30 hover:bg-white/[0.04] transition-all duration-500">
                                     {/* Certificate Image */}
@@ -166,9 +201,9 @@ export function CertificationsGallery() {
                                     {/* Subtle Glow */}
                                     <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-ocean-500/10 blur-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                                 </div>
-                            </motion.div>
+                            </div>
                         ))}
-                    </motion.div>
+                    </div>
                 </div>
 
                 {/* Progress Dots */}
@@ -178,8 +213,8 @@ export function CertificationsGallery() {
                             key={i}
                             onClick={() => setCurrentIndex(i)}
                             className={`h-1.5 rounded-full transition-all duration-300 ${currentIndex === i
-                                    ? "w-8 bg-ocean-400"
-                                    : "w-1.5 bg-white/20 hover:bg-white/40"
+                                ? "w-8 bg-ocean-400"
+                                : "w-1.5 bg-white/20 hover:bg-white/40"
                                 }`}
                         />
                     ))}

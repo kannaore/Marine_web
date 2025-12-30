@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, ReactNode } from "react";
+import { useRef, ReactNode, useEffect, useState } from "react";
+import { gsap, useGSAP } from "@/lib/gsap";
 
 interface ParallaxSectionProps {
     children: ReactNode;
@@ -18,20 +18,69 @@ export function ParallaxSection({
     bgImage,
     overlay = true,
 }: ParallaxSectionProps) {
-    const ref = useRef(null);
-    const { scrollYProgress } = useScroll({
-        target: ref,
-        offset: ["start end", "end start"],
-    });
+    const sectionRef = useRef<HTMLElement>(null);
+    const bgRef = useRef<HTMLDivElement>(null);
+    const contentRef = useRef<HTMLDivElement>(null);
+    const [isClient, setIsClient] = useState(false);
 
-    const y = useTransform(scrollYProgress, [0, 1], ["0%", `${speed * 30}%`]);
-    const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.6, 1, 1, 0.6]);
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
+
+    useGSAP(
+        () => {
+            if (!sectionRef.current || !isClient) return;
+
+            // Parallax effect for background
+            if (bgRef.current) {
+                gsap.to(bgRef.current, {
+                    yPercent: speed * 30,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: true,
+                    },
+                });
+            }
+
+            // Opacity fade for content
+            if (contentRef.current) {
+                gsap.fromTo(
+                    contentRef.current,
+                    { opacity: 0.6 },
+                    {
+                        opacity: 1,
+                        scrollTrigger: {
+                            trigger: sectionRef.current,
+                            start: "top bottom",
+                            end: "center center",
+                            scrub: true,
+                        },
+                    }
+                );
+
+                // Fade out when leaving
+                gsap.to(contentRef.current, {
+                    opacity: 0.6,
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "center center",
+                        end: "bottom top",
+                        scrub: true,
+                    },
+                });
+            }
+        },
+        { scope: sectionRef, dependencies: [speed, isClient] }
+    );
 
     return (
-        <section ref={ref} className={`relative overflow-hidden ${className}`}>
+        <section ref={sectionRef} className={`relative overflow-hidden ${className}`}>
             {bgImage && (
-                <motion.div
-                    style={{ y }}
+                <div
+                    ref={bgRef}
                     className="absolute inset-0 -top-[20%] -bottom-[20%] w-full h-[140%]"
                 >
                     <div
@@ -41,11 +90,11 @@ export function ParallaxSection({
                     {overlay && (
                         <div className="absolute inset-0 bg-gradient-to-b from-marine-dark/80 via-marine-dark/60 to-marine-dark/80" />
                     )}
-                </motion.div>
+                </div>
             )}
-            <motion.div style={{ opacity }} className="relative z-10">
+            <div ref={contentRef} className="relative z-10">
                 {children}
-            </motion.div>
+            </div>
         </section>
     );
 }

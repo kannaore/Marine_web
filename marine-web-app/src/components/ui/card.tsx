@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { ReactNode } from "react";
 import Image from "next/image";
 
@@ -11,14 +10,16 @@ interface CardProps {
 }
 
 export function Card({ children, className = "", hover = true }: CardProps) {
+    const hoverClass = hover
+        ? "hover:-translate-y-2 hover:scale-[1.02] transition-transform duration-300 ease-out"
+        : "";
+
     return (
-        <motion.div
-            whileHover={hover ? { y: -8, scale: 1.02 } : undefined}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className={`group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl overflow-hidden ${className}`}
+        <div
+            className={`group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl overflow-hidden ${hoverClass} ${className}`}
         >
             {children}
-        </motion.div>
+        </div>
     );
 }
 

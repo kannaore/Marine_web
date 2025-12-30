@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
+import { gsap, useGSAP } from "@/lib/gsap";
 import Image from "next/image";
 import { Anchor, Ship, Gauge, Compass } from "lucide-react";
 
@@ -55,18 +55,81 @@ const equipment = [
 ];
 
 export function FleetSection() {
-    const containerRef = useRef<HTMLElement>(null);
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start end", "end start"],
-    });
+    const sectionRef = useRef<HTMLElement>(null);
+    const contentRef = useRef<HTMLDivElement>(null);
 
-    const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-    const y = useTransform(scrollYProgress, [0, 0.2], [100, 0]);
+    useGSAP(
+        () => {
+            if (!sectionRef.current) return;
+
+            // Content fade and parallax
+            if (contentRef.current) {
+                gsap.fromTo(
+                    contentRef.current,
+                    { opacity: 0, y: 100 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        scrollTrigger: {
+                            trigger: sectionRef.current,
+                            start: "top 80%",
+                            end: "20% 60%",
+                            scrub: 1,
+                        },
+                    }
+                );
+            }
+
+            // Header animation
+            const header = sectionRef.current.querySelector(".section-header");
+            if (header) {
+                gsap.from(header, {
+                    opacity: 0,
+                    y: 30,
+                    duration: 0.6,
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top 80%",
+                        toggleActions: "play none none none",
+                    },
+                });
+            }
+
+            // Equipment stats stagger
+            const stats = sectionRef.current.querySelectorAll(".equipment-stat");
+            gsap.from(stats, {
+                opacity: 0,
+                scale: 0.9,
+                stagger: 0.1,
+                duration: 0.4,
+                delay: 0.2,
+                scrollTrigger: {
+                    trigger: sectionRef.current,
+                    start: "top 70%",
+                    toggleActions: "play none none none",
+                },
+            });
+
+            // Vessel cards stagger
+            const cards = sectionRef.current.querySelectorAll(".vessel-card");
+            gsap.from(cards, {
+                opacity: 0,
+                y: 40,
+                stagger: 0.15,
+                duration: 0.6,
+                scrollTrigger: {
+                    trigger: sectionRef.current,
+                    start: "30% 80%",
+                    toggleActions: "play none none none",
+                },
+            });
+        },
+        { scope: sectionRef }
+    );
 
     return (
         <section
-            ref={containerRef}
+            ref={sectionRef}
             className="relative py-32 bg-marine-dark overflow-hidden"
         >
             {/* Background Gradient */}
@@ -81,16 +144,10 @@ export function FleetSection() {
                 }}
             />
 
-            <motion.div style={{ opacity, y }} className="relative z-10">
+            <div ref={contentRef} className="relative z-10">
                 <div className="container-custom">
                     {/* Section Header */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
-                        className="mb-20"
-                    >
+                    <div className="section-header mb-20">
                         <span className="text-xs tracking-[0.3em] uppercase text-ocean-400 font-medium">
                             Fleet & Equipment
                         </span>
@@ -99,42 +156,28 @@ export function FleetSection() {
                             <br />
                             <span className="text-gradient-ocean">Survey Fleet</span>
                         </h2>
-                    </motion.div>
+                    </div>
 
                     {/* Equipment Stats Bar */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.2, duration: 0.6 }}
-                        className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20"
-                    >
-                        {equipment.map((item, index) => (
-                            <motion.div
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
+                        {equipment.map((item) => (
+                            <div
                                 key={item.name}
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: 0.1 * index, duration: 0.4 }}
-                                className="group p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-ocean-400/30 hover:bg-white/[0.04] transition-all duration-500"
+                                className="equipment-stat group p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-ocean-400/30 hover:bg-white/[0.04] transition-all duration-500"
                             >
                                 <item.icon className="w-8 h-8 text-ocean-400 mb-4 group-hover:scale-110 transition-transform duration-300" />
                                 <div className="text-3xl font-bold text-white mb-1">{item.count}</div>
                                 <div className="text-sm text-white/50">{item.name}</div>
-                            </motion.div>
+                            </div>
                         ))}
-                    </motion.div>
+                    </div>
 
                     {/* Vessel Cards */}
                     <div className="grid lg:grid-cols-3 gap-6">
-                        {vessels.map((vessel, index) => (
-                            <motion.div
+                        {vessels.map((vessel) => (
+                            <div
                                 key={vessel.id}
-                                initial={{ opacity: 0, y: 40 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: 0.15 * index, duration: 0.6 }}
-                                className="group relative rounded-3xl overflow-hidden bg-white/[0.02] border border-white/5 hover:border-ocean-400/20 transition-all duration-500"
+                                className="vessel-card group relative rounded-3xl overflow-hidden bg-white/[0.02] border border-white/5 hover:border-ocean-400/20 transition-all duration-500"
                             >
                                 {/* Image */}
                                 <div className="relative h-64 overflow-hidden">
@@ -179,11 +222,11 @@ export function FleetSection() {
 
                                 {/* Hover Glow */}
                                 <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-ocean-500/10 blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
-            </motion.div>
+            </div>
         </section>
     );
 }

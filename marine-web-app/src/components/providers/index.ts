@@ -1,2 +1,2 @@
-export { MotionProvider } from "./MotionProvider";
-export { LenisProvider } from "./LenisProvider";
+export { GSAPProvider } from "./GSAPProvider";
+export { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";

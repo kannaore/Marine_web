@@ -1,10 +1,10 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
-import Link from "next/link";
+import { useState, useRef, useEffect } from "react";
+import { gsap, useGSAP } from "@/lib/gsap";
+import { Link } from "@/i18n/navigation";
 import Image from "next/image";
-import { Plus, X, ArrowRight } from "lucide-react";
+import { Plus, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface AccordionCard {
@@ -28,9 +28,37 @@ function AccordionCard({ card, isExpanded, onToggle }: {
     isExpanded: boolean;
     onToggle: () => void;
 }) {
+    const contentRef = useRef<HTMLDivElement>(null);
+    const iconRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (iconRef.current) {
+            gsap.to(iconRef.current, {
+                rotation: isExpanded ? 45 : 0,
+                duration: 0.3,
+            });
+        }
+
+        if (contentRef.current) {
+            if (isExpanded) {
+                gsap.to(contentRef.current, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.4,
+                    delay: 0.1,
+                });
+            } else {
+                gsap.to(contentRef.current, {
+                    opacity: 0,
+                    y: 20,
+                    duration: 0.3,
+                });
+            }
+        }
+    }, [isExpanded]);
+
     return (
-        <motion.div
-            layout
+        <div
             className={cn(
                 "relative overflow-hidden rounded-3xl transition-all duration-500",
                 isExpanded
@@ -77,51 +105,40 @@ function AccordionCard({ card, isExpanded, onToggle }: {
                             isExpanded && "bg-white/10"
                         )}
                     >
-                        <motion.div
-                            animate={{ rotate: isExpanded ? 45 : 0 }}
-                            transition={{ duration: 0.3 }}
-                        >
+                        <div ref={iconRef}>
                             <Plus size={20} className="text-white" />
-                        </motion.div>
+                        </div>
                     </button>
 
                     {/* Expanded Content */}
-                    <AnimatePresence>
-                        {isExpanded && (
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: 20 }}
-                                transition={{ duration: 0.4, delay: 0.1 }}
-                                className="mt-6"
+                    {isExpanded && (
+                        <div
+                            ref={contentRef}
+                            className="mt-6"
+                            style={{ opacity: 0, transform: "translateY(20px)" }}
+                        >
+                            <p className="text-white/70 text-base md:text-lg leading-relaxed mb-6 max-w-lg">
+                                {card.description}
+                            </p>
+                            <Link
+                                href={card.href}
+                                className="inline-flex items-center gap-2 text-cyan-400 font-medium hover:text-cyan-300 transition-colors group"
                             >
-                                <p className="text-white/70 text-base md:text-lg leading-relaxed mb-6 max-w-lg">
-                                    {card.description}
-                                </p>
-                                <Link
-                                    href={card.href}
-                                    className="inline-flex items-center gap-2 text-cyan-400 font-medium hover:text-cyan-300 transition-colors group"
-                                >
-                                    {card.linkText || "자세히 보기"}
-                                    <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                                </Link>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
+                                {card.linkText || "자세히 보기"}
+                                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                            </Link>
+                        </div>
+                    )}
 
                     {/* Collapsed hint */}
                     {!isExpanded && (
-                        <motion.p
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            className="text-white/50 text-sm mt-4 line-clamp-2"
-                        >
+                        <p className="text-white/50 text-sm mt-4 line-clamp-2">
                             {card.description.slice(0, 60)}...
-                        </motion.p>
+                        </p>
                     )}
                 </div>
             </div>
-        </motion.div>
+        </div>
     );
 }
 
@@ -131,25 +148,57 @@ export function AccordionCardsSection({
     cards
 }: AccordionCardsSectionProps) {
     const [expandedId, setExpandedId] = useState<string | null>(null);
+    const sectionRef = useRef<HTMLElement>(null);
+
+    useGSAP(
+        () => {
+            if (!sectionRef.current) return;
+
+            // Header animation
+            const header = sectionRef.current.querySelector(".section-header");
+            if (header) {
+                gsap.from(header, {
+                    opacity: 0,
+                    y: 30,
+                    duration: 0.6,
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top 80%",
+                        toggleActions: "play none none none",
+                    },
+                });
+            }
+
+            // Cards stagger
+            const cardItems = sectionRef.current.querySelectorAll(".accordion-card");
+            gsap.from(cardItems, {
+                opacity: 0,
+                y: 50,
+                stagger: 0.1,
+                duration: 0.5,
+                scrollTrigger: {
+                    trigger: sectionRef.current,
+                    start: "top 70%",
+                    toggleActions: "play none none none",
+                },
+            });
+        },
+        { scope: sectionRef }
+    );
 
     const handleToggle = (id: string) => {
         setExpandedId(expandedId === id ? null : id);
     };
 
     return (
-        <section className="relative py-24 md:py-32 bg-white overflow-hidden">
+        <section ref={sectionRef} className="relative py-24 md:py-32 bg-white overflow-hidden">
             {/* Decorative Elements */}
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-cyan-100/50 rounded-full blur-[150px] -translate-y-1/2" />
             <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-100/50 rounded-full blur-[120px] translate-y-1/2" />
 
             <div className="relative max-w-7xl mx-auto px-6">
                 {/* Section Header */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="mb-16"
-                >
+                <div className="section-header mb-16">
                     <span className="text-cyan-600 font-semibold tracking-wider uppercase text-sm">
                         Explore More
                     </span>
@@ -161,30 +210,20 @@ export function AccordionCardsSection({
                             {sectionSubtitle}
                         </p>
                     )}
-                </motion.div>
+                </div>
 
                 {/* Cards Grid */}
-                <motion.div
-                    layout
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-                >
-                    {cards.map((card, index) => (
-                        <motion.div
-                            key={card.id}
-                            initial={{ opacity: 0, y: 50 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
-                            layout
-                        >
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {cards.map((card) => (
+                        <div key={card.id} className="accordion-card">
                             <AccordionCard
                                 card={card}
                                 isExpanded={expandedId === card.id}
                                 onToggle={() => handleToggle(card.id)}
                             />
-                        </motion.div>
+                        </div>
                     ))}
-                </motion.div>
+                </div>
             </div>
         </section>
     );

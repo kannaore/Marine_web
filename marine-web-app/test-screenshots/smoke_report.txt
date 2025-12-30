@@ -1,0 +1,64 @@
+Visited URLs:
+[desktop] / -> http://localhost:3000/
+[desktop] /ko -> http://localhost:3000/
+[desktop] /en -> http://localhost:3000/en
+[desktop] /ko/test -> http://localhost:3000/test
+[desktop] /en/test -> http://localhost:3000/en/test
+[desktop] /ko/about -> http://localhost:3000/about
+[desktop] /en/about -> http://localhost:3000/en/about
+[desktop] /ko/services -> http://localhost:3000/services
+[desktop] /en/services -> http://localhost:3000/en/services
+[desktop] /ko/assets -> http://localhost:3000/assets
+[desktop] /en/assets -> http://localhost:3000/en/assets
+[desktop] /ko/performance -> http://localhost:3000/performance
+[desktop] /en/performance -> http://localhost:3000/en/performance
+[desktop] /ko/careers -> http://localhost:3000/careers
+[desktop] /en/careers -> http://localhost:3000/en/careers
+[desktop] /ko/contact -> http://localhost:3000/contact
+[desktop] /en/contact -> http://localhost:3000/en/contact
+[desktop] /ko/sustainability -> http://localhost:3000/sustainability
+[desktop] /en/sustainability -> http://localhost:3000/en/sustainability
+[desktop] /ko/about/greeting -> http://localhost:3000/about/greeting
+[desktop] /ko/services/hydrographic-survey -> http://localhost:3000/services/hydrographic-survey
+[desktop] /ko/assets/vessels -> http://localhost:3000/assets/vessels
+[desktop] /ko/performance/key-results -> http://localhost:3000/performance/key-results
+[desktop] /en/about/greeting -> http://localhost:3000/en/about/greeting
+[desktop] /en/services/hydrographic-survey -> http://localhost:3000/en/services/hydrographic-survey
+[desktop] /en/assets/vessels -> http://localhost:3000/en/assets/vessels
+[desktop] /en/performance/key-results -> http://localhost:3000/en/performance/key-results
+[mobile] / -> http://localhost:3000/
+[mobile] /ko -> http://localhost:3000/
+[mobile] /en -> http://localhost:3000/en
+[mobile] /ko/test -> http://localhost:3000/test
+[mobile] /en/test -> http://localhost:3000/en/test
+[mobile] /ko/about -> http://localhost:3000/about
+[mobile] /en/about -> http://localhost:3000/en/about
+[mobile] /ko/services -> http://localhost:3000/services
+[mobile] /en/services -> http://localhost:3000/en/services
+[mobile] /ko/assets -> http://localhost:3000/assets
+[mobile] /en/assets -> http://localhost:3000/en/assets
+[mobile] /ko/performance -> http://localhost:3000/performance
+[mobile] /en/performance -> http://localhost:3000/en/performance
+[mobile] /ko/careers -> http://localhost:3000/careers
+[mobile] /en/careers -> http://localhost:3000/en/careers
+[mobile] /ko/contact -> http://localhost:3000/contact
+[mobile] /en/contact -> http://localhost:3000/en/contact
+[mobile] /ko/sustainability -> http://localhost:3000/sustainability
+[mobile] /en/sustainability -> http://localhost:3000/en/sustainability
+[mobile] /ko/about/greeting -> http://localhost:3000/about/greeting
+[mobile] /ko/services/hydrographic-survey -> http://localhost:3000/services/hydrographic-survey
+[mobile] /ko/assets/vessels -> http://localhost:3000/assets/vessels
+[mobile] /ko/performance/key-results -> http://localhost:3000/performance/key-results
+[mobile] /en/about/greeting -> http://localhost:3000/en/about/greeting
+[mobile] /en/services/hydrographic-survey -> http://localhost:3000/en/services/hydrographic-survey
+[mobile] /en/assets/vessels -> http://localhost:3000/en/assets/vessels
+[mobile] /en/performance/key-results -> http://localhost:3000/en/performance/key-results
+
+Status Errors:
+None
+
+Console Errors/Warnings:
+None
+
+Page Errors:
+None

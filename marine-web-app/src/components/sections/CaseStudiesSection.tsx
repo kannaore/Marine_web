@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { gsap, useGSAP } from "@/lib/gsap";
 import { ArrowRight } from "lucide-react";
 import { SectionHeading, CaseStudyCard, Button } from "@/components/ui";
 import { FadeIn } from "@/components/animations";
@@ -45,18 +45,46 @@ const caseStudies = [
 ];
 
 export function CaseStudiesSection() {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start end", "end start"],
-    });
+    const sectionRef = useRef<HTMLElement>(null);
+    const carouselRef = useRef<HTMLDivElement>(null);
 
-    const x = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
+    useGSAP(
+        () => {
+            if (!sectionRef.current || !carouselRef.current) return;
+
+            // Horizontal scroll parallax
+            gsap.to(carouselRef.current, {
+                xPercent: -20,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: sectionRef.current,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true,
+                },
+            });
+
+            // Cards stagger
+            const cards = carouselRef.current.querySelectorAll(".case-card");
+            gsap.from(cards, {
+                opacity: 0,
+                y: 40,
+                stagger: 0.1,
+                duration: 0.5,
+                scrollTrigger: {
+                    trigger: sectionRef.current,
+                    start: "top 80%",
+                    toggleActions: "play none none none",
+                },
+            });
+        },
+        { scope: sectionRef }
+    );
 
     return (
         <section
             id="projects"
-            ref={containerRef}
+            ref={sectionRef}
             className="section-padding bg-marine-dark overflow-hidden"
         >
             <div className="container-custom mb-12">
@@ -79,14 +107,11 @@ export function CaseStudiesSection() {
             </div>
 
             {/* Horizontal Scroll Carousel */}
-            <motion.div style={{ x }} className="flex gap-6 pl-6 md:pl-[max(2rem,calc((100vw-1400px)/2+2rem))]">
-                {caseStudies.map((study, index) => (
-                    <motion.div
+            <div ref={carouselRef} className="flex gap-6 pl-6 md:pl-[max(2rem,calc((100vw-1400px)/2+2rem))]">
+                {caseStudies.map((study) => (
+                    <div
                         key={study.title}
-                        initial={{ opacity: 0, y: 40 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: index * 0.1 }}
+                        className="case-card"
                     >
                         <CaseStudyCard
                             title={study.title}
@@ -94,9 +119,9 @@ export function CaseStudiesSection() {
                             category={study.category}
                             image={study.image}
                         />
-                    </motion.div>
+                    </div>
                 ))}
-            </motion.div>
+            </div>
         </section>
     );
 }

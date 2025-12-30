@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { gsap, useGSAP } from "@/lib/gsap";
 import { FadeIn, TextReveal } from "@/components/animations";
 import { Button } from "@/components/ui";
 
@@ -13,18 +13,48 @@ const stats = [
 ];
 
 export function AboutSection() {
-    const ref = useRef(null);
-    const { scrollYProgress } = useScroll({
-        target: ref,
-        offset: ["start end", "end start"],
-    });
+    const sectionRef = useRef<HTMLElement>(null);
+    const bgRef = useRef<HTMLDivElement>(null);
 
-    const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+    useGSAP(
+        () => {
+            if (!sectionRef.current) return;
+
+            // Parallax background
+            if (bgRef.current) {
+                gsap.to(bgRef.current, {
+                    yPercent: 30,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: true,
+                    },
+                });
+            }
+
+            // Stats cards stagger
+            const statCards = sectionRef.current.querySelectorAll(".stat-card");
+            gsap.from(statCards, {
+                opacity: 0,
+                y: 30,
+                stagger: 0.1,
+                duration: 0.5,
+                scrollTrigger: {
+                    trigger: sectionRef.current,
+                    start: "top 70%",
+                    toggleActions: "play none none none",
+                },
+            });
+        },
+        { scope: sectionRef }
+    );
 
     return (
-        <section id="about" ref={ref} className="relative overflow-hidden">
+        <section id="about" ref={sectionRef} className="relative overflow-hidden">
             {/* Parallax Background */}
-            <motion.div style={{ y }} className="absolute inset-0 -top-[20%] h-[140%]">
+            <div ref={bgRef} className="absolute inset-0 -top-[20%] h-[140%]">
                 <div
                     className="absolute inset-0 bg-cover bg-center"
                     style={{
@@ -33,7 +63,7 @@ export function AboutSection() {
                     }}
                 />
                 <div className="absolute inset-0 bg-marine-dark/85" />
-            </motion.div>
+            </div>
 
             <div className="relative z-10 section-padding">
                 <div className="container-custom">
@@ -50,7 +80,7 @@ export function AboutSection() {
                                 <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
                                     바다의 가능성을
                                     <br />
-                                    <span className="gradient-text">발견합니다</span>
+                                    <span className="text-gradient-ocean">발견합니다</span>
                                 </h2>
                             </FadeIn>
 
@@ -68,20 +98,16 @@ export function AboutSection() {
 
                         {/* Stats Grid */}
                         <div className="grid grid-cols-2 gap-6">
-                            {stats.map((stat, index) => (
-                                <motion.div
+                            {stats.map((stat) => (
+                                <div
                                     key={stat.label}
-                                    initial={{ opacity: 0, y: 30 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: index * 0.1 }}
-                                    className="glass rounded-2xl p-8 text-center"
+                                    className="stat-card glass-panel rounded-2xl p-8 text-center"
                                 >
-                                    <div className="font-display text-4xl md:text-5xl font-bold gradient-text mb-2">
+                                    <div className="font-display text-4xl md:text-5xl font-bold text-gradient-ocean mb-2">
                                         {stat.number}
                                     </div>
                                     <div className="text-white/60 text-sm">{stat.label}</div>
-                                </motion.div>
+                                </div>
                             ))}
                         </div>
                     </div>

@@ -1,7 +1,6 @@
 "use client";
 
 import { ButtonHTMLAttributes, ReactNode } from "react";
-import { motion } from "framer-motion";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     children: ReactNode;
@@ -17,7 +16,7 @@ export function Button({
     ...props
 }: ButtonProps) {
     const baseStyles =
-        "relative inline-flex items-center justify-center font-medium rounded-xl transition-all duration-300 overflow-hidden";
+        "relative inline-flex items-center justify-center font-medium rounded-xl transition-all duration-300 overflow-hidden hover:scale-[1.02] active:scale-[0.98]";
 
     const variants = {
         primary:
@@ -34,13 +33,11 @@ export function Button({
     };
 
     return (
-        <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+        <button
             className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`}
-            {...(props as React.ComponentProps<typeof motion.button>)}
+            {...props}
         >
             <span className="relative z-10">{children}</span>
-        </motion.button>
+        </button>
     );
 }

@@ -1,7 +1,6 @@
 import { setRequestLocale } from "next-intl/server";
-import { motion } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { ArrowLeft, Users, Building2, Award, Briefcase } from "lucide-react";
 
 // 조직도 데이터

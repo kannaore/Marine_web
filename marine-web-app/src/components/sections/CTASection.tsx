@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { FadeIn } from "@/components/animations";
 import { Button } from "@/components/ui";
 import { ArrowRight, Mail, Phone } from "lucide-react";
@@ -24,7 +23,7 @@ export function CTASection() {
                         <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
                             다음 프로젝트를 함께
                             <br />
-                            <span className="gradient-text">시작하세요</span>
+                            <span className="text-gradient-ocean">시작하세요</span>
                         </h2>
                     </FadeIn>
 

@@ -13,11 +13,34 @@
         "retry": "Retry"
     },
     "nav": {
-        "services": "Services",
-        "projects": "Projects",
-        "about": "About",
-        "news": "News",
+        "aboutUs": "About Us",
+        "services": "Explore Services",
+        "assets": "Assets",
+        "sustainability": "Sustainability",
+        "careers": "Careers",
         "contact": "Contact"
+    },
+    "navCategories": {
+        "certifications": "Certifications & Licenses",
+        "organization": "Organization",
+        "performance": "Track Record",
+        "history": "History",
+        "clients": "Clients",
+        "offshoreWind": "Offshore Wind",
+        "geophysical": "Geophysical Survey",
+        "hydrographic": "Hydrographic Survey",
+        "marinePhysics": "Physical Oceanography",
+        "fishery": "Fisheries Resources Survey",
+        "rnd": "R&D",
+        "vessels": "Vessels",
+        "equipment": "Equipment",
+        "safety": "Health & Safety",
+        "environment": "Environmental",
+        "social": "Social",
+        "governance": "Governance",
+        "jobs": "Careers",
+        "inquiry": "Contact Us",
+        "location": "Location"
     },
     "hero": {
         "badge": "Marine Survey Specialists",
@@ -33,16 +56,28 @@
         "title": "Core Services",
         "subtitle": "Marine Research provides professional services across all areas of marine survey",
         "offshoreWind": {
-            "title": "Offshore Wind Survey",
+            "title": "Offshore Wind",
             "description": "Comprehensive marine survey services for offshore wind farm construction."
         },
         "geophysical": {
             "title": "Geophysical Survey",
             "description": "Utilizing state-of-the-art multibeam echosounders, side-scan sonar, and sub-bottom profilers."
         },
-        "geotechnical": {
-            "title": "Geotechnical Investigation",
-            "description": "Equipped with various geotechnical survey equipment including CPT, Vibrocore, and Borehole."
+        "hydrographic": {
+            "title": "Hydrographic Survey",
+            "description": "Integrated hydrographic survey services for precision bathymetry and chart production."
+        },
+        "marinePhysics": {
+            "title": "Physical Oceanography",
+            "description": "Reducing project risks through physical oceanographic data analysis."
+        },
+        "fishery": {
+            "title": "Fisheries Resources Survey",
+            "description": "Providing sustainable management foundations through fisheries environment and resource assessment."
+        },
+        "rnd": {
+            "title": "R&D",
+            "description": "Research and development activities for marine survey technology innovation."
         }
     },
     "projects": {
@@ -142,10 +177,55 @@
         "downloadBrochure": "Download Brochure",
         "viewHistory": "View History",
         "stats": {
-            "years": "Years Experience",
-            "projects": "Projects Completed",
-            "team": "Expert Team",
-            "countries": "Countries Served"
+            "years": "Established",
+            "projects": "Projects",
+            "vessels": "Vessels",
+            "patents": "Patents",
+            "revenue": "Revenue"
+        },
+        "greeting": {
+            "title": "CEO Message",
+            "description": "Our commitment to the ocean, our vision, and the trust we build with our clients."
+        },
+        "vision": {
+            "title": "Vision & Philosophy",
+            "description": "Core values and philosophy for sustainable marine surveys."
+        }
+    },
+    "sustainability": {
+        "title": "Sustainability",
+        "subtitle": "Practicing sustainable marine surveys based on environment, safety, and ethics",
+        "safety": {
+            "title": "Health & Safety",
+            "description": "Prioritizing on-site safety and health management."
+        },
+        "environment": {
+            "title": "Environmental",
+            "description": "Eco-friendly operational principles for marine environment conservation."
+        },
+        "social": {
+            "title": "Social",
+            "description": "Practicing social responsibility based on respect and consideration."
+        },
+        "governance": {
+            "title": "Governance",
+            "description": "Adhering to transparent management and fair ethical standards."
+        }
+    },
+    "careers": {
+        "title": "Careers",
+        "subtitle": "We're looking for talented individuals to join Marine Research",
+        "hrSystem": {
+            "title": "HR System",
+            "description": "Our HR system that values growth and expertise."
+        },
+        "talent": {
+            "title": "Ideal Candidate",
+            "description": "The qualities we look for in our team members."
+        },
+        "jobs": {
+            "title": "Job Openings",
+            "description": "View current job openings and application procedures."
         }
     },
     "news": {
@@ -164,12 +244,32 @@
         "titleHighlight": "With Us",
         "description": "We welcome all inquiries about marine surveys.",
         "inquiry": "Project Inquiry",
-        "download": "Download Brochure"
+        "download": "Download Brochure",
+        "contactSales": "Contact Sales Team",
+        "joinTeam": "Join Our Team"
+    },
+    "contact": {
+        "title": "Contact",
+        "subtitle": "We welcome your inquiries and partnership proposals",
+        "inquiry": {
+            "title": "Contact Us",
+            "description": "Leave your project inquiries and partnership proposals."
+        },
+        "location": {
+            "title": "Our Location",
+            "description": "Find our headquarters location, contact info, and visiting information."
+        }
     },
     "footer": {
         "description": "Marine Research creates a safe and sustainable ocean future with expertise in offshore wind, geophysical surveys, and geotechnical fields.",
-        "services": "Services",
         "company": "Company",
+        "companyInfo": {
+            "name": "Marine Research",
+            "address": "Address",
+            "ceo": "CEO",
+            "registration": "Registration No."
+        },
+        "services": "Services",
         "support": "Support",
         "copyright": "© {year} Marine Research. All rights reserved."
     },

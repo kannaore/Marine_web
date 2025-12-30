@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
+import { gsap, useGSAP } from "@/lib/gsap";
 import Image from "next/image";
 
 const capabilities = [
@@ -42,11 +42,70 @@ const capabilities = [
 export function CapabilitiesSection() {
     const containerRef = useRef<HTMLElement>(null);
     const [activeIndex, setActiveIndex] = useState(0);
+    const [isClient, setIsClient] = useState(false);
+    const bgRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const detailRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start start", "end end"],
-    });
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
+
+    // Background fade animation
+    useEffect(() => {
+        if (!isClient) return;
+
+        bgRefs.current.forEach((bg, index) => {
+            if (bg) {
+                gsap.to(bg, {
+                    opacity: activeIndex === index ? 1 : 0,
+                    duration: 0.8,
+                });
+            }
+        });
+
+        // Animate detail expansion
+        detailRefs.current.forEach((detail, index) => {
+            if (detail) {
+                if (activeIndex === index) {
+                    gsap.to(detail, {
+                        height: "auto",
+                        opacity: 1,
+                        duration: 0.3,
+                        ease: "power2.out",
+                    });
+                } else {
+                    gsap.to(detail, {
+                        height: 0,
+                        opacity: 0,
+                        duration: 0.3,
+                        ease: "power2.out",
+                    });
+                }
+            }
+        });
+    }, [activeIndex, isClient]);
+
+    useGSAP(
+        () => {
+            if (!containerRef.current || !isClient) return;
+
+            // Stagger entrance animation
+            const buttons = containerRef.current.querySelectorAll(".capability-button");
+            gsap.from(buttons, {
+                opacity: 0,
+                x: -30,
+                stagger: 0.1,
+                duration: 0.5,
+                delay: 0.2,
+                scrollTrigger: {
+                    trigger: containerRef.current,
+                    start: "top 80%",
+                    toggleActions: "play none none none",
+                },
+            });
+        },
+        { scope: containerRef, dependencies: [isClient] }
+    );
 
     return (
         <section
@@ -58,12 +117,11 @@ export function CapabilitiesSection() {
                 {/* Background Image */}
                 <div className="absolute inset-0">
                     {capabilities.map((cap, index) => (
-                        <motion.div
+                        <div
                             key={cap.id}
+                            ref={(el) => { bgRefs.current[index] = el; }}
                             className="absolute inset-0"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: activeIndex === index ? 1 : 0 }}
-                            transition={{ duration: 0.8 }}
+                            style={{ opacity: index === 0 ? 1 : 0 }}
                         >
                             <Image
                                 src={cap.image}
@@ -73,7 +131,7 @@ export function CapabilitiesSection() {
                                 priority={index === 0}
                             />
                             <div className="absolute inset-0 bg-gradient-to-r from-marine-dark via-marine-dark/80 to-transparent" />
-                        </motion.div>
+                        </div>
                     ))}
                 </div>
 
@@ -82,39 +140,24 @@ export function CapabilitiesSection() {
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
                         {/* Left - Text Content */}
                         <div>
-                            <motion.span
-                                initial={{ opacity: 0 }}
-                                whileInView={{ opacity: 1 }}
-                                viewport={{ once: true }}
-                                className="text-xs tracking-[0.3em] uppercase text-ocean-400 font-medium"
-                            >
+                            <span className="text-xs tracking-[0.3em] uppercase text-ocean-400 font-medium">
                                 Our Capabilities
-                            </motion.span>
+                            </span>
 
-                            <motion.h2
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: 0.1, duration: 0.6 }}
-                                className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mt-4 mb-8"
-                            >
+                            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mt-4 mb-8">
                                 End-to-End<br />
                                 Marine Solutions
-                            </motion.h2>
+                            </h2>
 
                             {/* Capability List */}
                             <div className="space-y-4">
                                 {capabilities.map((cap, index) => (
-                                    <motion.button
+                                    <button
                                         key={cap.id}
                                         onClick={() => setActiveIndex(index)}
-                                        initial={{ opacity: 0, x: -30 }}
-                                        whileInView={{ opacity: 1, x: 0 }}
-                                        viewport={{ once: true }}
-                                        transition={{ delay: 0.2 + index * 0.1, duration: 0.5 }}
-                                        className={`w-full text-left p-6 rounded-xl border transition-all duration-300 ${activeIndex === index
-                                                ? "border-ocean-400/50 bg-ocean-400/10"
-                                                : "border-white/5 bg-white/5 hover:border-white/10"
+                                        className={`capability-button w-full text-left p-6 rounded-xl border transition-all duration-300 ${activeIndex === index
+                                            ? "border-ocean-400/50 bg-ocean-400/10"
+                                            : "border-white/5 bg-white/5 hover:border-white/10"
                                             }`}
                                     >
                                         <div className="flex items-center justify-between mb-2">
@@ -127,14 +170,10 @@ export function CapabilitiesSection() {
                                             </span>
                                         </div>
 
-                                        <motion.div
-                                            initial={{ height: 0, opacity: 0 }}
-                                            animate={{
-                                                height: activeIndex === index ? "auto" : 0,
-                                                opacity: activeIndex === index ? 1 : 0
-                                            }}
-                                            transition={{ duration: 0.3 }}
+                                        <div
+                                            ref={(el) => { detailRefs.current[index] = el; }}
                                             className="overflow-hidden"
+                                            style={{ height: index === 0 ? "auto" : 0, opacity: index === 0 ? 1 : 0 }}
                                         >
                                             <p className="text-sm text-white/60 mb-4">
                                                 {cap.description}
@@ -149,8 +188,8 @@ export function CapabilitiesSection() {
                                                     </span>
                                                 ))}
                                             </div>
-                                        </motion.div>
-                                    </motion.button>
+                                        </div>
+                                    </button>
                                 ))}
                             </div>
                         </div>

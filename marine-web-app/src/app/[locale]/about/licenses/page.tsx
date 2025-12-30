@@ -1,6 +1,6 @@
 import { setRequestLocale } from "next-intl/server";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { ArrowLeft, FileText, CheckCircle2, Calendar, Building } from "lucide-react";
 
 // 면허 현황 데이터

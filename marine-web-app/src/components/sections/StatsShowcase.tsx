@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
+import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 
 const stats = [
     {
@@ -73,7 +73,69 @@ function AnimatedNumber({
 
 export function StatsShowcase() {
     const sectionRef = useRef<HTMLElement>(null);
-    const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+    const headerRef = useRef<HTMLDivElement>(null);
+    const [isInView, setIsInView] = useState(false);
+
+    useGSAP(
+        () => {
+            if (!sectionRef.current) return;
+
+            // Header animation
+            if (headerRef.current) {
+                gsap.from(headerRef.current, {
+                    opacity: 0,
+                    y: 40,
+                    duration: 0.8,
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top 80%",
+                        toggleActions: "play none none none",
+                    },
+                });
+            }
+
+            // Stats items animation
+            const items = sectionRef.current.querySelectorAll(".stat-item");
+            items.forEach((item, index) => {
+                gsap.from(item, {
+                    opacity: 0,
+                    y: 50,
+                    duration: 0.6,
+                    delay: index * 0.15,
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top 75%",
+                        toggleActions: "play none none none",
+                    },
+                });
+
+                // Vertical line animation
+                const line = item.querySelector(".stat-line");
+                if (line) {
+                    gsap.from(line, {
+                        scaleY: 0,
+                        duration: 0.5,
+                        delay: index * 0.15 + 0.3,
+                        transformOrigin: "top",
+                        scrollTrigger: {
+                            trigger: sectionRef.current,
+                            start: "top 75%",
+                            toggleActions: "play none none none",
+                        },
+                    });
+                }
+            });
+
+            // Trigger number counting
+            ScrollTrigger.create({
+                trigger: sectionRef.current,
+                start: "top 70%",
+                once: true,
+                onEnter: () => setIsInView(true),
+            });
+        },
+        { scope: sectionRef }
+    );
 
     return (
         <section
@@ -82,11 +144,8 @@ export function StatsShowcase() {
         >
             <div className="container-custom">
                 {/* Section Header */}
-                <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
+                <div
+                    ref={headerRef}
                     className="text-center mb-20"
                 >
                     <h2 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
@@ -95,26 +154,18 @@ export function StatsShowcase() {
                     <p className="text-lg text-white/50 max-w-2xl mx-auto">
                         대한민국 해양조사 산업을 이끌어온 실적과 경험
                     </p>
-                </motion.div>
+                </div>
 
                 {/* Stats Grid */}
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
                     {stats.map((stat, index) => (
-                        <motion.div
+                        <div
                             key={stat.label}
-                            initial={{ opacity: 0, y: 50 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.15, duration: 0.6 }}
-                            className="relative group"
+                            className="stat-item relative group"
                         >
                             {/* Vertical Line */}
-                            <motion.div
-                                initial={{ scaleY: 0 }}
-                                whileInView={{ scaleY: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.15 + 0.3, duration: 0.5 }}
-                                className="absolute left-0 top-0 w-px h-full bg-gradient-to-b from-ocean-400/50 via-ocean-400/20 to-transparent origin-top"
+                            <div
+                                className="stat-line absolute left-0 top-0 w-px h-full bg-gradient-to-b from-ocean-400/50 via-ocean-400/20 to-transparent"
                             />
 
                             <div className="pl-6">
@@ -142,7 +193,7 @@ export function StatsShowcase() {
                                     {stat.description}
                                 </p>
                             </div>
-                        </motion.div>
+                        </div>
                     ))}
                 </div>
             </div>

@@ -1,26 +1,28 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { gsap } from "@/lib/gsap";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useLocale } from "next-intl";
 import { Menu, X } from "lucide-react";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { cn } from "@/lib/utils";
 import { MorphingDesktopNav } from "./MorphingDesktopNav";
-
-const navItems = [
-    { label: "ABOUT US", href: "#about" },
-    { label: "EXPLORE SERVICES", href: "#services" },
-    { label: "CAREERS", href: "#careers" },
-    { label: "SUSTAINABILITY", href: "#sustainability" },
-    { label: "CONTACTS", href: "#contact" },
-];
+import { NAV_CONTENT, type NavKey } from "@/lib/navData";
 
 export function Header() {
+    const locale = useLocale();
+    const isKorean = locale === "ko";
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const backdropRef = useRef<HTMLDivElement>(null);
+    const mobileMenuRef = useRef<HTMLDivElement>(null);
+    const mobileOverlayRef = useRef<HTMLDivElement>(null);
+    const mobilePanelRef = useRef<HTMLDivElement>(null);
+    const mobileNavItemsRef = useRef<HTMLElement>(null);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -31,23 +33,88 @@ export function Header() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
+    // Backdrop blur animation
+    useEffect(() => {
+        if (!backdropRef.current) return;
+
+        if (isMenuOpen) {
+            gsap.set(backdropRef.current, { display: "block" });
+            gsap.to(backdropRef.current, {
+                opacity: 1,
+                duration: 0.4,
+                ease: "power2.inOut",
+            });
+        } else {
+            gsap.to(backdropRef.current, {
+                opacity: 0,
+                duration: 0.4,
+                ease: "power2.inOut",
+                onComplete: () => {
+                    if (backdropRef.current) {
+                        gsap.set(backdropRef.current, { display: "none" });
+                    }
+                },
+            });
+        }
+    }, [isMenuOpen]);
+
+    // Mobile menu animation
+    useEffect(() => {
+        if (!mobileMenuRef.current || !mobileOverlayRef.current || !mobilePanelRef.current) return;
+
+        if (isMobileMenuOpen) {
+            gsap.set(mobileMenuRef.current, { display: "block" });
+            gsap.to(mobileOverlayRef.current, {
+                opacity: 1,
+                duration: 0.3,
+            });
+            gsap.to(mobilePanelRef.current, {
+                x: 0,
+                duration: 0.4,
+                ease: "power3.out",
+            });
+
+            // Stagger nav items
+            if (mobileNavItemsRef.current) {
+                const items = mobileNavItemsRef.current.querySelectorAll(".mobile-nav-item");
+                gsap.from(items, {
+                    opacity: 0,
+                    x: 20,
+                    stagger: 0.1,
+                    delay: 0.2,
+                    duration: 0.4,
+                });
+            }
+        } else {
+            gsap.to(mobileOverlayRef.current, {
+                opacity: 0,
+                duration: 0.3,
+            });
+            gsap.to(mobilePanelRef.current, {
+                x: "100%",
+                duration: 0.3,
+                ease: "power3.in",
+                onComplete: () => {
+                    if (mobileMenuRef.current) {
+                        gsap.set(mobileMenuRef.current, { display: "none" });
+                    }
+                },
+            });
+        }
+    }, [isMobileMenuOpen]);
+
     return (
         <>
             {/* Global Backdrop Blur Overlay (Apple-style) */}
-            <AnimatePresence>
-                {isMenuOpen && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.4, ease: "easeInOut" }}
-                        className="fixed inset-0 z-[40] bg-black/20 backdrop-blur-[12px]"
-                        style={{
-                            WebkitBackdropFilter: "blur(12px) saturate(150%) brightness(0.8)",
-                        }}
-                    />
-                )}
-            </AnimatePresence>
+            <div
+                ref={backdropRef}
+                className="fixed inset-0 z-[40] bg-black/20 backdrop-blur-[12px]"
+                style={{
+                    display: "none",
+                    opacity: 0,
+                    WebkitBackdropFilter: "blur(12px) saturate(150%) brightness(0.8)",
+                }}
+            />
 
             <header
                 className={cn(
@@ -75,6 +142,7 @@ export function Header() {
                                     src="/logo.png"
                                     alt="Marine Research Logo"
                                     fill
+                                    sizes="(min-width: 1024px) 112px, 96px"
                                     className="object-contain object-left"
                                     priority
                                 />
@@ -103,56 +171,51 @@ export function Header() {
             </header>
 
             {/* Mobile Menu */}
-            <AnimatePresence>
-                {isMobileMenuOpen && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[60] lg:hidden"
-                    >
-                        <div
-                            className="absolute inset-0 bg-black/80 backdrop-blur-md"
+            <div
+                ref={mobileMenuRef}
+                className="fixed inset-0 z-[60] lg:hidden"
+                style={{ display: "none" }}
+            >
+                <div
+                    ref={mobileOverlayRef}
+                    className="absolute inset-0 bg-black/80 backdrop-blur-md"
+                    style={{ opacity: 0 }}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                />
+                <div
+                    ref={mobilePanelRef}
+                    className="absolute right-0 top-0 bottom-0 w-[300px] bg-marine-dark border-l border-white/10 shadow-2xl"
+                    style={{ transform: "translateX(100%)" }}
+                >
+                    <div className="flex items-center justify-between p-6 border-b border-white/10">
+                        <span className="font-display font-bold text-lg text-white">MENU</span>
+                        <button
                             onClick={() => setIsMobileMenuOpen(false)}
-                        />
-                        <motion.div
-                            initial={{ x: "100%" }}
-                            animate={{ x: 0 }}
-                            exit={{ x: "100%" }}
-                            transition={{ type: "spring", damping: 30, stiffness: 300 }}
-                            className="absolute right-0 top-0 bottom-0 w-[300px] bg-marine-dark border-l border-white/10 shadow-2xl"
+                            className="p-2 text-white/60 hover:text-white"
                         >
-                            <div className="flex items-center justify-between p-6 border-b border-white/10">
-                                <span className="font-display font-bold text-lg text-white">MENU</span>
-                                <button
+                            <X size={24} />
+                        </button>
+                    </div>
+                    <nav ref={mobileNavItemsRef} className="p-6 flex flex-col gap-6">
+                        {Object.keys(NAV_CONTENT).map((tab) => {
+                            const item = NAV_CONTENT[tab as NavKey];
+                            return (
+                                <Link
+                                    key={tab}
+                                    href={item.href}
                                     onClick={() => setIsMobileMenuOpen(false)}
-                                    className="p-2 text-white/60 hover:text-white"
+                                    className="mobile-nav-item text-lg font-medium text-white/80 hover:text-white transition-colors"
                                 >
-                                    <X size={24} />
-                                </button>
-                            </div>
-                            <nav className="p-6 flex flex-col gap-6">
-                                {navItems.map((item, index) => (
-                                    <motion.a
-                                        key={item.label}
-                                        href={item.href}
-                                        initial={{ opacity: 0, x: 20 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: index * 0.1 }}
-                                        onClick={() => setIsMobileMenuOpen(false)}
-                                        className="text-lg font-medium text-white/80 hover:text-white transition-colors"
-                                    >
-                                        {item.label}
-                                    </motion.a>
-                                ))}
-                                <div className="mt-4 pt-6 border-t border-white/10">
-                                    <LanguageSwitcher />
-                                </div>
-                            </nav>
-                        </motion.div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+                                    {isKorean ? item.sectionLabel : tab}
+                                </Link>
+                            );
+                        })}
+                        <div className="mt-4 pt-6 border-t border-white/10">
+                            <LanguageSwitcher />
+                        </div>
+                    </nav>
+                </div>
+            </div>
         </>
     );
 }
