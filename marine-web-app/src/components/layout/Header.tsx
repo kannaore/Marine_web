@@ -17,8 +17,9 @@ export function Header() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [headerOffset, setHeaderOffset] = useState(88);
 
-    const backdropRef = useRef<HTMLDivElement>(null);
+    const headerRef = useRef<HTMLElement>(null);
     const mobileMenuRef = useRef<HTMLDivElement>(null);
     const mobileOverlayRef = useRef<HTMLDivElement>(null);
     const mobilePanelRef = useRef<HTMLDivElement>(null);
@@ -33,30 +34,25 @@ export function Header() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    // Backdrop blur animation
     useEffect(() => {
-        if (!backdropRef.current) return;
+        if (!headerRef.current) return;
 
-        if (isMenuOpen) {
-            gsap.set(backdropRef.current, { display: "block" });
-            gsap.to(backdropRef.current, {
-                opacity: 1,
-                duration: 0.4,
-                ease: "power2.inOut",
-            });
-        } else {
-            gsap.to(backdropRef.current, {
-                opacity: 0,
-                duration: 0.4,
-                ease: "power2.inOut",
-                onComplete: () => {
-                    if (backdropRef.current) {
-                        gsap.set(backdropRef.current, { display: "none" });
-                    }
-                },
-            });
-        }
-    }, [isMenuOpen]);
+        const updateOffset = () => {
+            if (!headerRef.current) return;
+            const rect = headerRef.current.getBoundingClientRect();
+            setHeaderOffset(Math.round(rect.bottom));
+        };
+
+        updateOffset();
+        const resizeObserver = new ResizeObserver(updateOffset);
+        resizeObserver.observe(headerRef.current);
+        window.addEventListener("resize", updateOffset);
+
+        return () => {
+            resizeObserver.disconnect();
+            window.removeEventListener("resize", updateOffset);
+        };
+    }, []);
 
     // Mobile menu animation
     useEffect(() => {
@@ -105,18 +101,8 @@ export function Header() {
 
     return (
         <>
-            {/* Global Backdrop Blur Overlay (Apple-style) */}
-            <div
-                ref={backdropRef}
-                className="fixed inset-0 z-[40] bg-black/20 backdrop-blur-[12px]"
-                style={{
-                    display: "none",
-                    opacity: 0,
-                    WebkitBackdropFilter: "blur(12px) saturate(150%) brightness(0.8)",
-                }}
-            />
-
             <header
+                ref={headerRef}
                 className={cn(
                     "fixed top-4 inset-x-0 mx-auto z-50 transition-all duration-500 ease-out",
                     "w-[90%] max-w-[1240px] rounded-2xl py-1 px-6",
@@ -151,7 +137,7 @@ export function Header() {
 
                         {/* Desktop Navigation - Morphing Menu */}
                         <nav className="hidden lg:flex items-center">
-                            <MorphingDesktopNav onMenuOpen={setIsMenuOpen} />
+                            <MorphingDesktopNav onMenuOpen={setIsMenuOpen} headerOffset={headerOffset} />
                         </nav>
                     </div>
 

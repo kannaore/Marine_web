@@ -1,0 +1,253 @@
+#ac-globalfooter .ac-gf-footer {
+    padding-bottom: 11px !important;
+}
+
+#ac-globalfooter p.requirement a {
+    text-decoration: underline;
+}
+
+.small-caps {
+    font-variant-caps:all-small-caps
+}
+
+.icon-chevronright:after, .more:after, .icon-external:after {
+    top: -.08em;
+}
+
+.icon-wrapper .icon, .icon-wrapper .icon-after:after, .icon-wrapper .icon-before:before, .icon-wrapper .more:not(.icon-before):after {
+    position: relative;
+}
+
+.xsmall {
+    display: none;
+}
+
+@media only screen and (max-width: 385px) {
+    .xsmall {
+        display: block;
+    }
+}
+
+.large {
+    display: none;
+}
+
+@media only screen and (min-width: 1069px) {
+    .large {
+        display: block;
+    }
+}
+
+br.medium {
+    display: none;
+}
+
+@media only screen and (max-width: 1068px) and (min-width: 735px) {
+    br.medium {
+        display: block;
+    }
+}
+
+br.small {
+    display: none;
+}
+
+@media only screen and (max-width: 734px) {
+    br.small {
+        display: block;
+    }
+}
+
+br.small-hide {
+    display: block;
+}
+
+@media only screen and (max-width: 734px) {
+    br.small-hide {
+        display: none;
+    }
+}
+
+[data-module-template] [data-unit-id] .unit-wrapper .footnote a:not(.unit-link):hover {
+    text-decoration: none;
+}
+
+.main [data-module-template="promos"] [data-unit-id] .unit-copy-wrapper .cta-links .button:lang(ko) {
+    line-height: 1.42859;
+}
+
+@media only screen and (max-width: 734px) {
+    .main [data-module-template="heroes"] [data-unit-id] .unit-copy-wrapper>*.cta-links .button:lang(ko) {
+        line-height: 1.42859;
+    }
+}
+
+/* ribbon */
+.icon-wrapper.ribbon-link .icon-after::after {
+    position: relative;
+    top: -0.1em;
+    padding-left: 0.1em;
+}
+
+@media only screen and (max-width: 1068px) and (min-width: 735px) {
+    br.medium {
+        display: inline;
+    }
+}
+
+.icon-wrapper.ribbon-link .icon-after::after {
+    position: relative;
+    top: -0.1em;
+    padding-left: 0.1em;
+}
+
+@media only screen and (max-width: 1068px) and (min-width: 735px) {
+    br.medium {
+        display: inline;
+    }
+}
+
+.main [data-module-template="ribbon"] [data-unit-id="veterans-day-2024"], .main [data-module-template="ribbon"] [data-unit-id="veterans-day-2024"] .module-content {
+    width: 100%;
+    height: auto;
+}
+
+.main [data-module-template="ribbon"] [data-unit-id="veterans-day-2024"] .module-content.light {
+    background-color: #fff;
+}
+
+.main [data-module-template="ribbon"] [data-unit-id="veterans-day-2024"] .section-content {
+    margin: 0 auto;
+    max-width: 900px;
+    width: 100%;
+    text-align: center;
+}
+
+@media only screen and (min-width: 1441px) {
+    .main [data-module-template="ribbon"] [data-unit-id="veterans-day-2024"] .section-content {
+        max-width: 980px;
+    }
+}
+
+@media only screen and (max-width: 1068px) {
+    .main [data-module-template="ribbon"] [data-unit-id="veterans-day-2024"] .section-content {
+        max-width: 692px;
+    }
+}
+@media only screen and (max-width: 734px) {
+    .main [data-module-template="ribbon"] [data-unit-id="veterans-day-2024"] .section-content {
+        width: 100%;
+        max-width: 350px;
+    }
+}
+.main [data-module-template="ribbon"] [data-unit-id="veterans-day-2024"] .trade-in-iphone-2024-ribbon-copy {
+    font-size: 14px;
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-block;
+    padding: 13px 0;
+    width: 100%;
+    letter-spacing: normal;
+}
+
+.main [data-module-template="ribbon"] [data-unit-id="veterans-day-2024"] .module-content.light .trade-in-iphone-2024-ribbon-copy {
+    color: #1d1d1f;
+}
+
+html.no-reduced-motion .globalheader-light .main [data-module-template="ribbon"] [data-unit-id="veterans-day-2024"] {
+    background-color: #0071e3;
+    color: #fff;
+    -webkit-animation: colorChangeRibbon 2s cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation: colorChangeRibbon 2s cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-delay: 0s;
+    animation-fill-mode: none;
+    -webkit-animation-delay: 1s;
+    animation-delay: 1s;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards
+}
+
+html.no-reduced-motion .globalheader-light .main [data-module-template="ribbon"] [data-unit-id="veterans-day-2024"] .trade-in-iphone-2024-ribbon-copy a.ribbon-link {
+    color: #F0F0F0;
+    -webkit-animation: colorChangeRibbonLink 2s cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation: colorChangeRibbonLink 2s cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-delay: 0s;
+    animation-fill-mode: none;
+    -webkit-animation-delay: 1s;
+    animation-delay: 1s;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards
+}
+
+@-webkit-keyframes colorChangeRibbon {
+    0% {
+        color: #F0F0F0;
+        background-color: #0071e3
+    }
+
+    100% {
+        color: #000;
+        background-color: #F0F0F0
+    }
+}
+
+@keyframes colorChangeRibbon {
+    0% {
+        color: #F0F0F0;
+        background-color: #0071e3
+    }
+
+    100% {
+        color: #000;
+        background-color: #F0F0F0
+    }
+}
+
+@-webkit-keyframes colorChangeRibbonLink {
+    0% {
+        color: #F0F0F0;
+    }
+
+    100% {
+        color: rgb(0, 113, 227);
+    }
+}
+
+@keyframes colorChangeRibbonLink {
+    0% {
+        color: #F0F0F0;
+    }
+
+    100% {
+        color: rgb(0, 113, 227);
+    }
+}
+
+.main [data-module-template="ribbon"] [data-unit-id="veterans-day-2024"] .module-content.light .trade-in-iphone-2024-ribbon-copy a.ribbon-link {
+    color: #06c;
+}
+
+.main [data-module-template="ribbon"] [data-unit-id="veterans-day-2024"] sup a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.main [data-module-template="ribbon"] [data-unit-id="veterans-day-2024"] sup a:hover {
+    color: #06c;
+}
+
+/* globalheader-dark */
+.globalheader-dark .main [data-module-template="ribbon"] [data-unit-id="veterans-day-2024"] .module-content {
+    background-color: #1d1d1f;
+}
+
+.globalheader-dark .main [data-module-template="ribbon"] [data-unit-id="veterans-day-2024"] {
+    background-color: #f5f5f7;
+}
+
+.globalheader-dark .main [data-module-template="ribbon"] [data-unit-id="veterans-day-2024"] .trade-in-iphone-2024-ribbon-copy {
+    color: #fff;
+}
+.globalheader-dark .main [data-module-template="ribbon"] [data-unit-id="veterans-day-2024"] .trade-in-iphone-2024-ribbon-copy a.ribbon-link {
+    color: rgb(41, 151, 255);
+}

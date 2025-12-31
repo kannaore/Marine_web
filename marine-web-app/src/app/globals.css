@@ -104,6 +104,11 @@ body {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
+.nav-flyout-panel {
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+
 /* Text Glow */
 .text-glow {
   text-shadow: 0 0 20px rgba(56, 189, 248, 0.5);

@@ -1,69 +1,56 @@
-"use client";
+﻿"use client";
 
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
-import { gsap } from "@/lib/gsap";
 import { Link } from "@/i18n/navigation";
 import { useLocale } from "next-intl";
 import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { NAV_CONTENT, type NavKey } from "@/lib/navData";
+import { gsap, useGSAP } from "@/lib/gsap";
 
-export function MorphingDesktopNav({ onMenuOpen }: { onMenuOpen: (isOpen: boolean) => void }) {
+export function MorphingDesktopNav({
+    onMenuOpen,
+    headerOffset = 88,
+}: {
+    onMenuOpen: (isOpen: boolean) => void;
+    headerOffset?: number;
+}) {
     const locale = useLocale();
     const isKorean = locale === "ko";
     const [activeTab, setActiveTab] = useState<NavKey | null>(null);
-    const [displayedTab, setDisplayedTab] = useState<NavKey | null>(null); // Keeps content visible during close animation
+    const [displayedTab, setDisplayedTab] = useState<NavKey | null>(null);
     const [activeCategoryIndex, setActiveCategoryIndex] = useState(0);
     const [mounted, setMounted] = useState(false);
-    const [hasPlayedInitialAnimation, setHasPlayedInitialAnimation] = useState(false);
-    const [isClosing, setIsClosing] = useState(false);
-    const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-    const prevActiveTabRef = useRef<NavKey | null>(null);
 
-    // Refs for GSAP animations
     const dropdownWrapperRef = useRef<HTMLDivElement>(null);
     const dropdownBgRef = useRef<HTMLDivElement>(null);
+    const dimmerRef = useRef<HTMLDivElement>(null);
     const categoriesRef = useRef<HTMLDivElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
-    const dimmerRef = useRef<HTMLDivElement>(null);
     const imageRef = useRef<HTMLDivElement>(null);
+    const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const prevActiveTabRef = useRef<NavKey | null>(null);
+    const closeTimelineRef = useRef<gsap.core.Timeline | null>(null);
+
+    const { contextSafe } = useGSAP({ scope: dropdownWrapperRef });
 
     const getMenuHeight = (tab: NavKey) => {
         const count = NAV_CONTENT[tab].categories.length;
         const minHeight = 300;
-        const maxHeight = 520;
-        const calculated = 180 + count * 52;
+        const maxHeight = 460;
+        const calculated = 120 + count * 44;
         return Math.min(maxHeight, Math.max(minHeight, calculated));
     };
-
-    const getDropdownHeight = (tab: NavKey) => 88 + getMenuHeight(tab);
 
     useEffect(() => {
         setMounted(true);
     }, []);
 
     useEffect(() => {
-        onMenuOpen(!!activeTab);
-    }, [activeTab, onMenuOpen]);
+        onMenuOpen(!!displayedTab);
+    }, [displayedTab, onMenuOpen]);
 
-    useEffect(() => {
-        setActiveCategoryIndex(0);
-    }, [activeTab]);
-
-    // Track when dropdown first opens to trigger initial animation only once
-    useEffect(() => {
-        if (activeTab && prevActiveTabRef.current === null) {
-            setHasPlayedInitialAnimation(false);
-            const timer = setTimeout(() => {
-                setHasPlayedInitialAnimation(true);
-            }, 300);
-            return () => clearTimeout(timer);
-        }
-        prevActiveTabRef.current = activeTab;
-    }, [activeTab]);
-
-    // Clear timeout on unmount
     useEffect(() => {
         return () => {
             if (closeTimeoutRef.current) {
@@ -72,131 +59,17 @@ export function MorphingDesktopNav({ onMenuOpen }: { onMenuOpen: (isOpen: boolea
         };
     }, []);
 
-    // Dropdown open/close animation
-    useEffect(() => {
-        if (!mounted) return;
-
-        if (activeTab) {
-            // Sync displayedTab when opening
-            setDisplayedTab(activeTab);
-
-            // Open animations - slower for smoother feel
-            if (dropdownWrapperRef.current) {
-                gsap.set(dropdownWrapperRef.current, { display: "block" });
-                gsap.to(dropdownWrapperRef.current, {
-                    opacity: 1,
-                    duration: 0.35,
-                });
+    const scheduleClose = useCallback(
+        contextSafe(() => {
+            if (closeTimeoutRef.current) {
+                clearTimeout(closeTimeoutRef.current);
             }
-
-            if (dropdownBgRef.current) {
-                const height = getDropdownHeight(activeTab);
-
-                gsap.to(dropdownBgRef.current, {
-                    clipPath: "inset(0 0 0% 0)",
-                    height,
-                    duration: 0.6,
-                    ease: "power3.out",
-                });
-            }
-
-            if (categoriesRef.current && !hasPlayedInitialAnimation) {
-                gsap.fromTo(categoriesRef.current,
-                    { opacity: 0, filter: "blur(12px)" },
-                    { opacity: 1, filter: "blur(0px)", duration: 0.5, delay: 0.15, ease: "power2.out" }
-                );
-            }
-
-            if (dimmerRef.current) {
-                gsap.set(dimmerRef.current, { display: "block" });
-                gsap.to(dimmerRef.current, { opacity: 1, duration: 0.4 });
-            }
-        } else if (displayedTab && !isClosing) {
-            // Close animations - curtain closes first, then hide wrapper
-            setIsClosing(true);
-            const closeDuration = 0.5;
-
-            if (dropdownBgRef.current) {
-                gsap.to(dropdownBgRef.current, {
-                    clipPath: "inset(0 0 100% 0)",
-                    duration: closeDuration,
-                    ease: "power2.inOut",
-                });
-            }
-
-            // Wrapper hides AFTER curtain animation completes
-            if (dropdownWrapperRef.current) {
-                gsap.to(dropdownWrapperRef.current, {
-                    opacity: 0,
-                    duration: 0.3,
-                    delay: closeDuration - 0.1,
-                    onComplete: () => {
-                        if (dropdownWrapperRef.current) {
-                            gsap.set(dropdownWrapperRef.current, { display: "none" });
-                        }
-                        // NOW remove from DOM
-                        setDisplayedTab(null);
-                        setIsClosing(false);
-                    },
-                });
-            }
-
-            if (dimmerRef.current) {
-                gsap.to(dimmerRef.current, {
-                    opacity: 0,
-                    duration: closeDuration,
-                    onComplete: () => {
-                        if (dimmerRef.current) {
-                            gsap.set(dimmerRef.current, { display: "none" });
-                        }
-                    },
-                });
-            }
-        }
-    }, [activeTab, mounted, hasPlayedInitialAnimation]);
-
-    // Content change animation - NO animation on category switch to prevent flicker
-    useEffect(() => {
-        if (!activeTab || !contentRef.current) return;
-
-        // Only animate on initial open, not on category changes
-        if (!hasPlayedInitialAnimation) {
-            gsap.fromTo(contentRef.current,
-                { opacity: 0, x: 20 },
-                { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }
-            );
-
-            if (imageRef.current) {
-                gsap.fromTo(imageRef.current,
-                    { scale: 1.1, opacity: 0 },
-                    { scale: 1, opacity: 1, duration: 0.5, ease: "power2.out" }
-                );
-            }
-        }
-        // Category changes now use CSS transitions, no GSAP re-animation
-    }, [activeTab, hasPlayedInitialAnimation]);
-
-    // Height animation when switching tabs
-    useEffect(() => {
-        if (!activeTab || !dropdownBgRef.current) return;
-
-        const height = getDropdownHeight(activeTab);
-
-        gsap.to(dropdownBgRef.current, {
-            height,
-            duration: 0.3,
-            ease: "power3.out",
-        });
-    }, [activeTab]);
-
-    // Delayed close with hover intent pattern
-    const scheduleClose = useCallback(() => {
-        closeTimeoutRef.current = setTimeout(() => {
-            setActiveTab(null);
-            prevActiveTabRef.current = null;
-            setHasPlayedInitialAnimation(false);
-        }, 150);
-    }, []);
+            closeTimeoutRef.current = setTimeout(() => {
+                setActiveTab(null);
+            }, 150);
+        }),
+        [contextSafe]
+    );
 
     const cancelClose = useCallback(() => {
         if (closeTimeoutRef.current) {
@@ -208,6 +81,8 @@ export function MorphingDesktopNav({ onMenuOpen }: { onMenuOpen: (isOpen: boolea
     const handleMouseEnterNav = useCallback((tab: NavKey) => {
         cancelClose();
         setActiveTab(tab);
+        setDisplayedTab(tab);
+        setActiveCategoryIndex(0);
     }, [cancelClose]);
 
     const handleMouseLeaveNav = useCallback(() => {
@@ -227,11 +102,151 @@ export function MorphingDesktopNav({ onMenuOpen }: { onMenuOpen: (isOpen: boolea
         setActiveTab(null);
     };
 
-    // Use displayedTab for content to keep it visible during close animation
     const currentContent = displayedTab ? NAV_CONTENT[displayedTab] : null;
-    const currentCategory = currentContent?.categories[activeCategoryIndex];
-    const menuHeight = displayedTab ? getMenuHeight(displayedTab) : 0;
-    const dropdownHeight = displayedTab ? 88 + menuHeight : 0;
+    const currentCategory = currentContent?.categories[activeCategoryIndex]
+        ?? currentContent?.categories[0]
+        ?? null;
+    const safeHeaderOffset = Math.max(0, headerOffset);
+    const contentPaddingTop = safeHeaderOffset + 20;
+
+    useGSAP(
+        () => {
+            if (!mounted) return;
+            const wrapper = dropdownWrapperRef.current;
+            const panel = dropdownBgRef.current;
+            const dimmer = dimmerRef.current;
+
+            if (!wrapper || !panel || !dimmer) return;
+
+            const prevTab = prevActiveTabRef.current;
+            const targetHeight = activeTab ? getMenuHeight(activeTab) + safeHeaderOffset : 0;
+
+            if (activeTab) {
+                if (closeTimelineRef.current) {
+                    closeTimelineRef.current.kill();
+                    closeTimelineRef.current = null;
+                }
+                gsap.set(wrapper, { display: "block", pointerEvents: "auto" });
+
+                if (!prevTab) {
+                    gsap.set(panel, { height: 0 });
+                    gsap.set(dimmer, { opacity: 0 });
+                    gsap.to(dimmer, {
+                        opacity: 1,
+                        duration: 0.32,
+                        ease: "power2.out",
+                        delay: 0.08,
+                        overwrite: "auto",
+                    });
+                    gsap.to(panel, {
+                        height: targetHeight,
+                        duration: 0.4,
+                        ease: "power2.out",
+                        overwrite: "auto",
+                    });
+                } else {
+                    gsap.to(dimmer, {
+                        opacity: 1,
+                        duration: 0.2,
+                        ease: "power2.out",
+                        overwrite: "auto",
+                    });
+                    gsap.to(panel, {
+                        height: targetHeight,
+                        duration: 0.32,
+                        ease: "power2.out",
+                        overwrite: "auto",
+                    });
+                }
+            } else if (prevTab) {
+                const tl = gsap.timeline({
+                    onComplete: () => {
+                        gsap.set(wrapper, { display: "none", pointerEvents: "none" });
+                        setDisplayedTab(null);
+                        closeTimelineRef.current = null;
+                    },
+                });
+
+                closeTimelineRef.current = tl;
+
+                tl.to(panel, {
+                    height: 0,
+                    duration: 0.3,
+                    ease: "power2.inOut",
+                    overwrite: "auto",
+                }).to(
+                    dimmer,
+                    {
+                        opacity: 0,
+                        duration: 0.24,
+                        ease: "power2.out",
+                        overwrite: "auto",
+                    },
+                    0
+                );
+            } else {
+                gsap.set(wrapper, { display: "none", pointerEvents: "none" });
+                gsap.set(dimmer, { opacity: 0 });
+                gsap.set(panel, { height: 0 });
+            }
+
+            prevActiveTabRef.current = activeTab;
+        },
+        { dependencies: [activeTab, safeHeaderOffset, mounted], scope: dropdownWrapperRef }
+    );
+
+    useGSAP(
+        () => {
+            if (!displayedTab || !categoriesRef.current) return;
+            gsap.fromTo(
+                categoriesRef.current,
+                { opacity: 0, y: 8 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.28,
+                    ease: "power2.out",
+                    overwrite: "auto",
+                    immediateRender: false,
+                }
+            );
+        },
+        { dependencies: [displayedTab], scope: categoriesRef }
+    );
+
+    useGSAP(
+        () => {
+            if (!displayedTab || !contentRef.current) return;
+            gsap.fromTo(
+                contentRef.current,
+                { opacity: 0, y: 10 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.32,
+                    ease: "power2.out",
+                    overwrite: "auto",
+                    immediateRender: false,
+                }
+            );
+
+            if (imageRef.current) {
+                gsap.fromTo(
+                    imageRef.current,
+                    { opacity: 0.65, scale: 1.03 },
+                    {
+                        opacity: 1,
+                        scale: 1,
+                        duration: 0.45,
+                        ease: "power2.out",
+                        overwrite: "auto",
+                        immediateRender: false,
+                    }
+                );
+            }
+        },
+        { dependencies: [displayedTab, activeCategoryIndex], scope: contentRef }
+    );
 
     return (
         <div
@@ -239,7 +254,6 @@ export function MorphingDesktopNav({ onMenuOpen }: { onMenuOpen: (isOpen: boolea
             onMouseEnter={cancelClose}
             onMouseLeave={handleMouseLeaveNav}
         >
-            {/* Nav Items */}
             {Object.keys(NAV_CONTENT).map((tab) => (
                 <div
                     key={tab}
@@ -250,153 +264,126 @@ export function MorphingDesktopNav({ onMenuOpen }: { onMenuOpen: (isOpen: boolea
                         href={NAV_CONTENT[tab as NavKey].href}
                         onClick={handleCloseDropdown}
                         className={cn(
-                            "relative z-20 py-4 text-[11px] font-bold tracking-[0.08em] transition-colors duration-300 uppercase font-display block text-center",
-                            activeTab === tab ? "text-white" : "text-white/60 hover:text-white"
+                            "relative z-20 py-4 font-medium uppercase block text-center",
+                            isKorean
+                                ? "text-[16px] tracking-[0.14em] font-sans"
+                                : "text-[13px] tracking-[0.18em] font-display",
+                            activeTab === tab ? "text-white" : "text-white/70 hover:text-white"
                         )}
-                        style={{ minWidth: isKorean ? '48px' : 'auto' }}
+                        style={{ minWidth: isKorean ? "84px" : "auto" }}
                     >
                         {isKorean ? NAV_CONTENT[tab as NavKey].sectionLabel : tab}
                     </Link>
-                    {/* Extended hover area */}
-                    <div
-                        className="absolute top-full left-1/2 -translate-x-1/2 w-[150%] h-2 bg-transparent z-10"
-                    />
-                    {/* Invisible bridge */}
-                    {activeTab === tab && (
-                        <div
-                            className="absolute top-full left-1/2 -translate-x-1/2 z-10"
-                            style={{
-                                width: '300px',
-                                height: '80px',
-                                background: 'transparent',
-                                clipPath: 'polygon(30% 0%, 70% 0%, 100% 100%, 0% 100%)'
-                            }}
-                        />
-                    )}
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 w-[160%] h-3 bg-transparent" />
                 </div>
             ))}
 
-            {/* Portal for dropdown */}
             {mounted && createPortal(
-                <>
+                <div
+                    ref={dropdownWrapperRef}
+                    className="fixed inset-0 z-[45]"
+                    style={{ display: displayedTab ? "block" : "none" }}
+                >
                     <div
-                        ref={dropdownWrapperRef}
-                        className="fixed inset-0 z-[45]"
-                        style={{ display: "none", opacity: 0 }}
-                    >
-                        {/* Click overlay */}
+                        ref={dimmerRef}
+                        className="absolute inset-0 bg-black/45 backdrop-blur-[6px] opacity-0"
+                        onClick={handleCloseDropdown}
+                    />
+
+                    {displayedTab && currentContent && currentCategory && (
                         <div
-                            className="absolute inset-0"
-                            onClick={handleCloseDropdown}
-                        />
-
-                        {/* Dropdown content wrapper - use displayedTab to keep visible during close */}
-                        {displayedTab && currentContent && currentCategory && (
+                            className="absolute left-0 right-0 top-0 z-10"
+                            onMouseEnter={handleMouseEnterDropdown}
+                            onMouseLeave={handleMouseLeaveDropdown}
+                        >
                             <div
-                                className="absolute top-0 left-0 right-0"
-                                style={{
-                                    height: dropdownHeight
-                                }}
-                                onMouseEnter={handleMouseEnterDropdown}
-                                onMouseLeave={handleMouseLeaveDropdown}
+                                ref={dropdownBgRef}
+                                className="nav-flyout-panel relative overflow-hidden border-b border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.55)] bg-marine-dark/85"
                             >
-                                {/* Background with curtain animation */}
                                 <div
-                                    ref={dropdownBgRef}
-                                    className="relative overflow-hidden bg-marine-dark backdrop-blur-3xl border-b border-white/10 shadow-2xl"
-                                    style={{
-                                        clipPath: "inset(0 0 100% 0)",
-                                        height: dropdownHeight
-                                    }}
+                                    className="absolute left-0 right-0 max-w-[1240px] mx-auto flex items-start px-8 pb-6"
+                                    style={{ paddingTop: contentPaddingTop }}
                                 >
-                                    {/* Content Area */}
                                     <div
-                                        className="absolute left-0 right-0 max-w-[1240px] mx-auto flex items-start py-10 px-10"
-                                        style={{ top: 88 }}
+                                        ref={categoriesRef}
+                                        className="relative w-[260px] pr-6 flex flex-col gap-2"
+                                        style={{ willChange: "opacity, transform" }}
                                     >
-                                        {/* Left Column: Categories */}
-                                        <div
-                                            ref={categoriesRef}
-                                            className="relative w-[280px] pr-6 flex flex-col gap-2"
+                                        <div className="absolute right-0 top-2 bottom-2 w-px bg-white/10" />
+
+                                        <span
+                                            className={cn(
+                                                "font-semibold text-white/55 uppercase mb-3 px-4",
+                                                isKorean
+                                                    ? "text-[12px] tracking-[0.16em] font-sans"
+                                                    : "text-[11px] tracking-[0.2em] font-display"
+                                            )}
                                         >
-                                            {/* Vertical divider */}
-                                            <div
-                                                className="absolute right-0 top-0 bottom-0 w-px bg-white/10"
-                                            />
+                                            {isKorean ? currentContent.sectionLabel : currentContent.sectionLabelEn}
+                                        </span>
 
-                                            <span className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.25em] font-display mb-4 px-5">
-                                                {isKorean ? currentContent.sectionLabel : activeTab}
-                                            </span>
-
-                                            {currentContent.categories.map((cat, idx) => (
-                                                <button
-                                                    key={cat.id}
-                                                    onMouseEnter={() => setActiveCategoryIndex(idx)}
-                                                    className={cn(
-                                                        "w-full text-left px-5 py-3 rounded-xl text-sm font-medium transition-colors duration-150 flex items-center justify-between",
-                                                        activeCategoryIndex === idx
-                                                            ? "bg-white text-marine-dark"
-                                                            : "text-white/50 hover:bg-white/5 hover:text-white"
-                                                    )}
-                                                >
-                                                    {isKorean ? cat.label : cat.labelEn}
-                                                    {activeCategoryIndex === idx && (
-                                                        <ChevronRight size={16} className="text-marine-dark" />
-                                                    )}
-                                                </button>
-                                            ))}
-                                        </div>
-
-                                        {/* Right Column: Detail Content */}
-                                        <div className="flex-1 pl-12">
-                                            <div
-                                                ref={contentRef}
-                                                className="flex gap-10 items-center transition-opacity duration-300"
+                                        {currentContent.categories.map((cat, idx) => (
+                                            <button
+                                                key={cat.id}
+                                                onMouseEnter={() => setActiveCategoryIndex(idx)}
+                                                className={cn(
+                                                    "w-full text-left px-4 py-2.5 rounded-xl font-medium transition-colors duration-200 flex items-center justify-between font-sans",
+                                                    isKorean
+                                                        ? "text-[17px] tracking-[0.02em]"
+                                                        : "text-[15px] tracking-[0.03em]",
+                                                    activeCategoryIndex === idx
+                                                        ? "bg-white/10 text-white border border-white/10"
+                                                        : "text-white/75 hover:text-white hover:bg-white/5"
+                                                )}
                                             >
-                                                <div className="flex-1 flex flex-col justify-center">
-                                                    <h3 className="text-3xl font-bold text-white mb-4 font-display tracking-tight leading-tight">
-                                                        {isKorean ? currentCategory.title : currentCategory.titleEn}
-                                                    </h3>
-                                                    <p className="text-white/60 text-base leading-relaxed mb-6 max-w-md">
-                                                        {isKorean ? currentCategory.desc : currentCategory.descEn}
-                                                    </p>
-                                                    <Link
-                                                        href={currentCategory.href}
-                                                        className="inline-flex items-center gap-3 text-sm font-bold text-white bg-white/5 border border-white/10 rounded-xl px-6 py-3 hover:bg-white hover:text-marine-dark transition-all duration-300 group w-fit shadow-lg shadow-black/20"
-                                                    >
-                                                        Explore Details
-                                                        <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                                                    </Link>
-                                                </div>
+                                                {isKorean ? cat.label : cat.labelEn}
+                                                {activeCategoryIndex === idx && (
+                                                    <ChevronRight size={16} className="text-white/90" />
+                                                )}
+                                            </button>
+                                        ))}
+                                    </div>
 
-                                                <div className="w-[320px] h-[220px] rounded-2xl overflow-hidden relative shadow-2xl border border-white/10 shrink-0">
-                                                    <div
-                                                        ref={imageRef}
-                                                        className="absolute inset-0 bg-cover bg-center"
-                                                        style={{ backgroundImage: `url('${currentCategory.image}')` }}
-                                                    />
-                                                    <div className="absolute inset-0 bg-gradient-to-t from-[#050b14]/80 via-transparent to-transparent opacity-60" />
-                                                </div>
+                                    <div className="flex-1 pl-10">
+                                        <div
+                                            ref={contentRef}
+                                            className="flex gap-8 items-center"
+                                            style={{ willChange: "opacity, transform" }}
+                                        >
+                                            <div className="flex-1 flex flex-col justify-center">
+                                                <h3 className="text-[28px] font-semibold text-white mb-3 font-display tracking-tight leading-snug">
+                                                    {isKorean ? currentCategory.title : currentCategory.titleEn}
+                                                </h3>
+                                                <p className="text-white/65 text-base leading-relaxed mb-5 max-w-md font-sans">
+                                                    {isKorean ? currentCategory.desc : currentCategory.descEn}
+                                                </p>
+                                                <Link
+                                                    href={currentCategory.href}
+                                                    className="inline-flex items-center gap-3 text-sm font-semibold text-white/90 bg-white/5 border border-white/10 rounded-full px-5 py-2.5 hover:bg-white hover:text-marine-dark transition-colors duration-300 group w-fit"
+                                                >
+                                                    Explore Details
+                                                    <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                                                </Link>
+                                            </div>
+
+                                            <div className="w-[300px] h-[200px] rounded-2xl overflow-hidden relative shadow-2xl border border-white/10 shrink-0">
+                                                <div
+                                                    ref={imageRef}
+                                                    className="absolute inset-0 bg-cover bg-center"
+                                                    style={{
+                                                        willChange: "opacity, transform",
+                                                        backgroundImage: `url('${currentCategory.image}')`,
+                                                    }}
+                                                />
+                                                <div className="absolute inset-0 bg-gradient-to-t from-[#050b14]/70 via-transparent to-transparent" />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        )}
-                    </div>
-
-                    {/* Background Dimmer */}
-                    <div
-                        ref={dimmerRef}
-                        className="fixed inset-0 top-0 bg-black/60 z-[30] h-screen w-screen pointer-events-none backdrop-blur-[8px]"
-                        style={{
-                            display: "none",
-                            opacity: 0,
-                            maskImage: "linear-gradient(to bottom, transparent 0%, black 20%)",
-                            WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 20%)"
-                        }}
-                    />
-                </>,
+                        </div>
+                    )}
+                </div>,
                 document.body
             )}
         </div>
