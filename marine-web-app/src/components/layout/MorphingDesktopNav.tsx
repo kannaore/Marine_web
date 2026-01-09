@@ -529,7 +529,7 @@ export function MorphingDesktopNav({
                         >
                             <div
                                 ref={dropdownBgRef}
-                                className="nav-flyout-panel relative overflow-hidden border-b border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.55)] bg-marine-dark/85"
+                                className="nav-flyout-panel relative overflow-hidden border-b border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.55)] bg-marine-dark/70"
                             >
                                 <div
                                     className="absolute left-0 right-0 max-w-[1240px] mx-auto flex items-start px-8 pb-6"
@@ -553,8 +553,10 @@ export function MorphingDesktopNav({
                                         </span>
 
                                         {currentContent.categories.map((cat, idx) => (
-                                            <button
+                                            <Link
                                                 key={cat.id}
+                                                href={cat.href}
+                                                onClick={handleCloseDropdown}
                                                 onMouseEnter={() => handleCategoryEnter(idx)}
                                                 className={cn(
                                                     "w-full text-left px-4 py-2.5 rounded-xl font-medium transition-colors duration-200 flex items-center justify-between font-sans border",
@@ -570,7 +572,7 @@ export function MorphingDesktopNav({
                                                 {activeCategoryIndex === idx && (
                                                     <ChevronRight size={16} className="text-marine-dark/80" />
                                                 )}
-                                            </button>
+                                            </Link>
                                         ))}
                                     </div>
 
@@ -590,7 +592,8 @@ export function MorphingDesktopNav({
                                                 </p>
                                                 <Link
                                                     href={currentCategory.href}
-                                                    className="inline-flex items-center gap-3 text-[14px] font-semibold text-white/90 bg-white/5 border border-white/10 rounded-full px-5 py-2.5 hover:bg-white hover:text-marine-dark transition-colors duration-300 group w-fit -translate-x-1"
+                                                    onClick={handleCloseDropdown}
+                                                    className="inline-flex items-center gap-3 text-[14px] font-semibold text-white/90 bg-white/5 border border-white/10 rounded-full px-5 py-2.5 hover:bg-white hover:text-marine-dark transition-colors duration-300 group w-fit -translate-x-[5px]"
                                                 >
                                                     Explore Details
                                                     <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
