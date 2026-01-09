@@ -232,9 +232,9 @@ export function MorphingDesktopNav({
 
             // 카테고리 섹션 내부의 자식 요소들 선택 (콘텐츠 애니메이션과 동일한 패턴)
             const sectionLabel = target.querySelector('span');
-            const buttons = target.querySelectorAll('button');
+            const links = target.querySelectorAll('a'); // Link 컴포넌트는 a 태그로 렌더링
             const divider = target.querySelector('.absolute'); // 구분선
-            const elements = [sectionLabel, ...Array.from(buttons)].filter(Boolean);
+            const elements = [sectionLabel, ...Array.from(links)].filter(Boolean);
 
             // 기존 트윈 정리
             elements.forEach(el => el && gsap.killTweensOf(el));
@@ -495,7 +495,7 @@ export function MorphingDesktopNav({
                         href={NAV_CONTENT[tab as NavKey].href}
                         onClick={handleCloseDropdown}
                         className={cn(
-                            "relative z-20 py-4 font-medium uppercase block text-center",
+                            "relative z-20 py-3 font-medium uppercase block text-center",
                             isKorean
                                 ? "text-[14px] tracking-[0.14em] font-sans"
                                 : "text-[12px] tracking-[0.18em] font-display font-semibold",
@@ -529,7 +529,7 @@ export function MorphingDesktopNav({
                         >
                             <div
                                 ref={dropdownBgRef}
-                                className="nav-flyout-panel relative overflow-hidden border-b border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.55)] bg-marine-dark/70"
+                                className="nav-flyout-panel relative overflow-hidden border-b border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.55)] bg-marine-dark/80"
                             >
                                 <div
                                     className="absolute left-0 right-0 max-w-[1240px] mx-auto flex items-start px-8 pb-6"
@@ -593,7 +593,7 @@ export function MorphingDesktopNav({
                                                 <Link
                                                     href={currentCategory.href}
                                                     onClick={handleCloseDropdown}
-                                                    className="inline-flex items-center gap-3 text-[14px] font-semibold text-white/90 bg-white/5 border border-white/10 rounded-full px-5 py-2.5 hover:bg-white hover:text-marine-dark transition-colors duration-300 group w-fit -translate-x-[5px]"
+                                                    className="inline-flex items-center gap-3 text-[14px] font-semibold text-white/90 bg-white/5 border border-white/10 rounded-full px-5 py-2.5 hover:bg-white hover:text-marine-dark transition-colors duration-300 group w-fit -ml-2"
                                                 >
                                                     Explore Details
                                                     <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />

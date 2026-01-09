@@ -110,12 +110,12 @@ export function Header() {
                     isMenuOpen
                         ? "bg-transparent" // Transparent so solid background behind shows through
                         : isScrolled
-                            ? "bg-marine-dark/40 !border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3)]"
+                            ? "bg-marine-dark/50 !border-white/8 shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
                             : ""
                 )}
                 style={{
-                    WebkitBackdropFilter: isMenuOpen ? "none" : (isScrolled ? "blur(32px) saturate(180%) brightness(1.1)" : "none"),
-                    backdropFilter: isMenuOpen ? "none" : (isScrolled ? "blur(32px) saturate(180%) brightness(1.1)" : "none"),
+                    WebkitBackdropFilter: isMenuOpen ? "none" : (isScrolled ? "blur(15px) saturate(180%) brightness(1.1)" : "none"),
+                    backdropFilter: isMenuOpen ? "none" : (isScrolled ? "blur(15px) saturate(180%) brightness(1.1)" : "none"),
                 }}
             >
                 <div className="flex items-center justify-between">
