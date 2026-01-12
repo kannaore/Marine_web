@@ -127,79 +127,71 @@ export function CertificationsGallery() {
     };
 
     return (
-        <section ref={sectionRef} className="py-24 bg-marine-dark overflow-hidden">
+        <section ref={sectionRef} className="bg-marine-dark overflow-hidden py-24">
             <div className="container-custom">
                 {/* Header */}
-                <div
-                    ref={headerRef}
-                    className="flex items-end justify-between mb-12"
-                >
+                <div ref={headerRef} className="mb-12 flex items-end justify-between">
                     <div>
-                        <span className="text-xs tracking-[0.3em] uppercase text-ocean-400 font-medium">
+                        <span className="text-ocean-400 text-xs font-medium tracking-[0.3em] uppercase">
                             Trust & Credentials
                         </span>
-                        <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-white mt-3">
+                        <h2 className="font-display mt-3 text-3xl font-bold text-white md:text-4xl lg:text-5xl">
                             Certifications & Patents
                         </h2>
                     </div>
 
                     {/* Navigation Arrows */}
-                    <div className="hidden md:flex gap-3">
+                    <div className="hidden gap-3 md:flex">
                         <button
                             onClick={handlePrev}
                             disabled={currentIndex === 0}
-                            className="w-12 h-12 rounded-full flex items-center justify-center border border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20 disabled:opacity-30 disabled:cursor-not-allowed transition-all active:scale-95"
+                            className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 transition-all hover:border-white/20 hover:bg-white/10 active:scale-95 disabled:cursor-not-allowed disabled:opacity-30"
                         >
-                            <ChevronLeft className="w-5 h-5 text-white" />
+                            <ChevronLeft className="h-5 w-5 text-white" />
                         </button>
                         <button
                             onClick={handleNext}
                             disabled={currentIndex >= maxIndex}
-                            className="w-12 h-12 rounded-full flex items-center justify-center border border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20 disabled:opacity-30 disabled:cursor-not-allowed transition-all active:scale-95"
+                            className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 transition-all hover:border-white/20 hover:bg-white/10 active:scale-95 disabled:cursor-not-allowed disabled:opacity-30"
                         >
-                            <ChevronRight className="w-5 h-5 text-white" />
+                            <ChevronRight className="h-5 w-5 text-white" />
                         </button>
                     </div>
                 </div>
 
                 {/* Carousel Track */}
                 <div className="relative overflow-hidden">
-                    <div
-                        ref={trackRef}
-                        className="flex gap-4"
-                    >
+                    <div ref={trackRef} className="flex gap-4">
                         {certifications.map((cert) => (
                             <div
                                 key={cert.id}
-                                className="cert-card min-w-[calc(100%/2-0.5rem)] md:min-w-[calc(100%/4-0.75rem)] flex-shrink-0"
+                                className="cert-card min-w-[calc(100%/2-0.5rem)] flex-shrink-0 md:min-w-[calc(100%/4-0.75rem)]"
                             >
-                                <div className="group relative h-[280px] rounded-2xl bg-white/[0.02] border border-white/5 overflow-hidden hover:border-ocean-400/30 hover:bg-white/[0.04] transition-all duration-500">
+                                <div className="group hover:border-ocean-400/30 relative h-[280px] overflow-hidden rounded-2xl border border-white/5 bg-white/[0.02] transition-all duration-500 hover:bg-white/[0.04]">
                                     {/* Certificate Image */}
                                     <div className="relative h-[160px] overflow-hidden bg-gradient-to-br from-white/5 to-transparent">
                                         <Image
                                             src={cert.image}
                                             alt={cert.title}
                                             fill
-                                            className="object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-500"
+                                            className="object-cover opacity-60 transition-all duration-500 group-hover:scale-105 group-hover:opacity-80"
                                         />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-marine-dark via-marine-dark/60 to-transparent" />
+                                        <div className="from-marine-dark via-marine-dark/60 absolute inset-0 bg-gradient-to-t to-transparent" />
                                     </div>
 
                                     {/* Content */}
-                                    <div className="absolute bottom-0 left-0 right-0 p-4">
-                                        <p className="text-[10px] font-medium text-ocean-400/80 uppercase tracking-wider mb-1">
+                                    <div className="absolute right-0 bottom-0 left-0 p-4">
+                                        <p className="text-ocean-400/80 mb-1 text-[10px] font-medium tracking-wider uppercase">
                                             {cert.type}
                                         </p>
-                                        <h3 className="text-sm font-semibold text-white leading-tight mb-1 group-hover:text-ocean-300 transition-colors">
+                                        <h3 className="group-hover:text-ocean-300 mb-1 text-sm leading-tight font-semibold text-white transition-colors">
                                             {cert.title}
                                         </h3>
-                                        <p className="text-xs text-white/40">
-                                            {cert.description}
-                                        </p>
+                                        <p className="text-xs text-white/40">{cert.description}</p>
                                     </div>
 
                                     {/* Subtle Glow */}
-                                    <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-ocean-500/10 blur-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                    <div className="bg-ocean-500/10 absolute -right-8 -bottom-8 h-24 w-24 opacity-0 blur-[40px] transition-opacity duration-500 group-hover:opacity-100" />
                                 </div>
                             </div>
                         ))}
@@ -212,29 +204,30 @@ export function CertificationsGallery() {
                         <button
                             key={i}
                             onClick={() => setCurrentIndex(i)}
-                            className={`h-1.5 rounded-full transition-all duration-300 ${currentIndex === i
-                                ? "w-8 bg-ocean-400"
-                                : "w-1.5 bg-white/20 hover:bg-white/40"
-                                }`}
+                            className={`h-1.5 rounded-full transition-all duration-300 ${
+                                currentIndex === i
+                                    ? "bg-ocean-400 w-8"
+                                    : "w-1.5 bg-white/20 hover:bg-white/40"
+                            }`}
                         />
                     ))}
                 </div>
 
                 {/* Mobile Navigation */}
-                <div className="flex md:hidden justify-center gap-3 mt-6">
+                <div className="mt-6 flex justify-center gap-3 md:hidden">
                     <button
                         onClick={handlePrev}
                         disabled={currentIndex === 0}
-                        className="w-12 h-12 rounded-full flex items-center justify-center border border-white/10 bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                        className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 transition-all disabled:cursor-not-allowed disabled:opacity-30"
                     >
-                        <ChevronLeft className="w-5 h-5 text-white" />
+                        <ChevronLeft className="h-5 w-5 text-white" />
                     </button>
                     <button
                         onClick={handleNext}
                         disabled={currentIndex >= maxIndex}
-                        className="w-12 h-12 rounded-full flex items-center justify-center border border-white/10 bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                        className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 transition-all disabled:cursor-not-allowed disabled:opacity-30"
                     >
-                        <ChevronRight className="w-5 h-5 text-white" />
+                        <ChevronRight className="h-5 w-5 text-white" />
                     </button>
                 </div>
             </div>

@@ -4,11 +4,7 @@ import { NAV_CONTENT } from "@/lib/navData";
 
 const pageData = NAV_CONTENT["CAREERS"];
 
-export default async function CareersPage({
-    params,
-}: {
-    params: Promise<{ locale: string }>;
-}) {
+export default async function CareersPage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = await params;
     setRequestLocale(locale);
 

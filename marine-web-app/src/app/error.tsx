@@ -36,49 +36,47 @@ export default function Error({
     }, [error]);
 
     return (
-        <div className="min-h-screen bg-marine-dark flex items-center justify-center px-6">
-            <div ref={containerRef} className="text-center max-w-md">
+        <div className="bg-marine-dark flex min-h-screen items-center justify-center px-6">
+            <div ref={containerRef} className="max-w-md text-center">
                 <div
                     ref={iconRef}
-                    className="w-20 h-20 mx-auto mb-6 rounded-full bg-red-500/20 flex items-center justify-center"
+                    className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-red-500/20"
                 >
                     <AlertTriangle size={40} className="text-red-400" />
                 </div>
 
-                <h1 className="font-display text-3xl font-bold text-white mb-4">
+                <h1 className="font-display mb-4 text-3xl font-bold text-white">
                     오류가 발생했습니다
                 </h1>
-                <p className="text-white/60 mb-8">
+                <p className="mb-8 text-white/60">
                     페이지를 불러오는 중 문제가 발생했습니다.
                     <br />
                     잠시 후 다시 시도해주세요.
                 </p>
 
                 {error.digest && (
-                    <p className="text-white/40 text-sm mb-6">
-                        Error ID: {error.digest}
-                    </p>
+                    <p className="mb-6 text-sm text-white/40">Error ID: {error.digest}</p>
                 )}
 
-                {process.env.NODE_ENV === 'development' && (
-                    <pre className="text-left text-xs text-red-400 bg-red-500/10 p-4 rounded-lg mb-6 overflow-auto max-h-40">
+                {process.env.NODE_ENV === "development" && (
+                    <pre className="mb-6 max-h-40 overflow-auto rounded-lg bg-red-500/10 p-4 text-left text-xs text-red-400">
                         {error.message}
-                        {'\n\n'}
+                        {"\n\n"}
                         {error.stack}
                     </pre>
                 )}
 
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
                     <button
                         onClick={reset}
-                        className="inline-flex items-center gap-2 px-6 py-3 bg-ocean-500 text-white rounded-full hover:bg-ocean-600 transition-colors"
+                        className="bg-ocean-500 hover:bg-ocean-600 inline-flex items-center gap-2 rounded-full px-6 py-3 text-white transition-colors"
                     >
                         <RefreshCcw size={18} />
                         다시 시도
                     </button>
                     <Link
                         href="/"
-                        className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 text-white rounded-full hover:bg-white/20 transition-colors"
+                        className="inline-flex items-center gap-2 rounded-full bg-white/10 px-6 py-3 text-white transition-colors hover:bg-white/20"
                     >
                         <Home size={18} />
                         홈으로 이동

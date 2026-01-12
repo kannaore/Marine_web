@@ -15,7 +15,7 @@ export function LanguageSwitcher() {
     };
 
     return (
-        <div className="flex items-center gap-1.5 font-display text-sm font-medium tracking-wide">
+        <div className="font-display flex items-center gap-1.5 text-sm font-medium tracking-wide">
             <button
                 onClick={() => handleLocaleChange("en")}
                 className={cn(

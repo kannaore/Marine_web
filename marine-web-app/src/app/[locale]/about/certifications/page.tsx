@@ -82,22 +82,22 @@ export default async function CertificationsPage({
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-[#050b14]/70 via-[#050b14]/50 to-[#050b14]" />
 
-                <div className="relative h-full flex flex-col justify-center items-center text-center px-6">
+                <div className="relative flex h-full flex-col items-center justify-center px-6 text-center">
                     <Link
                         href="/about"
-                        className="absolute top-8 left-8 flex items-center gap-2 text-white/70 hover:text-white transition-colors"
+                        className="absolute top-8 left-8 flex items-center gap-2 text-white/70 transition-colors hover:text-white"
                     >
                         <ArrowLeft size={20} />
                         <span>About Us</span>
                     </Link>
 
-                    <span className="text-cyan-400 font-semibold tracking-wider uppercase text-sm mb-4">
+                    <span className="mb-4 text-sm font-semibold tracking-wider text-cyan-400 uppercase">
                         Certifications
                     </span>
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white font-display mb-4">
+                    <h1 className="font-display mb-4 text-4xl font-bold text-white md:text-5xl lg:text-6xl">
                         인증 및 자격 현황
                     </h1>
-                    <p className="text-white/60 max-w-2xl text-lg">
+                    <p className="max-w-2xl text-lg text-white/60">
                         국제 표준 인증을 통해 글로벌 수준의 품질과 안전을 보장합니다
                     </p>
                 </div>
@@ -105,31 +105,33 @@ export default async function CertificationsPage({
 
             {/* ISO Certifications */}
             <section className="py-20">
-                <div className="max-w-6xl mx-auto px-6">
-                    <div className="text-center mb-16">
-                        <span className="text-cyan-600 font-semibold tracking-wider uppercase text-sm">
+                <div className="mx-auto max-w-6xl px-6">
+                    <div className="mb-16 text-center">
+                        <span className="text-sm font-semibold tracking-wider text-cyan-600 uppercase">
                             International Standards
                         </span>
-                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 font-display mt-4">
+                        <h2 className="font-display mt-4 text-3xl font-bold text-gray-900 md:text-4xl">
                             국제 표준 인증
                         </h2>
                     </div>
 
-                    <div className="grid md:grid-cols-3 gap-8">
+                    <div className="grid gap-8 md:grid-cols-3">
                         {CERTIFICATIONS_DATA.certifications.map((cert) => (
                             <div
                                 key={cert.id}
-                                className="bg-white border border-gray-200 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all hover:-translate-y-1"
+                                className="rounded-2xl border border-gray-200 bg-white p-8 shadow-lg transition-all hover:-translate-y-1 hover:shadow-xl"
                             >
-                                <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-2xl flex items-center justify-center mb-6">
+                                <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600">
                                     <Shield size={32} className="text-white" />
                                 </div>
 
-                                <h3 className="text-2xl font-bold text-gray-900 mb-2">{cert.name}</h3>
-                                <p className="text-cyan-600 font-medium mb-4">{cert.fullName}</p>
-                                <p className="text-gray-500 text-sm mb-6">{cert.description}</p>
+                                <h3 className="mb-2 text-2xl font-bold text-gray-900">
+                                    {cert.name}
+                                </h3>
+                                <p className="mb-4 font-medium text-cyan-600">{cert.fullName}</p>
+                                <p className="mb-6 text-sm text-gray-500">{cert.description}</p>
 
-                                <div className="border-t border-gray-100 pt-4 space-y-2">
+                                <div className="space-y-2 border-t border-gray-100 pt-4">
                                     <div className="flex justify-between text-sm">
                                         <span className="text-gray-400">발급기관</span>
                                         <span className="text-gray-700">{cert.issuer}</span>
@@ -153,30 +155,30 @@ export default async function CertificationsPage({
             </section>
 
             {/* Quality Certificates */}
-            <section className="py-20 bg-gray-50">
-                <div className="max-w-6xl mx-auto px-6">
-                    <div className="text-center mb-16">
-                        <span className="text-cyan-600 font-semibold tracking-wider uppercase text-sm">
+            <section className="bg-gray-50 py-20">
+                <div className="mx-auto max-w-6xl px-6">
+                    <div className="mb-16 text-center">
+                        <span className="text-sm font-semibold tracking-wider text-cyan-600 uppercase">
                             Quality Certificates
                         </span>
-                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 font-display mt-4">
+                        <h2 className="font-display mt-4 text-3xl font-bold text-gray-900 md:text-4xl">
                             기업 인증 현황
                         </h2>
                     </div>
 
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
                         {CERTIFICATIONS_DATA.qualityCertificates.map((cert) => (
                             <div
                                 key={cert.name}
-                                className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow"
+                                className="rounded-xl bg-white p-6 shadow-md transition-shadow hover:shadow-lg"
                             >
-                                <div className="flex items-center gap-3 mb-4">
-                                    <div className="w-10 h-10 bg-cyan-100 rounded-lg flex items-center justify-center">
+                                <div className="mb-4 flex items-center gap-3">
+                                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-cyan-100">
                                         <Award size={20} className="text-cyan-600" />
                                     </div>
                                     <span className="text-sm text-gray-400">{cert.year}</span>
                                 </div>
-                                <h3 className="font-bold text-gray-900 mb-2">{cert.name}</h3>
+                                <h3 className="mb-2 font-bold text-gray-900">{cert.name}</h3>
                                 <p className="text-sm text-gray-500">{cert.issuer}</p>
                             </div>
                         ))}
@@ -185,28 +187,40 @@ export default async function CertificationsPage({
             </section>
 
             {/* Quality Commitment */}
-            <section className="py-20 bg-[#050b14]">
-                <div className="max-w-4xl mx-auto px-6 text-center">
-                    <h2 className="text-3xl md:text-4xl font-bold text-white font-display mb-6">
+            <section className="bg-[#050b14] py-20">
+                <div className="mx-auto max-w-4xl px-6 text-center">
+                    <h2 className="font-display mb-6 text-3xl font-bold text-white md:text-4xl">
                         품질 관리 체계
                     </h2>
-                    <p className="text-white/60 text-lg mb-12 max-w-2xl mx-auto">
-                        마린리서치는 체계적인 품질 관리 시스템을 통해 모든 프로젝트에서
-                        일관된 품질을 보장합니다
+                    <p className="mx-auto mb-12 max-w-2xl text-lg text-white/60">
+                        마린리서치는 체계적인 품질 관리 시스템을 통해 모든 프로젝트에서 일관된
+                        품질을 보장합니다
                     </p>
 
-                    <div className="grid md:grid-cols-3 gap-8">
+                    <div className="grid gap-8 md:grid-cols-3">
                         {[
-                            { step: "01", title: "품질 기획", desc: "프로젝트별 품질 목표 및 계획 수립" },
-                            { step: "02", title: "품질 관리", desc: "단계별 검수 및 품질 점검 수행" },
-                            { step: "03", title: "품질 보증", desc: "최종 성과물 검증 및 고객 만족도 확인" },
+                            {
+                                step: "01",
+                                title: "품질 기획",
+                                desc: "프로젝트별 품질 목표 및 계획 수립",
+                            },
+                            {
+                                step: "02",
+                                title: "품질 관리",
+                                desc: "단계별 검수 및 품질 점검 수행",
+                            },
+                            {
+                                step: "03",
+                                title: "품질 보증",
+                                desc: "최종 성과물 검증 및 고객 만족도 확인",
+                            },
                         ].map((item) => (
                             <div key={item.step} className="text-center">
-                                <div className="text-5xl font-bold text-cyan-400 font-display mb-4">
+                                <div className="font-display mb-4 text-5xl font-bold text-cyan-400">
                                     {item.step}
                                 </div>
-                                <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
-                                <p className="text-white/50 text-sm">{item.desc}</p>
+                                <h3 className="mb-2 text-xl font-bold text-white">{item.title}</h3>
+                                <p className="text-sm text-white/50">{item.desc}</p>
                             </div>
                         ))}
                     </div>

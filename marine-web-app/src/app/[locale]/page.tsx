@@ -8,11 +8,7 @@ import { CertificationsGallery } from "@/components/sections/CertificationsGalle
 import { CaseStudiesSection } from "@/components/sections/CaseStudiesSection";
 import { CTASection } from "@/components/sections/CTASection";
 
-export default async function HomePage({
-    params,
-}: {
-    params: Promise<{ locale: string }>;
-}) {
+export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = await params;
     setRequestLocale(locale);
 
@@ -29,5 +25,3 @@ export default async function HomePage({
         </>
     );
 }
-
-

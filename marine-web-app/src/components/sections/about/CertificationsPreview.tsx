@@ -65,22 +65,22 @@ export function CertificationsPreview() {
     return (
         <section
             ref={sectionRef}
-            className="py-24 md:py-32 bg-gradient-to-b from-marine-dark to-[#050a10]"
+            className="from-marine-dark bg-gradient-to-b to-[#050a10] py-24 md:py-32"
         >
             <div className="container-custom">
                 <FadeIn>
-                    <div className="flex items-end justify-between mb-12">
+                    <div className="mb-12 flex items-end justify-between">
                         <div>
-                            <span className="text-ocean-400 text-sm font-medium tracking-widest uppercase mb-4 block">
+                            <span className="text-ocean-400 mb-4 block text-sm font-medium tracking-widest uppercase">
                                 {isKorean ? "인증 및 자격" : "Certifications & Licenses"}
                             </span>
-                            <h2 className="font-display text-3xl md:text-4xl font-bold text-white">
+                            <h2 className="font-display text-3xl font-bold text-white md:text-4xl">
                                 {isKorean ? "신뢰할 수 있는 역량" : "Certified Excellence"}
                             </h2>
                         </div>
                         <Link
                             href="/about/certifications"
-                            className="hidden md:flex items-center gap-2 text-ocean-400 hover:text-ocean-300 transition-colors"
+                            className="text-ocean-400 hover:text-ocean-300 hidden items-center gap-2 transition-colors md:flex"
                         >
                             {isKorean ? "전체 인증 보기" : "View All Certifications"}
                             <ChevronRight size={18} />
@@ -89,24 +89,24 @@ export function CertificationsPreview() {
                 </FadeIn>
 
                 {/* Certifications Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                     {certifications.map((cert) => (
                         <div
                             key={cert.titleEn}
-                            className="cert-card glass-panel rounded-2xl p-8 hover:bg-white/10 transition-colors duration-300"
+                            className="cert-card glass-panel rounded-2xl p-8 transition-colors duration-300 hover:bg-white/10"
                         >
                             <div className="flex items-start gap-4">
-                                <div className="w-14 h-14 rounded-xl bg-ocean-500/20 flex items-center justify-center shrink-0">
-                                    <cert.icon className="w-7 h-7 text-ocean-400" />
+                                <div className="bg-ocean-500/20 flex h-14 w-14 shrink-0 items-center justify-center rounded-xl">
+                                    <cert.icon className="text-ocean-400 h-7 w-7" />
                                 </div>
                                 <div>
-                                    <div className="font-display text-3xl font-bold text-white mb-1">
+                                    <div className="font-display mb-1 text-3xl font-bold text-white">
                                         {isKorean ? cert.countKo : cert.countEn}
                                     </div>
-                                    <h3 className="text-lg font-semibold text-white/80 mb-2">
+                                    <h3 className="mb-2 text-lg font-semibold text-white/80">
                                         {isKorean ? cert.titleKo : cert.titleEn}
                                     </h3>
-                                    <p className="text-white/50 text-sm">
+                                    <p className="text-sm text-white/50">
                                         {isKorean ? cert.descKo : cert.descEn}
                                     </p>
                                 </div>
@@ -116,10 +116,10 @@ export function CertificationsPreview() {
                 </div>
 
                 {/* Mobile: View All Link */}
-                <div className="md:hidden mt-8 text-center">
+                <div className="mt-8 text-center md:hidden">
                     <Link
                         href="/about/certifications"
-                        className="inline-flex items-center gap-2 text-ocean-400"
+                        className="text-ocean-400 inline-flex items-center gap-2"
                     >
                         {isKorean ? "전체 인증 보기" : "View All Certifications"}
                         <ChevronRight size={18} />

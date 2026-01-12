@@ -26,16 +26,16 @@ export default function GlobalError({
     return (
         <html lang="ko">
             <body className="bg-marine-dark">
-                <div className="min-h-screen flex items-center justify-center px-6">
-                    <div ref={containerRef} className="text-center max-w-md">
-                        <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-red-500/20 flex items-center justify-center">
+                <div className="flex min-h-screen items-center justify-center px-6">
+                    <div ref={containerRef} className="max-w-md text-center">
+                        <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-red-500/20">
                             <AlertOctagon size={40} className="text-red-400" />
                         </div>
 
-                        <h1 className="text-3xl font-bold text-white mb-4">
+                        <h1 className="mb-4 text-3xl font-bold text-white">
                             심각한 오류가 발생했습니다
                         </h1>
-                        <p className="text-white/60 mb-8">
+                        <p className="mb-8 text-white/60">
                             애플리케이션에 문제가 발생했습니다.
                             <br />
                             페이지를 새로고침해주세요.
@@ -43,7 +43,7 @@ export default function GlobalError({
 
                         <button
                             onClick={reset}
-                            className="inline-flex items-center gap-2 px-6 py-3 bg-ocean-500 text-white rounded-full hover:bg-ocean-600 transition-colors"
+                            className="bg-ocean-500 hover:bg-ocean-600 inline-flex items-center gap-2 rounded-full px-6 py-3 text-white transition-colors"
                         >
                             <RefreshCcw size={18} />
                             새로고침

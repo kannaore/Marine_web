@@ -4,11 +4,7 @@ import { NAV_CONTENT } from "@/lib/navData";
 
 const pageData = NAV_CONTENT["ASSETS"];
 
-export default async function AssetsPage({
-    params,
-}: {
-    params: Promise<{ locale: string }>;
-}) {
+export default async function AssetsPage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = await params;
     setRequestLocale(locale);
 

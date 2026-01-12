@@ -128,19 +128,17 @@ export function FleetSection() {
     );
 
     return (
-        <section
-            ref={sectionRef}
-            className="relative py-32 bg-marine-dark overflow-hidden"
-        >
+        <section ref={sectionRef} className="bg-marine-dark relative overflow-hidden py-32">
             {/* Background Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-ocean-950/20 to-transparent" />
+            <div className="via-ocean-950/20 absolute inset-0 bg-gradient-to-b from-transparent to-transparent" />
 
             {/* Decorative Grid */}
-            <div className="absolute inset-0 opacity-[0.02]"
+            <div
+                className="absolute inset-0 opacity-[0.02]"
                 style={{
                     backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), 
                                      linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-                    backgroundSize: '60px 60px'
+                    backgroundSize: "60px 60px",
                 }}
             />
 
@@ -148,10 +146,10 @@ export function FleetSection() {
                 <div className="container-custom">
                     {/* Section Header */}
                     <div className="section-header mb-20">
-                        <span className="text-xs tracking-[0.3em] uppercase text-ocean-400 font-medium">
+                        <span className="text-ocean-400 text-xs font-medium tracking-[0.3em] uppercase">
                             Fleet & Equipment
                         </span>
-                        <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mt-4">
+                        <h2 className="font-display mt-4 text-4xl font-bold text-white md:text-5xl lg:text-6xl">
                             World-Class
                             <br />
                             <span className="text-gradient-ocean">Survey Fleet</span>
@@ -159,25 +157,27 @@ export function FleetSection() {
                     </div>
 
                     {/* Equipment Stats Bar */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
+                    <div className="mb-20 grid grid-cols-2 gap-4 md:grid-cols-4">
                         {equipment.map((item) => (
                             <div
                                 key={item.name}
-                                className="equipment-stat group p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-ocean-400/30 hover:bg-white/[0.04] transition-all duration-500"
+                                className="equipment-stat group hover:border-ocean-400/30 rounded-2xl border border-white/5 bg-white/[0.02] p-6 transition-all duration-500 hover:bg-white/[0.04]"
                             >
-                                <item.icon className="w-8 h-8 text-ocean-400 mb-4 group-hover:scale-110 transition-transform duration-300" />
-                                <div className="text-3xl font-bold text-white mb-1">{item.count}</div>
+                                <item.icon className="text-ocean-400 mb-4 h-8 w-8 transition-transform duration-300 group-hover:scale-110" />
+                                <div className="mb-1 text-3xl font-bold text-white">
+                                    {item.count}
+                                </div>
                                 <div className="text-sm text-white/50">{item.name}</div>
                             </div>
                         ))}
                     </div>
 
                     {/* Vessel Cards */}
-                    <div className="grid lg:grid-cols-3 gap-6">
+                    <div className="grid gap-6 lg:grid-cols-3">
                         {vessels.map((vessel) => (
                             <div
                                 key={vessel.id}
-                                className="vessel-card group relative rounded-3xl overflow-hidden bg-white/[0.02] border border-white/5 hover:border-ocean-400/20 transition-all duration-500"
+                                className="vessel-card group hover:border-ocean-400/20 relative overflow-hidden rounded-3xl border border-white/5 bg-white/[0.02] transition-all duration-500"
                             >
                                 {/* Image */}
                                 <div className="relative h-64 overflow-hidden">
@@ -185,43 +185,49 @@ export function FleetSection() {
                                         src={vessel.image}
                                         alt={vessel.name}
                                         fill
-                                        className="object-cover group-hover:scale-105 transition-transform duration-700"
+                                        className="object-cover transition-transform duration-700 group-hover:scale-105"
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-marine-dark via-marine-dark/50 to-transparent" />
+                                    <div className="from-marine-dark via-marine-dark/50 absolute inset-0 bg-gradient-to-t to-transparent" />
 
                                     {/* Type Badge */}
-                                    <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-ocean-400/20 border border-ocean-400/30 backdrop-blur-sm">
-                                        <span className="text-xs font-medium text-ocean-300">{vessel.type}</span>
+                                    <div className="bg-ocean-400/20 border-ocean-400/30 absolute top-4 left-4 rounded-full border px-3 py-1 backdrop-blur-sm">
+                                        <span className="text-ocean-300 text-xs font-medium">
+                                            {vessel.type}
+                                        </span>
                                     </div>
                                 </div>
 
                                 {/* Content */}
                                 <div className="p-6">
-                                    <div className="flex items-center justify-between mb-3">
-                                        <h3 className="text-xl font-bold text-white">{vessel.name}</h3>
-                                        <span className="text-xs text-white/40">{vessel.nameKo}</span>
+                                    <div className="mb-3 flex items-center justify-between">
+                                        <h3 className="text-xl font-bold text-white">
+                                            {vessel.name}
+                                        </h3>
+                                        <span className="text-xs text-white/40">
+                                            {vessel.nameKo}
+                                        </span>
                                     </div>
 
-                                    <p className="text-sm text-white/60 mb-4 leading-relaxed">
+                                    <p className="mb-4 text-sm leading-relaxed text-white/60">
                                         {vessel.description}
                                     </p>
 
                                     {/* Specs */}
                                     <div className="flex flex-wrap gap-2">
-                                        <span className="px-3 py-1 text-xs bg-white/5 rounded-full text-white/70">
+                                        <span className="rounded-full bg-white/5 px-3 py-1 text-xs text-white/70">
                                             {vessel.specs.length}
                                         </span>
-                                        <span className="px-3 py-1 text-xs bg-white/5 rounded-full text-white/70">
+                                        <span className="rounded-full bg-white/5 px-3 py-1 text-xs text-white/70">
                                             {vessel.specs.capacity}
                                         </span>
-                                        <span className="px-3 py-1 text-xs bg-white/5 rounded-full text-white/70">
+                                        <span className="rounded-full bg-white/5 px-3 py-1 text-xs text-white/70">
                                             {vessel.specs.equipment}
                                         </span>
                                     </div>
                                 </div>
 
                                 {/* Hover Glow */}
-                                <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-ocean-500/10 blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                <div className="bg-ocean-500/10 absolute -right-10 -bottom-10 h-40 w-40 opacity-0 blur-[60px] transition-opacity duration-500 group-hover:opacity-100" />
                             </div>
                         ))}
                     </div>

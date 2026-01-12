@@ -30,17 +30,18 @@ function CategoryCard({ category, index, gridLayout, isKorean }: CategoryCardPro
         }
     }, [index]);
 
-    const cardHeight = gridLayout === 1 ? "h-[320px]" : gridLayout === 2 ? "h-[380px]" : "h-[400px]";
+    const cardHeight =
+        gridLayout === 1 ? "h-[320px]" : gridLayout === 2 ? "h-[380px]" : "h-[400px]";
 
     return (
         <div ref={cardRef}>
-            <Link href={category.href} className="block group">
+            <Link href={category.href} className="group block">
                 <div
                     className={cn(
                         "relative overflow-hidden rounded-2xl",
-                        "bg-white/[0.03] border border-white/10",
+                        "border border-white/10 bg-white/[0.03]",
                         "transition-all duration-500 ease-out",
-                        "hover:bg-white/[0.06] hover:border-white/20",
+                        "hover:border-white/20 hover:bg-white/[0.06]",
                         "hover:shadow-2xl hover:shadow-black/40",
                         "hover:scale-[1.02]",
                         cardHeight
@@ -57,16 +58,16 @@ function CategoryCard({ category, index, gridLayout, isKorean }: CategoryCardPro
 
                     {/* Content */}
                     <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8">
-                        <span className="text-xs font-semibold text-cyan-400 uppercase tracking-[0.2em] mb-3">
+                        <span className="mb-3 text-xs font-semibold tracking-[0.2em] text-cyan-400 uppercase">
                             {isKorean ? category.label : category.labelEn}
                         </span>
-                        <h3 className="text-2xl md:text-3xl font-bold text-white mb-3 font-display leading-tight">
+                        <h3 className="font-display mb-3 text-2xl leading-tight font-bold text-white md:text-3xl">
                             {isKorean ? category.title : category.titleEn}
                         </h3>
-                        <p className="text-white/60 text-sm md:text-base leading-relaxed mb-4 max-w-md">
+                        <p className="mb-4 max-w-md text-sm leading-relaxed text-white/60 md:text-base">
                             {isKorean ? category.desc : category.descEn}
                         </p>
-                        <div className="flex items-center gap-2 text-white/40 group-hover:text-white transition-colors duration-300">
+                        <div className="flex items-center gap-2 text-white/40 transition-colors duration-300 group-hover:text-white">
                             <span className="text-sm font-medium">
                                 {isKorean ? "자세히 보기" : "Learn more"}
                             </span>
@@ -78,7 +79,7 @@ function CategoryCard({ category, index, gridLayout, isKorean }: CategoryCardPro
                     </div>
 
                     {/* Hover Glow Effect */}
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                    <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
                         <div className="absolute inset-0 bg-gradient-to-t from-cyan-500/10 via-transparent to-transparent" />
                     </div>
                 </div>
@@ -102,7 +103,7 @@ export function CategoryLandingPage({
     heroDesc,
     heroDescEn,
     categories,
-    gridLayout
+    gridLayout,
 }: CategoryLandingPageProps) {
     const heroRef = useRef<HTMLDivElement>(null);
     const locale = useLocale();
@@ -140,19 +141,19 @@ export function CategoryLandingPage({
     };
 
     return (
-        <section className="min-h-screen pt-32 pb-24 px-6">
+        <section className="min-h-screen px-6 pt-32 pb-24">
             {/* Hero Section */}
-            <div ref={heroRef} className="max-w-4xl mx-auto text-center mb-16 md:mb-24">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white font-display mb-6 leading-tight">
-                    {isKorean ? heroTitle : (heroTitleEn || heroTitle)}
+            <div ref={heroRef} className="mx-auto mb-16 max-w-4xl text-center md:mb-24">
+                <h1 className="font-display mb-6 text-4xl leading-tight font-bold text-white md:text-5xl lg:text-6xl">
+                    {isKorean ? heroTitle : heroTitleEn || heroTitle}
                 </h1>
-                <p className="text-lg md:text-xl text-white/60 leading-relaxed max-w-2xl mx-auto">
-                    {isKorean ? heroDesc : (heroDescEn || heroDesc)}
+                <p className="mx-auto max-w-2xl text-lg leading-relaxed text-white/60 md:text-xl">
+                    {isKorean ? heroDesc : heroDescEn || heroDesc}
                 </p>
             </div>
 
             {/* Category Grid */}
-            <div className={cn("grid gap-6 md:gap-8 mx-auto", gridCols[gridLayout])}>
+            <div className={cn("mx-auto grid gap-6 md:gap-8", gridCols[gridLayout])}>
                 {categories.map((category, index) => (
                     <CategoryCard
                         key={category.id}

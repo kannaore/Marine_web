@@ -65,15 +65,15 @@ export function VisionSection() {
     return (
         <section
             ref={sectionRef}
-            className="py-24 md:py-32 bg-gradient-to-b from-marine-dark to-[#050a10]"
+            className="from-marine-dark bg-gradient-to-b to-[#050a10] py-24 md:py-32"
         >
             <div className="container-custom">
                 <FadeIn>
-                    <div className="text-center mb-16">
-                        <span className="text-ocean-400 text-sm font-medium tracking-widest uppercase mb-4 block">
+                    <div className="mb-16 text-center">
+                        <span className="text-ocean-400 mb-4 block text-sm font-medium tracking-widest uppercase">
                             {isKorean ? "비전 및 이념" : "Vision & Philosophy"}
                         </span>
-                        <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-white">
+                        <h2 className="font-display text-3xl font-bold text-white md:text-4xl lg:text-5xl">
                             {isKorean
                                 ? "지속 가능한 해양의 미래를 위해"
                                 : "For a Sustainable Ocean Future"}
@@ -81,19 +81,19 @@ export function VisionSection() {
                     </div>
                 </FadeIn>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
                     {visionItems.map((item) => (
                         <div
                             key={item.titleEn}
-                            className="vision-card glass-panel rounded-2xl p-8 text-center hover:bg-white/10 transition-colors duration-300"
+                            className="vision-card glass-panel rounded-2xl p-8 text-center transition-colors duration-300 hover:bg-white/10"
                         >
-                            <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-ocean-500/20 flex items-center justify-center">
-                                <item.icon className="w-8 h-8 text-ocean-400" />
+                            <div className="bg-ocean-500/20 mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl">
+                                <item.icon className="text-ocean-400 h-8 w-8" />
                             </div>
-                            <h3 className="font-display text-xl font-bold text-white mb-3">
+                            <h3 className="font-display mb-3 text-xl font-bold text-white">
                                 {isKorean ? item.titleKo : item.titleEn}
                             </h3>
-                            <p className="text-white/60 text-sm leading-relaxed">
+                            <p className="text-sm leading-relaxed text-white/60">
                                 {isKorean ? item.descKo : item.descEn}
                             </p>
                         </div>

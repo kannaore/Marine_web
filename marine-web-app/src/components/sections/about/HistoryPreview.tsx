@@ -79,21 +79,21 @@ export function HistoryPreview() {
     );
 
     return (
-        <section ref={sectionRef} className="py-24 md:py-32 bg-marine-dark">
+        <section ref={sectionRef} className="bg-marine-dark py-24 md:py-32">
             <div className="container-custom">
                 <FadeIn>
-                    <div className="flex items-end justify-between mb-16">
+                    <div className="mb-16 flex items-end justify-between">
                         <div>
-                            <span className="text-ocean-400 text-sm font-medium tracking-widest uppercase mb-4 block">
+                            <span className="text-ocean-400 mb-4 block text-sm font-medium tracking-widest uppercase">
                                 {isKorean ? "연혁" : "History"}
                             </span>
-                            <h2 className="font-display text-3xl md:text-4xl font-bold text-white">
+                            <h2 className="font-display text-3xl font-bold text-white md:text-4xl">
                                 {isKorean ? "성장의 발자취" : "Milestones of Growth"}
                             </h2>
                         </div>
                         <Link
                             href="/about/history"
-                            className="hidden md:flex items-center gap-2 text-ocean-400 hover:text-ocean-300 transition-colors"
+                            className="text-ocean-400 hover:text-ocean-300 hidden items-center gap-2 transition-colors md:flex"
                         >
                             {isKorean ? "전체 연혁 보기" : "View Full History"}
                             <ChevronRight size={18} />
@@ -103,27 +103,24 @@ export function HistoryPreview() {
 
                 <div className="relative pl-8 md:pl-12">
                     {/* Timeline Line */}
-                    <div className="timeline-line absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-ocean-500 via-ocean-500/50 to-transparent" />
+                    <div className="timeline-line from-ocean-500 via-ocean-500/50 absolute top-0 bottom-0 left-0 w-px bg-gradient-to-b to-transparent" />
 
                     {/* Timeline Items */}
                     <div className="space-y-12">
                         {historyData.map((item, index) => (
-                            <div
-                                key={item.year}
-                                className="history-item relative"
-                            >
+                            <div key={item.year} className="history-item relative">
                                 {/* Dot */}
-                                <div className="absolute -left-8 md:-left-12 top-1 w-4 h-4 rounded-full bg-ocean-500 border-4 border-marine-dark" />
+                                <div className="bg-ocean-500 border-marine-dark absolute top-1 -left-8 h-4 w-4 rounded-full border-4 md:-left-12" />
 
                                 <div className="flex items-start gap-6">
-                                    <span className="font-display text-2xl md:text-3xl font-bold text-ocean-400 shrink-0">
+                                    <span className="font-display text-ocean-400 shrink-0 text-2xl font-bold md:text-3xl">
                                         {item.year}
                                     </span>
                                     <div>
-                                        <h3 className="text-lg md:text-xl font-semibold text-white mb-1">
+                                        <h3 className="mb-1 text-lg font-semibold text-white md:text-xl">
                                             {isKorean ? item.titleKo : item.titleEn}
                                         </h3>
-                                        <p className="text-white/50 text-sm">
+                                        <p className="text-sm text-white/50">
                                             {isKorean ? item.descKo : item.descEn}
                                         </p>
                                     </div>
@@ -134,10 +131,10 @@ export function HistoryPreview() {
                 </div>
 
                 {/* Mobile: View All Link */}
-                <div className="md:hidden mt-10">
+                <div className="mt-10 md:hidden">
                     <Link
                         href="/about/history"
-                        className="inline-flex items-center gap-2 text-ocean-400"
+                        className="text-ocean-400 inline-flex items-center gap-2"
                     >
                         {isKorean ? "전체 연혁 보기" : "View Full History"}
                         <ChevronRight size={18} />

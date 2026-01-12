@@ -1,0 +1,26 @@
+{
+    "recommendations": [
+        // ✨ Essential (필수)
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "bradlc.vscode-tailwindcss",
+
+        // 🎨 React/Next.js
+        "dsznajder.es7-react-js-snippets",
+        "formulahendry.auto-rename-tag",
+        "christian-kohler.path-intellisense",
+
+        // 🔧 Developer Experience
+        "usernamehw.errorlens",
+        "streetsidesoftware.code-spell-checker",
+        "pkief.material-icon-theme",
+
+        // 🎯 Git
+        "eamodio.gitlens",
+        "mhutchie.git-graph",
+
+        // 📝 Utilities
+        "wayou.vscode-todo-highlight",
+        "gruntfuggly.todo-tree"
+    ]
+}

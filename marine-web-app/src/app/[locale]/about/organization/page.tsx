@@ -66,38 +66,38 @@ export default async function OrganizationPage({
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-[#050b14]/70 via-[#050b14]/50 to-[#050b14]" />
 
-                <div className="relative h-full flex flex-col justify-center items-center text-center px-6">
+                <div className="relative flex h-full flex-col items-center justify-center px-6 text-center">
                     <Link
                         href="/about"
-                        className="absolute top-8 left-8 flex items-center gap-2 text-white/70 hover:text-white transition-colors"
+                        className="absolute top-8 left-8 flex items-center gap-2 text-white/70 transition-colors hover:text-white"
                     >
                         <ArrowLeft size={20} />
                         <span>About Us</span>
                     </Link>
 
-                    <span className="text-cyan-400 font-semibold tracking-wider uppercase text-sm mb-4">
+                    <span className="mb-4 text-sm font-semibold tracking-wider text-cyan-400 uppercase">
                         Organization & Team
                     </span>
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white font-display mb-4">
+                    <h1 className="font-display mb-4 text-4xl font-bold text-white md:text-5xl lg:text-6xl">
                         조직 및 인력 현황
                     </h1>
-                    <p className="text-white/60 max-w-2xl text-lg">
+                    <p className="max-w-2xl text-lg text-white/60">
                         각 분야 전문가들이 협업하여 최고 수준의 해양조사 서비스를 제공합니다
                     </p>
                 </div>
             </section>
 
             {/* Stats Section */}
-            <section className="py-20 bg-gray-50">
-                <div className="max-w-6xl mx-auto px-6">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <section className="bg-gray-50 py-20">
+                <div className="mx-auto max-w-6xl px-6">
+                    <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
                         {ORGANIZATION_DATA.stats.map((stat, index) => (
                             <div key={stat.label} className="text-center">
-                                <div className="text-4xl md:text-5xl font-bold text-cyan-600 font-display">
+                                <div className="font-display text-4xl font-bold text-cyan-600 md:text-5xl">
                                     {stat.value}
                                     <span className="text-2xl">{stat.suffix}</span>
                                 </div>
-                                <div className="text-gray-500 mt-2">{stat.label}</div>
+                                <div className="mt-2 text-gray-500">{stat.label}</div>
                             </div>
                         ))}
                     </div>
@@ -106,43 +106,43 @@ export default async function OrganizationPage({
 
             {/* Organization Chart */}
             <section className="py-20">
-                <div className="max-w-6xl mx-auto px-6">
-                    <div className="text-center mb-16">
-                        <span className="text-cyan-600 font-semibold tracking-wider uppercase text-sm">
+                <div className="mx-auto max-w-6xl px-6">
+                    <div className="mb-16 text-center">
+                        <span className="text-sm font-semibold tracking-wider text-cyan-600 uppercase">
                             Organization Chart
                         </span>
-                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 font-display mt-4">
+                        <h2 className="font-display mt-4 text-3xl font-bold text-gray-900 md:text-4xl">
                             조직 구조
                         </h2>
                     </div>
 
                     {/* CEO */}
-                    <div className="flex justify-center mb-12">
-                        <div className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-8 py-6 rounded-2xl shadow-xl text-center">
-                            <div className="text-sm text-white/80 mb-1">대표이사</div>
+                    <div className="mb-12 flex justify-center">
+                        <div className="rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-6 text-center text-white shadow-xl">
+                            <div className="mb-1 text-sm text-white/80">대표이사</div>
                             <div className="text-xl font-bold">홍길동</div>
                         </div>
                     </div>
 
                     {/* Connecting Line */}
-                    <div className="flex justify-center mb-8">
-                        <div className="w-px h-12 bg-gray-300" />
+                    <div className="mb-8 flex justify-center">
+                        <div className="h-12 w-px bg-gray-300" />
                     </div>
 
                     {/* Horizontal Line */}
-                    <div className="hidden md:block max-w-4xl mx-auto mb-8">
+                    <div className="mx-auto mb-8 hidden max-w-4xl md:block">
                         <div className="h-px bg-gray-300" />
                     </div>
 
                     {/* Departments */}
-                    <div className="grid md:grid-cols-3 gap-8">
+                    <div className="grid gap-8 md:grid-cols-3">
                         {ORGANIZATION_DATA.departments.map((dept, index) => (
                             <div
                                 key={dept.id}
-                                className="bg-white border border-gray-200 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow"
+                                className="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg transition-shadow hover:shadow-xl"
                             >
-                                <div className="flex items-center gap-3 mb-4">
-                                    <div className="w-12 h-12 bg-cyan-100 rounded-xl flex items-center justify-center text-cyan-600">
+                                <div className="mb-4 flex items-center gap-3">
+                                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-cyan-100 text-cyan-600">
                                         {dept.icon}
                                     </div>
                                     <div>
@@ -151,8 +151,8 @@ export default async function OrganizationPage({
                                     </div>
                                 </div>
 
-                                <div className="border-t border-gray-100 pt-4 mb-4">
-                                    <div className="text-sm text-gray-400 mb-1">본부장</div>
+                                <div className="mb-4 border-t border-gray-100 pt-4">
+                                    <div className="mb-1 text-sm text-gray-400">본부장</div>
                                     <div className="font-medium text-gray-900">{dept.head}</div>
                                     <div className="text-xs text-cyan-600">{dept.headTitle}</div>
                                 </div>
@@ -163,7 +163,7 @@ export default async function OrganizationPage({
                                             key={team}
                                             className="flex items-center gap-2 text-sm text-gray-600"
                                         >
-                                            <div className="w-2 h-2 bg-cyan-400 rounded-full" />
+                                            <div className="h-2 w-2 rounded-full bg-cyan-400" />
                                             {team}
                                         </div>
                                     ))}
@@ -175,18 +175,18 @@ export default async function OrganizationPage({
             </section>
 
             {/* Team Expertise */}
-            <section className="py-20 bg-[#050b14]">
-                <div className="max-w-6xl mx-auto px-6">
-                    <div className="text-center mb-16">
-                        <span className="text-cyan-400 font-semibold tracking-wider uppercase text-sm">
+            <section className="bg-[#050b14] py-20">
+                <div className="mx-auto max-w-6xl px-6">
+                    <div className="mb-16 text-center">
+                        <span className="text-sm font-semibold tracking-wider text-cyan-400 uppercase">
                             Our Expertise
                         </span>
-                        <h2 className="text-3xl md:text-4xl font-bold text-white font-display mt-4">
+                        <h2 className="font-display mt-4 text-3xl font-bold text-white md:text-4xl">
                             전문 분야
                         </h2>
                     </div>
 
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
                         {[
                             { title: "해양물리탐사", desc: "멀티빔, 사이드스캔, SBP" },
                             { title: "해양지질조사", desc: "시추, CPT, 코어링" },
@@ -195,10 +195,10 @@ export default async function OrganizationPage({
                         ].map((item) => (
                             <div
                                 key={item.title}
-                                className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center hover:bg-white/10 transition-colors"
+                                className="rounded-2xl border border-white/10 bg-white/5 p-6 text-center transition-colors hover:bg-white/10"
                             >
-                                <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
-                                <p className="text-white/60 text-sm">{item.desc}</p>
+                                <h3 className="mb-2 text-lg font-bold text-white">{item.title}</h3>
+                                <p className="text-sm text-white/60">{item.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -206,17 +206,17 @@ export default async function OrganizationPage({
             </section>
 
             {/* CTA */}
-            <section className="py-20 bg-gray-50">
-                <div className="max-w-4xl mx-auto px-6 text-center">
-                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+            <section className="bg-gray-50 py-20">
+                <div className="mx-auto max-w-4xl px-6 text-center">
+                    <h2 className="mb-4 text-2xl font-bold text-gray-900 md:text-3xl">
                         함께 성장할 인재를 찾습니다
                     </h2>
-                    <p className="text-gray-500 mb-8">
+                    <p className="mb-8 text-gray-500">
                         마린리서치와 함께 해양조사 전문가로 성장하세요
                     </p>
                     <Link
                         href="/careers"
-                        className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-full hover:shadow-lg transition-shadow"
+                        className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-4 font-semibold text-white transition-shadow hover:shadow-lg"
                     >
                         채용 정보 보기
                     </Link>

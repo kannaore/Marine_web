@@ -30,7 +30,6 @@ export function MorphingDesktopNav({
     const dimmerRef = useRef<HTMLDivElement>(null);
     const categoriesRef = useRef<HTMLDivElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
-    const imageContainerRef = useRef<HTMLDivElement>(null);  // 이미지 컨테이너
     const imageRef = useRef<HTMLDivElement>(null);
     const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const prevActiveTabRef = useRef<NavKey | null>(null);
@@ -85,25 +84,28 @@ export function MorphingDesktopNav({
         }
     }, []);
 
-    const handleMouseEnterNav = useCallback((tab: NavKey) => {
-        cancelClose();
-        const isOpening = displayedTab === null;
-        openFromClosedRef.current = isOpening;
-        if (!isOpening && displayedTab && displayedTab !== tab) {
-            const prevIndex = NAV_ORDER.indexOf(displayedTab);
-            const nextIndex = NAV_ORDER.indexOf(tab);
-            if (prevIndex !== -1 && nextIndex !== -1) {
-                tabDirectionRef.current = nextIndex > prevIndex ? 1 : -1;
+    const handleMouseEnterNav = useCallback(
+        (tab: NavKey) => {
+            cancelClose();
+            const isOpening = displayedTab === null;
+            openFromClosedRef.current = isOpening;
+            if (!isOpening && displayedTab && displayedTab !== tab) {
+                const prevIndex = NAV_ORDER.indexOf(displayedTab);
+                const nextIndex = NAV_ORDER.indexOf(tab);
+                if (prevIndex !== -1 && nextIndex !== -1) {
+                    tabDirectionRef.current = nextIndex > prevIndex ? 1 : -1;
+                } else {
+                    tabDirectionRef.current = 0;
+                }
             } else {
                 tabDirectionRef.current = 0;
             }
-        } else {
-            tabDirectionRef.current = 0;
-        }
-        setActiveTab(tab);
-        setDisplayedTab(tab);
-        setActiveCategoryIndex(0);
-    }, [cancelClose, displayedTab]);
+            setActiveTab(tab);
+            setDisplayedTab(tab);
+            setActiveCategoryIndex(0);
+        },
+        [cancelClose, displayedTab]
+    );
 
     const handleMouseLeaveNav = useCallback(() => {
         scheduleClose();
@@ -127,9 +129,8 @@ export function MorphingDesktopNav({
     };
 
     const currentContent = displayedTab ? NAV_CONTENT[displayedTab] : null;
-    const currentCategory = currentContent?.categories[activeCategoryIndex]
-        ?? currentContent?.categories[0]
-        ?? null;
+    const currentCategory =
+        currentContent?.categories[activeCategoryIndex] ?? currentContent?.categories[0] ?? null;
     const safeHeaderOffset = Math.max(0, headerOffset);
     const contentPaddingTop = safeHeaderOffset + 20;
 
@@ -153,33 +154,31 @@ export function MorphingDesktopNav({
                 gsap.set(wrapper, { display: "block", pointerEvents: "auto" });
 
                 if (!prevTab) {
-                    // 첫 오픈: 40% 느리게
                     gsap.set(panel, { height: 0 });
                     gsap.set(dimmer, { opacity: 0 });
                     gsap.to(dimmer, {
                         opacity: 1,
-                        duration: 0.45,
+                        duration: 0.32,
                         ease: "power2.out",
-                        delay: 0.12,
+                        delay: 0.08,
                         overwrite: "auto",
                     });
                     gsap.to(panel, {
                         height: targetHeight,
-                        duration: 0.56,
+                        duration: 0.4,
                         ease: "power2.out",
                         overwrite: "auto",
                     });
                 } else {
-                    // 탭 전환: 40% 느리게
                     gsap.to(dimmer, {
                         opacity: 1,
-                        duration: 0.28,
+                        duration: 0.2,
                         ease: "power2.out",
                         overwrite: "auto",
                     });
                     gsap.to(panel, {
                         height: targetHeight,
-                        duration: 0.45,
+                        duration: 0.32,
                         ease: "power2.out",
                         overwrite: "auto",
                     });
@@ -195,17 +194,16 @@ export function MorphingDesktopNav({
 
                 closeTimelineRef.current = tl;
 
-                // 닫기: 40% 느리게
                 tl.to(panel, {
                     height: 0,
-                    duration: 0.42,
+                    duration: 0.3,
                     ease: "power2.inOut",
                     overwrite: "auto",
                 }).to(
                     dimmer,
                     {
                         opacity: 0,
-                        duration: 0.34,
+                        duration: 0.24,
                         ease: "power2.out",
                         overwrite: "auto",
                     },
@@ -231,13 +229,13 @@ export function MorphingDesktopNav({
             const target = categoriesRef.current;
 
             // 카테고리 섹션 내부의 자식 요소들 선택 (콘텐츠 애니메이션과 동일한 패턴)
-            const sectionLabel = target.querySelector('span');
-            const links = target.querySelectorAll('a'); // Link 컴포넌트는 a 태그로 렌더링
-            const divider = target.querySelector('.absolute'); // 구분선
-            const elements = [sectionLabel, ...Array.from(links)].filter(Boolean);
+            const sectionLabel = target.querySelector("span");
+            const buttons = target.querySelectorAll("button");
+            const divider = target.querySelector(".absolute"); // 구분선
+            const elements = [sectionLabel, ...Array.from(buttons)].filter(Boolean);
 
             // 기존 트윈 정리
-            elements.forEach(el => el && gsap.killTweensOf(el));
+            elements.forEach((el) => el && gsap.killTweensOf(el));
             if (divider) gsap.killTweensOf(divider);
 
             // 각 자식 요소에 초기 상태 설정 후 stagger 애니메이션
@@ -252,7 +250,7 @@ export function MorphingDesktopNav({
                 }
             });
 
-            // Stagger 애니메이션 - 1단계: 메뉴가 먼저 나타남 (40% 느리게)
+            // Stagger 애니메이션 - 촤라락 효과
             elements.forEach((el, index) => {
                 if (el) {
                     gsap.to(el, {
@@ -260,9 +258,9 @@ export function MorphingDesktopNav({
                         x: 0,
                         y: 0,
                         filter: "blur(0px)",
-                        duration: 0.5,
+                        duration: 0.4,
                         ease: "power2.out",
-                        delay: isOpening ? 0.12 + index * 0.055 : 0.04 + index * 0.045,
+                        delay: isOpening ? 0.12 + index * 0.05 : 0.02 + index * 0.04,
                         overwrite: "auto",
                         clearProps: "filter",
                     });
@@ -271,7 +269,8 @@ export function MorphingDesktopNav({
 
             // 구분선 페이드인
             if (divider) {
-                gsap.fromTo(divider,
+                gsap.fromTo(
+                    divider,
                     { opacity: 0 },
                     { opacity: 1, duration: 0.3, delay: isOpening ? 0.15 : 0.05 }
                 );
@@ -300,13 +299,13 @@ export function MorphingDesktopNav({
             const image = imageRef.current;
 
             // Get all animatable children inside contentRef
-            const title = target.querySelector('h3');
-            const desc = target.querySelector('p');
-            const link = target.querySelector('a');
+            const title = target.querySelector("h3");
+            const desc = target.querySelector("p");
+            const link = target.querySelector("a");
             const elements = [title, desc, link].filter(Boolean);
 
             // Always animate content transitions (both tab and category changes)
-            elements.forEach(el => el && gsap.killTweensOf(el));
+            elements.forEach((el) => el && gsap.killTweensOf(el));
             if (image) gsap.killTweensOf(image);
 
             if (tabChanged) {
@@ -325,7 +324,7 @@ export function MorphingDesktopNav({
                     }
                 });
 
-                // 2단계: 서브메뉴 - 메뉴 뒤에 시작 (40% 느리게, 320ms~)
+                // Stagger animate each element
                 elements.forEach((el, index) => {
                     if (el) {
                         gsap.to(el, {
@@ -333,56 +332,33 @@ export function MorphingDesktopNav({
                             x: 0,
                             y: 0,
                             filter: "blur(0px)",
-                            duration: 0.56,
+                            duration: 0.4,
                             ease: "power2.out",
-                            delay: isOpening ? 0.32 + index * 0.08 : 0.12 + index * 0.07,
+                            delay: isOpening ? 0.15 + index * 0.07 : 0.05 + index * 0.06,
                             overwrite: "auto",
                             clearProps: "filter",
                         });
                     }
                 });
 
-                // 3단계: 이미지 컨테이너 + 이미지 (40% 느리게, blur+slide 스타일 통일)
-                const imageContainer = imageContainerRef.current;
-
-                // 이미지 컨테이너: 다른 요소들과 동일한 blur+slide 스타일
-                if (imageContainer) {
-                    gsap.killTweensOf(imageContainer);
-                    gsap.set(imageContainer, {
-                        opacity: 0,
-                        x: -12,
-                        y: -8,
-                        filter: "blur(10px)",
-                    });
-                    gsap.to(imageContainer, {
-                        opacity: 1,
-                        x: 0,
-                        y: 0,
-                        filter: "blur(0px)",
-                        duration: 0.56,
-                        ease: "power2.out",
-                        delay: isOpening ? 0.52 : 0.24,
-                        overwrite: "auto",
-                        clearProps: "filter",
-                    });
-                }
-
-                // 이미지: 컨테이너와 동일한 스타일
+                // Image animation
                 if (image) {
                     gsap.set(image, {
                         opacity: 0,
-                        x: -10,
-                        y: -6,
-                        filter: "blur(12px)",
+                        scale: 1.08,
+                        x: -15,
+                        y: -10,
+                        filter: "blur(15px)",
                     });
                     gsap.to(image, {
                         opacity: 1,
+                        scale: 1,
                         x: 0,
                         y: 0,
                         filter: "blur(0px)",
-                        duration: 0.6,
+                        duration: 0.5,
                         ease: "power2.out",
-                        delay: isOpening ? 0.58 : 0.28,
+                        delay: isOpening ? 0.12 : 0.06,
                         overwrite: "auto",
                         clearProps: "filter",
                     });
@@ -393,13 +369,13 @@ export function MorphingDesktopNav({
                 // Like Apple's "촤라락" cascading effect
 
                 // Get all animatable children inside contentRef
-                const title = target.querySelector('h3');
-                const desc = target.querySelector('p');
-                const link = target.querySelector('a');
+                const title = target.querySelector("h3");
+                const desc = target.querySelector("p");
+                const link = target.querySelector("a");
                 const elements = [title, desc, link].filter(Boolean);
 
                 // Kill any ongoing animations
-                elements.forEach(el => el && gsap.killTweensOf(el));
+                elements.forEach((el) => el && gsap.killTweensOf(el));
                 if (image) gsap.killTweensOf(image);
 
                 // Set initial state for all elements: blurred, shifted top-left
@@ -414,7 +390,7 @@ export function MorphingDesktopNav({
                     }
                 });
 
-                // Stagger animate each element (40% 느리게)
+                // Stagger animate each element with Apple-like timing
                 elements.forEach((el, index) => {
                     if (el) {
                         gsap.to(el, {
@@ -422,54 +398,33 @@ export function MorphingDesktopNav({
                             x: 0,
                             y: 0,
                             filter: "blur(0px)",
-                            duration: 0.5,
+                            duration: 0.35,
                             ease: "power2.out",
-                            delay: 0.07 + index * 0.08,
+                            delay: 0.05 + index * 0.06, // Stagger: 0.05, 0.11, 0.17
                             overwrite: "auto",
                             clearProps: "filter",
                         });
                     }
                 });
 
-                // 이미지 컨테이너 + 이미지 (blur+slide 스타일 통일)
-                const imageContainer = imageContainerRef.current;
-
-                if (imageContainer) {
-                    gsap.killTweensOf(imageContainer);
-                    gsap.set(imageContainer, {
-                        opacity: 0,
-                        x: -10,
-                        y: -6,
-                        filter: "blur(8px)",
-                    });
-                    gsap.to(imageContainer, {
-                        opacity: 1,
-                        x: 0,
-                        y: 0,
-                        filter: "blur(0px)",
-                        duration: 0.5,
-                        ease: "power2.out",
-                        delay: 0.18,
-                        overwrite: "auto",
-                        clearProps: "filter",
-                    });
-                }
-
+                // Image: slightly delayed, with scale and blur
                 if (image) {
                     gsap.set(image, {
                         opacity: 0,
-                        x: -8,
-                        y: -5,
-                        filter: "blur(10px)",
+                        scale: 1.05,
+                        x: -10,
+                        y: -8,
+                        filter: "blur(12px)",
                     });
                     gsap.to(image, {
                         opacity: 1,
+                        scale: 1,
                         x: 0,
                         y: 0,
                         filter: "blur(0px)",
-                        duration: 0.55,
+                        duration: 0.4,
                         ease: "power2.out",
-                        delay: 0.22,
+                        delay: 0.08,
                         overwrite: "auto",
                         clearProps: "filter",
                     });
@@ -488,141 +443,151 @@ export function MorphingDesktopNav({
             {Object.keys(NAV_CONTENT).map((tab) => (
                 <div
                     key={tab}
-                    className="relative group px-1 text-center"
+                    className="group relative px-1 text-center"
                     onMouseEnter={() => handleMouseEnterNav(tab as NavKey)}
                 >
                     <Link
                         href={NAV_CONTENT[tab as NavKey].href}
                         onClick={handleCloseDropdown}
                         className={cn(
-                            "relative z-20 py-3 font-medium uppercase block text-center",
+                            "relative z-20 block py-4 text-center font-medium uppercase",
                             isKorean
-                                ? "text-[14px] tracking-[0.14em] font-sans"
-                                : "text-[12px] tracking-[0.18em] font-display font-semibold",
+                                ? "font-sans text-[14px] tracking-[0.14em]"
+                                : "font-display text-[12px] font-semibold tracking-[0.18em]",
                             activeTab === tab ? "text-white" : "text-white/70 hover:text-white"
                         )}
                         style={{ minWidth: isKorean ? "84px" : "auto" }}
                     >
                         {isKorean ? NAV_CONTENT[tab as NavKey].sectionLabel : tab}
                     </Link>
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 w-[160%] h-3 bg-transparent" />
+                    <div className="absolute top-full left-1/2 h-3 w-[160%] -translate-x-1/2 bg-transparent" />
                 </div>
             ))}
 
-            {mounted && createPortal(
-                <div
-                    ref={dropdownWrapperRef}
-                    className="fixed inset-0 z-[45]"
-                    style={{ display: displayedTab ? "block" : "none" }}
-                >
+            {mounted &&
+                createPortal(
                     <div
-                        ref={dimmerRef}
-                        className="absolute inset-0 bg-black/45 backdrop-blur-[6px] opacity-0"
-                        onClick={handleCloseDropdown}
-                    />
-
-                    {displayedTab && currentContent && currentCategory && (
+                        ref={dropdownWrapperRef}
+                        className="fixed inset-0 z-[45]"
+                        style={{ display: displayedTab ? "block" : "none" }}
+                    >
                         <div
-                            className="absolute left-0 right-0 top-0 z-10"
-                            onMouseEnter={handleMouseEnterDropdown}
-                            onMouseLeave={handleMouseLeaveDropdown}
-                        >
+                            ref={dimmerRef}
+                            className="absolute inset-0 bg-black/45 opacity-0 backdrop-blur-[6px]"
+                            onClick={handleCloseDropdown}
+                        />
+
+                        {displayedTab && currentContent && currentCategory && (
                             <div
-                                ref={dropdownBgRef}
-                                className="nav-flyout-panel relative overflow-hidden border-b border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.55)] bg-marine-dark/80"
+                                className="absolute top-0 right-0 left-0 z-10"
+                                onMouseEnter={handleMouseEnterDropdown}
+                                onMouseLeave={handleMouseLeaveDropdown}
                             >
                                 <div
-                                    className="absolute left-0 right-0 max-w-[1240px] mx-auto flex items-start px-8 pb-6"
-                                    style={{ paddingTop: contentPaddingTop }}
+                                    ref={dropdownBgRef}
+                                    className="nav-flyout-panel bg-marine-dark/85 relative overflow-hidden border-b border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.55)]"
                                 >
                                     <div
-                                        ref={categoriesRef}
-                                        className="relative w-[260px] pr-6 flex flex-col gap-2"
+                                        className="absolute right-0 left-0 mx-auto flex max-w-[1240px] items-start px-8 pb-6"
+                                        style={{ paddingTop: contentPaddingTop }}
                                     >
-                                        <div className="absolute right-0 top-2 bottom-2 w-px bg-white/10" />
-
-                                        <span
-                                            className={cn(
-                                                "font-semibold text-white/55 uppercase mb-3 px-4",
-                                                isKorean
-                                                    ? "text-[14px] tracking-[0.12em] font-sans"
-                                                    : "text-[14px] tracking-[0.16em] font-display"
-                                            )}
-                                        >
-                                            {isKorean ? currentContent.sectionLabel : currentContent.sectionLabelEn}
-                                        </span>
-
-                                        {currentContent.categories.map((cat, idx) => (
-                                            <Link
-                                                key={cat.id}
-                                                href={cat.href}
-                                                onClick={handleCloseDropdown}
-                                                onMouseEnter={() => handleCategoryEnter(idx)}
-                                                className={cn(
-                                                    "w-full text-left px-4 py-2.5 rounded-xl font-medium transition-colors duration-200 flex items-center justify-between font-sans border",
-                                                    isKorean
-                                                        ? "text-[14px] tracking-[0.02em]"
-                                                        : "text-[14px] tracking-[0.03em]",
-                                                    activeCategoryIndex === idx
-                                                        ? "bg-white text-marine-dark/90 border-white/80"
-                                                        : "text-white/75 hover:text-white hover:bg-white/5 border-transparent"
-                                                )}
-                                            >
-                                                {isKorean ? cat.label : cat.labelEn}
-                                                {activeCategoryIndex === idx && (
-                                                    <ChevronRight size={16} className="text-marine-dark/80" />
-                                                )}
-                                            </Link>
-                                        ))}
-                                    </div>
-
-                                    {/* pt-[36px]: 왼쪽 섹션 라벨(EXPLORE SERVICES) 높이만큼 상단 여백 추가하여 첫 번째 메뉴와 제목 정렬 */}
-                                    <div className="flex-1 pl-10 pt-[44px]">
                                         <div
-                                            ref={contentRef}
-                                            className="flex gap-8 items-start"
-                                            style={{ willChange: "opacity, transform, filter, clip-path" }}
+                                            ref={categoriesRef}
+                                            className="relative flex w-[260px] flex-col gap-2 pr-6"
                                         >
-                                            <div className="flex-1 flex flex-col justify-start">
-                                                <h3 className="text-[28px] font-semibold text-white mb-3 font-display tracking-tight leading-snug">
-                                                    {isKorean ? currentCategory.title : currentCategory.titleEn}
-                                                </h3>
-                                                <p className="text-white/65 text-[16px] leading-relaxed mb-5 max-w-md font-sans">
-                                                    {isKorean ? currentCategory.desc : currentCategory.descEn}
-                                                </p>
-                                                <Link
-                                                    href={currentCategory.href}
-                                                    onClick={handleCloseDropdown}
-                                                    className="inline-flex items-center gap-3 text-[14px] font-semibold text-white/90 bg-white/5 border border-white/10 rounded-full px-5 py-2.5 hover:bg-white hover:text-marine-dark transition-colors duration-300 group w-fit -ml-2"
-                                                >
-                                                    Explore Details
-                                                    <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                                                </Link>
-                                            </div>
+                                            <div className="absolute top-2 right-0 bottom-2 w-px bg-white/10" />
 
-                                            <div
-                                                ref={imageContainerRef}
-                                                className="w-[300px] h-[200px] rounded-2xl overflow-hidden relative shadow-2xl border border-white/10 shrink-0"
+                                            <span
+                                                className={cn(
+                                                    "mb-3 px-4 font-semibold text-white/55 uppercase",
+                                                    isKorean
+                                                        ? "font-sans text-[14px] tracking-[0.12em]"
+                                                        : "font-display text-[14px] tracking-[0.16em]"
+                                                )}
                                             >
-                                                <div
-                                                    ref={imageRef}
-                                                    className="absolute inset-0 bg-cover bg-center"
-                                                    style={{
-                                                        willChange: "opacity, transform, filter",
-                                                        backgroundImage: `url('${currentCategory.image}')`,
-                                                    }}
-                                                />
-                                                <div className="absolute inset-0 bg-gradient-to-t from-[#050b14]/70 via-transparent to-transparent" />
+                                                {isKorean
+                                                    ? currentContent.sectionLabel
+                                                    : currentContent.sectionLabelEn}
+                                            </span>
+
+                                            {currentContent.categories.map((cat, idx) => (
+                                                <button
+                                                    key={cat.id}
+                                                    onMouseEnter={() => handleCategoryEnter(idx)}
+                                                    className={cn(
+                                                        "flex w-full items-center justify-between rounded-xl px-4 py-2.5 text-left font-sans font-medium transition-colors duration-200",
+                                                        isKorean
+                                                            ? "text-[14px] tracking-[0.02em]"
+                                                            : "text-[14px] tracking-[0.03em]",
+                                                        activeCategoryIndex === idx
+                                                            ? "text-marine-dark/90 border border-white/80 bg-white"
+                                                            : "text-white/75 hover:bg-white/5 hover:text-white"
+                                                    )}
+                                                >
+                                                    {isKorean ? cat.label : cat.labelEn}
+                                                    {activeCategoryIndex === idx && (
+                                                        <ChevronRight
+                                                            size={16}
+                                                            className="text-marine-dark/80"
+                                                        />
+                                                    )}
+                                                </button>
+                                            ))}
+                                        </div>
+
+                                        <div className="flex-1 pl-10">
+                                            <div
+                                                ref={contentRef}
+                                                className="flex items-start gap-8"
+                                                style={{
+                                                    willChange:
+                                                        "opacity, transform, filter, clip-path",
+                                                }}
+                                            >
+                                                <div className="flex flex-1 flex-col justify-start">
+                                                    <h3 className="font-display mb-3 text-[28px] leading-snug font-semibold tracking-tight text-white">
+                                                        {isKorean
+                                                            ? currentCategory.title
+                                                            : currentCategory.titleEn}
+                                                    </h3>
+                                                    <p className="mb-5 max-w-md font-sans text-[16px] leading-relaxed text-white/65">
+                                                        {isKorean
+                                                            ? currentCategory.desc
+                                                            : currentCategory.descEn}
+                                                    </p>
+                                                    <Link
+                                                        href={currentCategory.href}
+                                                        className="hover:text-marine-dark group inline-flex w-fit -translate-x-1 items-center gap-3 rounded-full border border-white/10 bg-white/5 px-5 py-2.5 text-[14px] font-semibold text-white/90 transition-colors duration-300 hover:bg-white"
+                                                    >
+                                                        Explore Details
+                                                        <ChevronRight
+                                                            size={18}
+                                                            className="transition-transform group-hover:translate-x-1"
+                                                        />
+                                                    </Link>
+                                                </div>
+
+                                                <div className="relative h-[200px] w-[300px] shrink-0 overflow-hidden rounded-2xl border border-white/10 shadow-2xl">
+                                                    <div
+                                                        ref={imageRef}
+                                                        className="absolute inset-0 bg-cover bg-center"
+                                                        style={{
+                                                            willChange:
+                                                                "opacity, transform, filter",
+                                                            backgroundImage: `url('${currentCategory.image}')`,
+                                                        }}
+                                                    />
+                                                    <div className="absolute inset-0 bg-gradient-to-t from-[#050b14]/70 via-transparent to-transparent" />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    )}
-                </div>,
-                document.body
-            )}
+                        )}
+                    </div>,
+                    document.body
+                )}
         </div>
     );
 }

@@ -49,22 +49,19 @@ export function TrustBar() {
     );
 
     return (
-        <section ref={sectionRef} className="py-12 border-y border-white/5 bg-marine-dark/50 backdrop-blur-sm">
+        <section
+            ref={sectionRef}
+            className="bg-marine-dark/50 border-y border-white/5 py-12 backdrop-blur-sm"
+        >
             <div className="container-custom">
-                <div
-                    ref={containerRef}
-                    className="flex flex-col items-center gap-8"
-                >
-                    <p className="text-xs tracking-[0.3em] uppercase text-white/40 font-medium">
+                <div ref={containerRef} className="flex flex-col items-center gap-8">
+                    <p className="text-xs font-medium tracking-[0.3em] text-white/40 uppercase">
                         Trusted by Industry Leaders
                     </p>
-                    <div className="flex flex-wrap justify-center items-center gap-12 md:gap-16">
+                    <div className="flex flex-wrap items-center justify-center gap-12 md:gap-16">
                         {clients.map((client) => (
-                            <div
-                                key={client.name}
-                                className="client-item group"
-                            >
-                                <div className="h-8 px-6 flex items-center justify-center text-white/30 group-hover:text-white/60 transition-colors duration-300 text-sm font-medium tracking-wide">
+                            <div key={client.name} className="client-item group">
+                                <div className="flex h-8 items-center justify-center px-6 text-sm font-medium tracking-wide text-white/30 transition-colors duration-300 group-hover:text-white/60">
                                     {client.name}
                                 </div>
                             </div>

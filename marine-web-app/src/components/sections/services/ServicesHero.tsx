@@ -54,7 +54,7 @@ export function ServicesHero() {
     return (
         <section
             ref={sectionRef}
-            className="relative min-h-[70vh] flex items-center justify-center overflow-hidden"
+            className="relative flex min-h-[70vh] items-center justify-center overflow-hidden"
         >
             {/* Background */}
             <div ref={bgRef} className="absolute inset-0 -top-[10%] h-[120%]">
@@ -65,43 +65,45 @@ export function ServicesHero() {
                             "url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80')",
                     }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-marine-dark/70 via-marine-dark/60 to-marine-dark" />
+                <div className="from-marine-dark/70 via-marine-dark/60 to-marine-dark absolute inset-0 bg-gradient-to-b" />
             </div>
 
             {/* Content */}
-            <div className="relative z-10 text-center px-6 pt-32 pb-20">
-                <span className="inline-block mb-6 px-4 py-2 bg-ocean-500/20 border border-ocean-500/30 rounded-full text-ocean-300 text-sm font-medium">
+            <div className="relative z-10 px-6 pt-32 pb-20 text-center">
+                <span className="bg-ocean-500/20 border-ocean-500/30 text-ocean-300 mb-6 inline-block rounded-full border px-4 py-2 text-sm font-medium">
                     {isKorean ? "사업분야" : "Our Services"}
                 </span>
 
-                <h1 className="font-display text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 leading-tight">
+                <h1 className="font-display mb-6 text-4xl leading-tight font-bold text-white md:text-5xl lg:text-6xl xl:text-7xl">
                     {isKorean ? (
                         <>
-                            해양조사의<br />
+                            해양조사의
+                            <br />
                             <span className="text-gradient-ocean">새로운 기준</span>
                         </>
                     ) : (
                         <>
-                            The Future of<br />
+                            The Future of
+                            <br />
                             <span className="text-gradient-ocean">Marine Survey</span>
                         </>
                     )}
                 </h1>
 
-                <p className="text-lg md:text-xl text-white/60 max-w-3xl mx-auto leading-relaxed mb-16">
+                <p className="mx-auto mb-16 max-w-3xl text-lg leading-relaxed text-white/60 md:text-xl">
                     {isKorean
                         ? "수로조사부터 해상풍력까지, 최첨단 기술로 해양 프로젝트의 성공을 이끕니다."
                         : "From hydrographic surveys to offshore wind, leading marine projects to success with cutting-edge technology."}
                 </p>
 
                 {/* Stats */}
-                <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div className="mx-auto grid max-w-4xl grid-cols-2 gap-8 md:grid-cols-4">
                     {stats.map((stat) => (
                         <div key={stat.labelEn} className="stat-item text-center">
-                            <div className="text-3xl md:text-4xl font-bold text-ocean-400 font-display">
+                            <div className="text-ocean-400 font-display text-3xl font-bold md:text-4xl">
                                 {isKorean ? stat.valueKo : stat.valueEn}
                             </div>
-                            <div className="text-white/50 text-sm mt-2">
+                            <div className="mt-2 text-sm text-white/50">
                                 {isKorean ? stat.labelKo : stat.labelEn}
                             </div>
                         </div>

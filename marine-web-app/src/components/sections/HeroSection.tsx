@@ -108,34 +108,29 @@ export function HeroSection() {
     return (
         <section
             ref={sectionRef}
-            className="relative h-screen min-h-[800px] flex items-center justify-center overflow-hidden bg-marine-dark"
+            className="bg-marine-dark relative flex h-screen min-h-[800px] items-center justify-center overflow-hidden"
         >
             {/* Parallax Background */}
-            <div
-                ref={bgRef}
-                className="absolute inset-0 z-0"
-            >
+            <div ref={bgRef} className="absolute inset-0 z-0">
                 <div
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                     style={{
-                        backgroundImage: "url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1920&q=80')",
+                        backgroundImage:
+                            "url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1920&q=80')",
                     }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-marine-dark/40 via-marine-dark/20 to-marine-dark/90" />
-                <div className="absolute inset-0 bg-marine-dark/30 backdrop-blur-[1px]" />
+                <div className="from-marine-dark/40 via-marine-dark/20 to-marine-dark/90 absolute inset-0 bg-gradient-to-b" />
+                <div className="bg-marine-dark/30 absolute inset-0 backdrop-blur-[1px]" />
             </div>
 
             {/* Content */}
-            <div
-                ref={contentRef}
-                className="relative z-10 container-custom text-center px-4"
-            >
-                <div className="max-w-4xl mx-auto space-y-8">
+            <div ref={contentRef} className="container-custom relative z-10 px-4 text-center">
+                <div className="mx-auto max-w-4xl space-y-8">
                     <div
                         ref={badgeRef}
-                        className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full backdrop-blur-md"
+                        className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-md"
                     >
-                        <span className="w-2 h-2 rounded-full bg-ocean-400 animate-pulse" />
+                        <span className="bg-ocean-400 h-2 w-2 animate-pulse rounded-full" />
                         <span className="text-ocean-100/90 text-sm font-medium tracking-wide">
                             Marine Survey Specialists
                         </span>
@@ -143,34 +138,50 @@ export function HeroSection() {
 
                     <h1
                         ref={titleRef}
-                        className="font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white leading-tight"
+                        className="font-display text-5xl leading-tight font-bold tracking-tight text-white md:text-7xl lg:text-8xl"
                     >
                         Unlocking the <br />
                         <span className="text-gradient-ocean relative">
                             Ocean's Potential
-                            <svg className="absolute w-full h-3 -bottom-1 left-0 text-ocean-500 opacity-30" viewBox="0 0 100 10" preserveAspectRatio="none">
-                                <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="2" fill="none" />
+                            <svg
+                                className="text-ocean-500 absolute -bottom-1 left-0 h-3 w-full opacity-30"
+                                viewBox="0 0 100 10"
+                                preserveAspectRatio="none"
+                            >
+                                <path
+                                    d="M0 5 Q 50 10 100 5"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    fill="none"
+                                />
                             </svg>
                         </span>
                     </h1>
 
                     <p
                         ref={descRef}
-                        className="text-lg md:text-xl text-ocean-50/70 max-w-2xl mx-auto leading-relaxed font-light"
+                        className="text-ocean-50/70 mx-auto max-w-2xl text-lg leading-relaxed font-light md:text-xl"
                     >
-                        We provide precise offshore wind, geophysical, and geotechnical solutions
-                        to build a safer and more sustainable marine future.
+                        We provide precise offshore wind, geophysical, and geotechnical solutions to
+                        build a safer and more sustainable marine future.
                     </p>
 
                     <div
                         ref={buttonsRef}
-                        className="flex flex-col sm:flex-row items-center justify-center gap-5 pt-4"
+                        className="flex flex-col items-center justify-center gap-5 pt-4 sm:flex-row"
                     >
-                        <Button size="lg" className="rounded-full px-8 bg-white text-marine-dark hover:bg-ocean-50 hover:shadow-xl hover:shadow-white/10 transition-all">
+                        <Button
+                            size="lg"
+                            className="text-marine-dark hover:bg-ocean-50 rounded-full bg-white px-8 transition-all hover:shadow-xl hover:shadow-white/10"
+                        >
                             Explore Services
                             <ArrowRight size={18} className="ml-2" />
                         </Button>
-                        <Button variant="secondary" size="lg" className="rounded-full px-8 border-white/20 hover:bg-white/10">
+                        <Button
+                            variant="secondary"
+                            size="lg"
+                            className="rounded-full border-white/20 px-8 hover:bg-white/10"
+                        >
                             Our Projects
                         </Button>
                     </div>
@@ -178,15 +189,12 @@ export function HeroSection() {
             </div>
 
             {/* Scroll Indicator */}
-            <div
-                ref={scrollIndicatorRef}
-                className="absolute bottom-12 left-1/2 -translate-x-1/2"
-            >
+            <div ref={scrollIndicatorRef} className="absolute bottom-12 left-1/2 -translate-x-1/2">
                 <div className="flex flex-col items-center gap-3">
-                    <span className="text-[10px] tracking-[0.2em] font-medium text-white/30 uppercase">Scroll to Discover</span>
-                    <div
-                        className="scroll-line w-[1px] h-12 bg-gradient-to-b from-white/0 via-white/50 to-white/0"
-                    />
+                    <span className="text-[10px] font-medium tracking-[0.2em] text-white/30 uppercase">
+                        Scroll to Discover
+                    </span>
+                    <div className="scroll-line h-12 w-[1px] bg-gradient-to-b from-white/0 via-white/50 to-white/0" />
                 </div>
             </div>
         </section>

@@ -16,7 +16,7 @@ export function Card({ children, className = "", hover = true }: CardProps) {
 
     return (
         <div
-            className={`group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl overflow-hidden ${hoverClass} ${className}`}
+            className={`group relative overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm ${hoverClass} ${className}`}
         >
             {children}
         </div>
@@ -30,12 +30,7 @@ interface ServiceCardProps {
     image: string;
 }
 
-export function ServiceCard({
-    title,
-    description,
-    icon,
-    image,
-}: ServiceCardProps) {
+export function ServiceCard({ title, description, icon, image }: ServiceCardProps) {
     return (
         <Card className="h-full">
             <div className="relative h-48 overflow-hidden">
@@ -45,16 +40,16 @@ export function ServiceCard({
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-marine-dark via-marine-dark/50 to-transparent" />
-                <div className="absolute bottom-4 left-4 w-12 h-12 rounded-xl bg-ocean-500/20 backdrop-blur-sm flex items-center justify-center text-ocean-300">
+                <div className="from-marine-dark via-marine-dark/50 absolute inset-0 bg-gradient-to-t to-transparent" />
+                <div className="bg-ocean-500/20 text-ocean-300 absolute bottom-4 left-4 flex h-12 w-12 items-center justify-center rounded-xl backdrop-blur-sm">
                     {icon}
                 </div>
             </div>
             <div className="p-6">
-                <h3 className="text-xl font-display font-semibold text-white mb-2 group-hover:text-ocean-300 transition-colors">
+                <h3 className="font-display group-hover:text-ocean-300 mb-2 text-xl font-semibold text-white transition-colors">
                     {title}
                 </h3>
-                <p className="text-white/60 text-sm leading-relaxed">{description}</p>
+                <p className="text-sm leading-relaxed text-white/60">{description}</p>
             </div>
         </Card>
     );
@@ -67,12 +62,7 @@ interface CaseStudyCardProps {
     image: string;
 }
 
-export function CaseStudyCard({
-    title,
-    location,
-    category,
-    image,
-}: CaseStudyCardProps) {
+export function CaseStudyCard({ title, location, category, image }: CaseStudyCardProps) {
     return (
         <Card className="min-w-[320px] md:min-w-[400px]">
             <div className="relative h-56 overflow-hidden">
@@ -82,16 +72,16 @@ export function CaseStudyCard({
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-marine-dark via-transparent to-transparent" />
-                <span className="absolute top-4 left-4 px-3 py-1 text-xs font-medium bg-ocean-500/80 backdrop-blur-sm rounded-lg text-white">
+                <div className="from-marine-dark absolute inset-0 bg-gradient-to-t via-transparent to-transparent" />
+                <span className="bg-ocean-500/80 absolute top-4 left-4 rounded-lg px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
                     {category}
                 </span>
             </div>
             <div className="p-6">
-                <h3 className="text-lg font-display font-semibold text-white mb-1 group-hover:text-ocean-300 transition-colors">
+                <h3 className="font-display group-hover:text-ocean-300 mb-1 text-lg font-semibold text-white transition-colors">
                     {title}
                 </h3>
-                <p className="text-white/50 text-sm">{location}</p>
+                <p className="text-sm text-white/50">{location}</p>
             </div>
         </Card>
     );
@@ -114,14 +104,14 @@ export function NewsCard({ title, date, category, image }: NewsCardProps) {
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-marine-dark to-transparent" />
+                <div className="from-marine-dark absolute inset-0 bg-gradient-to-t to-transparent" />
             </div>
             <div className="p-5">
-                <div className="flex items-center gap-3 mb-3">
-                    <span className="text-xs font-medium text-ocean-400">{category}</span>
+                <div className="mb-3 flex items-center gap-3">
+                    <span className="text-ocean-400 text-xs font-medium">{category}</span>
                     <span className="text-xs text-white/40">{date}</span>
                 </div>
-                <h3 className="text-base font-display font-medium text-white group-hover:text-ocean-300 transition-colors line-clamp-2">
+                <h3 className="font-display group-hover:text-ocean-300 line-clamp-2 text-base font-medium text-white transition-colors">
                     {title}
                 </h3>
             </div>

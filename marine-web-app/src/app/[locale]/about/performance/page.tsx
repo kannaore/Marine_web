@@ -60,23 +60,19 @@ const projects = [
     },
 ];
 
-export default async function PerformancePage({
-    params,
-}: {
-    params: Promise<{ locale: string }>;
-}) {
+export default async function PerformancePage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = await params;
     setRequestLocale(locale);
     const isKorean = locale === "ko";
 
     return (
-        <main className="min-h-screen bg-marine-dark pt-32 pb-20">
+        <main className="bg-marine-dark min-h-screen pt-32 pb-20">
             <div className="container-custom">
                 {/* Breadcrumb */}
                 <div className="mb-8">
                     <Link
                         href="/about"
-                        className="inline-flex items-center gap-2 text-white/50 hover:text-white transition-colors"
+                        className="inline-flex items-center gap-2 text-white/50 transition-colors hover:text-white"
                     >
                         <ArrowLeft size={16} />
                         {isKorean ? "회사 소개" : "About Us"}
@@ -85,13 +81,13 @@ export default async function PerformancePage({
 
                 {/* Header */}
                 <div className="mb-12">
-                    <span className="text-ocean-400 text-sm font-medium tracking-widest uppercase mb-4 block">
+                    <span className="text-ocean-400 mb-4 block text-sm font-medium tracking-widest uppercase">
                         {isKorean ? "실적" : "Track Record"}
                     </span>
-                    <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">
+                    <h1 className="font-display mb-4 text-4xl font-bold text-white md:text-5xl">
                         {isKorean ? "프로젝트 실적" : "Project Portfolio"}
                     </h1>
-                    <p className="text-white/60 text-lg max-w-2xl">
+                    <p className="max-w-2xl text-lg text-white/60">
                         {isKorean
                             ? "마린리서치가 수행한 주요 프로젝트 목록입니다."
                             : "A list of major projects completed by Marine Research."}
@@ -99,19 +95,19 @@ export default async function PerformancePage({
                 </div>
 
                 {/* Projects Table */}
-                <div className="glass-panel rounded-2xl overflow-hidden">
+                <div className="glass-panel overflow-hidden rounded-2xl">
                     {/* Table Header */}
-                    <div className="hidden md:grid grid-cols-12 gap-4 px-6 py-4 bg-white/5 border-b border-white/10">
-                        <div className="col-span-1 text-white/50 text-sm font-medium">
+                    <div className="hidden grid-cols-12 gap-4 border-b border-white/10 bg-white/5 px-6 py-4 md:grid">
+                        <div className="col-span-1 text-sm font-medium text-white/50">
                             {isKorean ? "연도" : "Year"}
                         </div>
-                        <div className="col-span-5 text-white/50 text-sm font-medium">
+                        <div className="col-span-5 text-sm font-medium text-white/50">
                             {isKorean ? "프로젝트명" : "Project Name"}
                         </div>
-                        <div className="col-span-3 text-white/50 text-sm font-medium">
+                        <div className="col-span-3 text-sm font-medium text-white/50">
                             {isKorean ? "발주처" : "Client"}
                         </div>
-                        <div className="col-span-3 text-white/50 text-sm font-medium">
+                        <div className="col-span-3 text-sm font-medium text-white/50">
                             {isKorean ? "기간" : "Period"}
                         </div>
                     </div>
@@ -121,18 +117,18 @@ export default async function PerformancePage({
                         {projects.map((project, index) => (
                             <div
                                 key={index}
-                                className="grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-4 px-6 py-5 hover:bg-white/5 transition-colors"
+                                className="grid grid-cols-1 gap-2 px-6 py-5 transition-colors hover:bg-white/5 md:grid-cols-12 md:gap-4"
                             >
-                                <div className="col-span-1 text-ocean-400 font-medium md:text-base text-sm">
+                                <div className="text-ocean-400 col-span-1 text-sm font-medium md:text-base">
                                     {project.year}
                                 </div>
-                                <div className="col-span-5 text-white font-medium">
+                                <div className="col-span-5 font-medium text-white">
                                     {isKorean ? project.nameKo : project.nameEn}
                                 </div>
-                                <div className="col-span-3 text-white/60 text-sm md:text-base">
+                                <div className="col-span-3 text-sm text-white/60 md:text-base">
                                     {isKorean ? project.clientKo : project.clientEn}
                                 </div>
-                                <div className="col-span-3 text-white/50 text-sm">
+                                <div className="col-span-3 text-sm text-white/50">
                                     {isKorean ? project.dateKo : project.dateEn}
                                 </div>
                             </div>
@@ -142,14 +138,12 @@ export default async function PerformancePage({
 
                 {/* CTA */}
                 <div className="mt-16 text-center">
-                    <p className="text-white/60 mb-6">
-                        {isKorean
-                            ? "프로젝트 문의가 있으신가요?"
-                            : "Have a project inquiry?"}
+                    <p className="mb-6 text-white/60">
+                        {isKorean ? "프로젝트 문의가 있으신가요?" : "Have a project inquiry?"}
                     </p>
                     <Link
                         href="/contact/inquiry"
-                        className="inline-flex items-center gap-2 px-6 py-3 bg-ocean-500 hover:bg-ocean-400 text-white font-medium rounded-xl transition-colors"
+                        className="bg-ocean-500 hover:bg-ocean-400 inline-flex items-center gap-2 rounded-xl px-6 py-3 font-medium text-white transition-colors"
                     >
                         {isKorean ? "영업팀 연락하기" : "Contact Sales Team"}
                         <ChevronRight size={18} />

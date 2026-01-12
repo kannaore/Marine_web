@@ -1,0 +1,29 @@
+# EditorConfig - 모든 에디터에서 일관된 코딩 스타일 유지
+# https://editorconfig.org
+
+root = true
+
+# 모든 파일 기본 설정
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 4
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# JavaScript/TypeScript
+[*.{js,jsx,ts,tsx,mjs,cjs}]
+indent_size = 4
+
+# JSON/YAML
+[*.{json,jsonc,yml,yaml}]
+indent_size = 2
+
+# Markdown
+[*.md]
+trim_trailing_whitespace = false
+
+# Package files
+[{package.json,package-lock.json,tsconfig.json}]
+indent_size = 2

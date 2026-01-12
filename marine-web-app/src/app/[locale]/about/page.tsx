@@ -11,16 +11,12 @@ import {
 import { StatsShowcase } from "@/components/sections/StatsShowcase";
 import { CTASection } from "@/components/sections/CTASection";
 
-export default async function AboutPage({
-    params,
-}: {
-    params: Promise<{ locale: string }>;
-}) {
+export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = await params;
     setRequestLocale(locale);
 
     return (
-        <main className="min-h-screen bg-marine-dark">
+        <main className="bg-marine-dark min-h-screen">
             {/* Hero Section */}
             <AboutHero />
 

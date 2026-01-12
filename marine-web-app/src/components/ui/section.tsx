@@ -10,7 +10,7 @@ export function Section({ className, children, fullWidth = false, ...props }: Se
     return (
         <section
             className={cn(
-                "relative py-20 md:py-32 overflow-hidden",
+                "relative overflow-hidden py-20 md:py-32",
                 fullWidth ? "w-full" : "",
                 className
             )}

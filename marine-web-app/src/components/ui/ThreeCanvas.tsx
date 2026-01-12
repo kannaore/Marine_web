@@ -18,12 +18,7 @@ function OceanScene() {
     return (
         <>
             {/* Main floating sphere - represents ocean/water */}
-            <Float
-                speed={2}
-                rotationIntensity={0.5}
-                floatIntensity={1}
-                floatingRange={[-0.2, 0.2]}
-            >
+            <Float speed={2} rotationIntensity={0.5} floatIntensity={1} floatingRange={[-0.2, 0.2]}>
                 <Sphere args={[1, 64, 64]} position={[0, 0, 0]}>
                     <MeshDistortMaterial
                         color="#0066cc"
@@ -37,12 +32,12 @@ function OceanScene() {
             </Float>
 
             {/* Decorative torus - represents waves */}
-            <Float
-                speed={1.5}
-                rotationIntensity={1}
-                floatIntensity={0.5}
-            >
-                <Torus args={[1.8, 0.1, 16, 100]} position={[0, 0, 0]} rotation={[Math.PI / 2, 0, 0]}>
+            <Float speed={1.5} rotationIntensity={1} floatIntensity={0.5}>
+                <Torus
+                    args={[1.8, 0.1, 16, 100]}
+                    position={[0, 0, 0]}
+                    rotation={[Math.PI / 2, 0, 0]}
+                >
                     <meshStandardMaterial
                         color="#00a8e8"
                         transparent
@@ -54,12 +49,12 @@ function OceanScene() {
             </Float>
 
             {/* Secondary torus */}
-            <Float
-                speed={1}
-                rotationIntensity={0.8}
-                floatIntensity={0.3}
-            >
-                <Torus args={[2.2, 0.05, 16, 100]} position={[0, 0, 0]} rotation={[Math.PI / 2.5, 0.2, 0]}>
+            <Float speed={1} rotationIntensity={0.8} floatIntensity={0.3}>
+                <Torus
+                    args={[2.2, 0.05, 16, 100]}
+                    position={[0, 0, 0]}
+                    rotation={[Math.PI / 2.5, 0.2, 0]}
+                >
                     <meshStandardMaterial
                         color="#003d5b"
                         transparent
@@ -79,11 +74,7 @@ function GeometricScene() {
         <>
             <Float speed={2} rotationIntensity={0.5} floatIntensity={0.8}>
                 <Box args={[1, 1, 1]} position={[-1.5, 0, 0]} rotation={[0.5, 0.5, 0]}>
-                    <meshStandardMaterial
-                        color="#0066cc"
-                        metalness={0.9}
-                        roughness={0.1}
-                    />
+                    <meshStandardMaterial color="#0066cc" metalness={0.9} roughness={0.1} />
                 </Box>
             </Float>
 
@@ -100,12 +91,12 @@ function GeometricScene() {
             </Float>
 
             <Float speed={1} rotationIntensity={0.7} floatIntensity={0.5}>
-                <Torus args={[0.8, 0.3, 16, 50]} position={[0, -0.5, 1]} rotation={[Math.PI / 3, 0, 0]}>
-                    <meshStandardMaterial
-                        color="#003d5b"
-                        metalness={0.7}
-                        roughness={0.3}
-                    />
+                <Torus
+                    args={[0.8, 0.3, 16, 50]}
+                    position={[0, -0.5, 1]}
+                    rotation={[Math.PI / 3, 0, 0]}
+                >
+                    <meshStandardMaterial color="#003d5b" metalness={0.7} roughness={0.3} />
                 </Torus>
             </Float>
         </>
@@ -115,8 +106,8 @@ function GeometricScene() {
 // Loading fallback
 function Loader() {
     return (
-        <div className="w-full h-full flex items-center justify-center bg-transparent">
-            <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+        <div className="flex h-full w-full items-center justify-center bg-transparent">
+            <div className="border-primary h-8 w-8 animate-spin rounded-full border-2 border-t-transparent" />
         </div>
     );
 }
@@ -135,10 +126,7 @@ export function ThreeCanvas({
     const containerRef = useRef<HTMLDivElement>(null);
 
     return (
-        <div
-            ref={containerRef}
-            className={`w-full h-full min-h-[300px] ${className}`}
-        >
+        <div ref={containerRef} className={`h-full min-h-[300px] w-full ${className}`}>
             <Suspense fallback={<Loader />}>
                 <Canvas
                     dpr={[1, 2]}

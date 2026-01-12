@@ -11,11 +11,7 @@ export function urlFor(source: SanityImageSource) {
 }
 
 // Get image URL with specific dimensions
-export function getImageUrl(
-    source: SanityImageSource,
-    width?: number,
-    height?: number
-) {
+export function getImageUrl(source: SanityImageSource, width?: number, height?: number) {
     let imageBuilder = builder.image(source);
 
     if (width) {

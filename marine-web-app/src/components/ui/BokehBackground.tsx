@@ -35,8 +35,8 @@ export function BokehBackground() {
                 i % 3 === 0
                     ? "var(--color-ocean-400)"
                     : i % 3 === 1
-                        ? "var(--color-accent-purple)"
-                        : "var(--color-accent-cyan)",
+                      ? "var(--color-accent-purple)"
+                      : "var(--color-accent-cyan)",
             duration: Math.random() * 20 + 20,
             targetX: [
                 Math.random() * 100 + "%",
@@ -84,15 +84,15 @@ export function BokehBackground() {
     if (!mounted) return null;
 
     return (
-        <div ref={containerRef} className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+        <div ref={containerRef} className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
             {/* Base gradient layer */}
-            <div className="absolute inset-0 bg-marine-dark" />
+            <div className="bg-marine-dark absolute inset-0" />
 
             {/* Animated Bokeh Circles */}
             {bokehCircles.map((bokeh) => (
                 <div
                     key={bokeh.id}
-                    className="bokeh-circle absolute rounded-full blur-[120px] opacity-[0.15] will-change-transform"
+                    className="bokeh-circle absolute rounded-full opacity-[0.15] blur-[120px] will-change-transform"
                     style={{
                         width: bokeh.width + "px",
                         height: bokeh.height + "px",

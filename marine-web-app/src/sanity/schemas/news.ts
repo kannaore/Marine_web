@@ -92,8 +92,9 @@ export default defineType({
             };
             return {
                 ...selection,
-                subtitle: `${categoryLabels[category] || category} • ${date ? new Date(date).toLocaleDateString("ko-KR") : "날짜 없음"
-                    }`,
+                subtitle: `${categoryLabels[category] || category} • ${
+                    date ? new Date(date).toLocaleDateString("ko-KR") : "날짜 없음"
+                }`,
             };
         },
     },

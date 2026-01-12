@@ -50,7 +50,7 @@ export function TextReveal({ text, className = "" }: TextRevealProps) {
     return (
         <p ref={containerRef} className={`flex flex-wrap ${className}`}>
             {words.map((word, i) => (
-                <span key={i} className="relative mr-3 mt-2">
+                <span key={i} className="relative mt-2 mr-3">
                     <span className="text-reveal-word inline-block" style={{ opacity: 0.2 }}>
                         {word}
                     </span>

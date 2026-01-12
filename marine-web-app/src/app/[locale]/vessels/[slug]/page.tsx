@@ -39,8 +39,7 @@ type Vessel = {
 const VESSELS: Record<string, Vessel> = {
     starmarine: {
         name: "M/V Starmarine",
-        heroImage:
-            "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1920&q=80",
+        heroImage: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1920&q=80",
         heroSubtitle:
             "Multi-purpose survey vessel equipped for seismic, geophysical, and geotechnical operations.",
         summary: [
@@ -146,10 +145,8 @@ function SpecGrid({ items, t }: { items: SpecItem[]; t: TFunction }) {
                     key={`${item.labelKey}-${item.value}`}
                     className="flex items-baseline justify-between gap-4 border-b border-white/10 py-3"
                 >
-                    <span className="text-sm text-white/60">
-                        {t(`labels.${item.labelKey}`)}
-                    </span>
-                    <span className="text-sm md:text-base text-white">
+                    <span className="text-sm text-white/60">{t(`labels.${item.labelKey}`)}</span>
+                    <span className="text-sm text-white md:text-base">
                         {formatSpecValue(item, t)}
                     </span>
                 </div>
@@ -184,20 +181,20 @@ export default async function VesselDetailPage({
                         className="object-cover"
                         priority
                     />
-                    <div className="absolute inset-0 bg-gradient-to-b from-marine-dark/50 via-marine-dark/40 to-marine-dark" />
+                    <div className="from-marine-dark/50 via-marine-dark/40 to-marine-dark absolute inset-0 bg-gradient-to-b" />
                 </div>
 
-                <div className="relative z-10 min-h-[80vh] flex items-center">
+                <div className="relative z-10 flex min-h-[80vh] items-center">
                     <Container className="py-24 md:py-32">
                         <div className="max-w-2xl space-y-6">
-                            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs tracking-[0.3em] uppercase text-white/70">
-                                <span className="h-1.5 w-1.5 rounded-full bg-ocean-400" />
+                            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs tracking-[0.3em] text-white/70 uppercase">
+                                <span className="bg-ocean-400 h-1.5 w-1.5 rounded-full" />
                                 {t("hero.badge")}
                             </div>
-                            <h1 className="font-display text-4xl md:text-6xl font-bold text-white">
+                            <h1 className="font-display text-4xl font-bold text-white md:text-6xl">
                                 {vessel.name}
                             </h1>
-                            <p className="text-base md:text-lg text-white/70">
+                            <p className="text-base text-white/70 md:text-lg">
                                 {vessel.heroSubtitle}
                             </p>
                             <div className="flex flex-wrap gap-4 pt-2">
@@ -214,7 +211,7 @@ export default async function VesselDetailPage({
                 </div>
             </section>
 
-            <section className="border-y border-white/10 bg-marine-dark">
+            <section className="bg-marine-dark border-y border-white/10">
                 <Container className="py-10 md:py-14">
                     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                         {vessel.summary.map((item) => (
@@ -222,10 +219,10 @@ export default async function VesselDetailPage({
                                 key={`${item.labelKey}-${item.value}`}
                                 className="rounded-2xl border border-white/10 bg-white/5 p-6"
                             >
-                                <p className="text-xs uppercase tracking-[0.2em] text-white/50">
+                                <p className="text-xs tracking-[0.2em] text-white/50 uppercase">
                                     {t(`labels.${item.labelKey}`)}
                                 </p>
-                                <p className="mt-3 text-2xl font-display font-semibold text-white">
+                                <p className="font-display mt-3 text-2xl font-semibold text-white">
                                     {formatSpecValue(item, t)}
                                 </p>
                             </div>
@@ -268,13 +265,13 @@ export default async function VesselDetailPage({
                             />
                             <div className="space-y-10">
                                 <div>
-                                    <p className="mb-4 text-xs uppercase tracking-[0.25em] text-white/50">
+                                    <p className="mb-4 text-xs tracking-[0.25em] text-white/50 uppercase">
                                         {t("sections.performance.performanceTitle")}
                                     </p>
                                     <SpecGrid items={vessel.performance} t={t} />
                                 </div>
                                 <div>
-                                    <p className="mb-4 text-xs uppercase tracking-[0.25em] text-white/50">
+                                    <p className="mb-4 text-xs tracking-[0.25em] text-white/50 uppercase">
                                         {t("sections.performance.conditionsTitle")}
                                     </p>
                                     <SpecGrid items={vessel.conditions} t={t} />
@@ -300,22 +297,20 @@ export default async function VesselDetailPage({
                         subtitle={t("sections.equipment.subtitle")}
                         align="left"
                     />
-                    <p className="mb-8 text-sm text-white/50">
-                        {t("sections.equipment.note")}
-                    </p>
+                    <p className="mb-8 text-sm text-white/50">{t("sections.equipment.note")}</p>
                     <div className="grid gap-8 lg:grid-cols-2">
                         {vessel.equipment.map((group) => (
                             <div
                                 key={group.categoryKey}
                                 className="rounded-2xl border border-white/10 bg-white/5 p-6"
                             >
-                                <h3 className="text-lg font-display font-semibold text-white">
+                                <h3 className="font-display text-lg font-semibold text-white">
                                     {t(`equipmentCategories.${group.categoryKey}`)}
                                 </h3>
                                 <ul className="mt-4 space-y-2 text-sm text-white/60">
                                     {group.items.map((item) => (
                                         <li key={item} className="flex gap-3">
-                                            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-ocean-400" />
+                                            <span className="bg-ocean-400 mt-2 h-1.5 w-1.5 shrink-0 rounded-full" />
                                             <span>{item}</span>
                                         </li>
                                     ))}
@@ -344,7 +339,7 @@ export default async function VesselDetailPage({
                                         <span className="text-sm text-white/60">
                                             {t(`deckMachinery.${item.labelKey}`)}
                                         </span>
-                                        <span className="text-sm md:text-base text-white">
+                                        <span className="text-sm text-white md:text-base">
                                             {item.value}
                                         </span>
                                     </div>

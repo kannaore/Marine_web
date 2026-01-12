@@ -10,7 +10,7 @@ export function Container({ className, children, fluid = false, ...props }: Cont
     return (
         <div
             className={cn(
-                "w-full mx-auto px-6 sm:px-8 md:px-10",
+                "mx-auto w-full px-6 sm:px-8 md:px-10",
                 fluid ? "max-w-full" : "max-w-[1400px]",
                 className
             )}

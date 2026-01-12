@@ -32,10 +32,13 @@ const equipmentCategoryOptions = [
     { title: "해저지형/저질 조사", value: "marineGeology" },
 ];
 
-const equipmentCategoryMap = equipmentCategoryOptions.reduce<Record<string, string>>((acc, item) => {
-    acc[item.value] = item.title;
-    return acc;
-}, {});
+const equipmentCategoryMap = equipmentCategoryOptions.reduce<Record<string, string>>(
+    (acc, item) => {
+        acc[item.value] = item.title;
+        return acc;
+    },
+    {}
+);
 
 const deckMachineryOptions = [
     { title: "해상 크레인", value: "seaCrane" },
@@ -135,13 +138,7 @@ const equipmentGroup = {
             category: "category",
             items: "items",
         },
-        prepare({
-            category,
-            items,
-        }: {
-            category?: string;
-            items?: Array<{ text?: string }>;
-        }) {
+        prepare({ category, items }: { category?: string; items?: Array<{ text?: string }> }) {
             return {
                 title: equipmentCategoryMap[category || ""] || category,
                 subtitle: items?.[0]?.text,

@@ -9,11 +9,7 @@ interface ScrollRevealProps {
     stagger?: number;
 }
 
-export function ScrollReveal({
-    children,
-    className = "",
-    stagger = 0.1,
-}: ScrollRevealProps) {
+export function ScrollReveal({ children, className = "", stagger = 0.1 }: ScrollRevealProps) {
     const ref = useRef<HTMLDivElement>(null);
 
     useGSAP(
@@ -56,13 +52,6 @@ interface ScrollRevealItemProps {
  * ScrollRevealItem - Use this inside ScrollReveal for individual item styling
  * The animation is handled by the parent ScrollReveal component
  */
-export function ScrollRevealItem({
-    children,
-    className = "",
-}: ScrollRevealItemProps) {
-    return (
-        <div className={className}>
-            {children}
-        </div>
-    );
+export function ScrollRevealItem({ children, className = "" }: ScrollRevealItemProps) {
+    return <div className={className}>{children}</div>;
 }

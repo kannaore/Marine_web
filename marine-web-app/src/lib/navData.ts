@@ -37,8 +37,10 @@ export const NAV_CONTENT: Record<string, NavSection> = {
         sectionLabelEn: "About Us",
         heroTitle: "회사 소개",
         heroTitleEn: "About Us",
-        heroDesc: "정밀 해양조사와 해양기술로 미래를 설계하는 Marine Research의 철학과 역사를 소개합니다.",
-        heroDescEn: "Discover the philosophy and history of Marine Research, shaping the future through precision marine surveys and ocean technology.",
+        heroDesc:
+            "정밀 해양조사와 해양기술로 미래를 설계하는 Marine Research의 철학과 역사를 소개합니다.",
+        heroDescEn:
+            "Discover the philosophy and history of Marine Research, shaping the future through precision marine surveys and ocean technology.",
         gridLayout: 3,
         categories: [
             {
@@ -115,7 +117,8 @@ export const NAV_CONTENT: Record<string, NavSection> = {
         heroTitle: "사업분야",
         heroTitleEn: "Our Services",
         heroDesc: "수로조사부터 해양에너지까지, 해양 데이터와 기술을 통합적으로 제공합니다.",
-        heroDescEn: "From hydrographic surveys to marine energy, we provide integrated marine data and technology solutions.",
+        heroDescEn:
+            "From hydrographic surveys to marine energy, we provide integrated marine data and technology solutions.",
         gridLayout: 3,
         categories: [
             {
@@ -233,7 +236,8 @@ export const NAV_CONTENT: Record<string, NavSection> = {
         heroTitle: "ESG 경영",
         heroTitleEn: "Sustainability",
         heroDesc: "환경과 안전, 윤리를 기반으로 지속 가능한 해양조사를 실천합니다.",
-        heroDescEn: "Practicing sustainable marine surveys based on environment, safety, and ethics.",
+        heroDescEn:
+            "Practicing sustainable marine surveys based on environment, safety, and ethics.",
         gridLayout: 2,
         categories: [
             {

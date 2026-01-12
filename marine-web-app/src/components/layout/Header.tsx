@@ -104,26 +104,34 @@ export function Header() {
             <header
                 ref={headerRef}
                 className={cn(
-                    "fixed top-4 inset-x-0 mx-auto z-50 transition-all duration-500 ease-out",
-                    "w-[90%] max-w-[1240px] rounded-2xl py-1 px-6",
+                    "fixed inset-x-0 top-4 z-50 mx-auto transition-all duration-500 ease-out",
+                    "w-[90%] max-w-[1240px] rounded-2xl px-6 py-1",
                     "border border-transparent", // Always have border to prevent layout shift
                     isMenuOpen
                         ? "bg-transparent" // Transparent so solid background behind shows through
                         : isScrolled
-                            ? "bg-marine-dark/50 !border-white/8 shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
-                            : ""
+                          ? "bg-marine-dark/50 !border-white/8 shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+                          : ""
                 )}
                 style={{
-                    WebkitBackdropFilter: isMenuOpen ? "none" : (isScrolled ? "blur(15px) saturate(180%) brightness(1.1)" : "none"),
-                    backdropFilter: isMenuOpen ? "none" : (isScrolled ? "blur(15px) saturate(180%) brightness(1.1)" : "none"),
+                    WebkitBackdropFilter: isMenuOpen
+                        ? "none"
+                        : isScrolled
+                          ? "blur(15px) saturate(180%) brightness(1.1)"
+                          : "none",
+                    backdropFilter: isMenuOpen
+                        ? "none"
+                        : isScrolled
+                          ? "blur(15px) saturate(180%) brightness(1.1)"
+                          : "none",
                 }}
             >
                 <div className="flex items-center justify-between">
                     {/* Left Section: Logo & Nav */}
                     <div className="flex items-center gap-12 xl:gap-16">
                         {/* Logo Section */}
-                        <Link href="/" className="flex items-center gap-2 shrink-0 relative z-10">
-                            <div className="relative w-24 lg:w-28 h-6 lg:h-7 transition-all duration-300">
+                        <Link href="/" className="relative z-10 flex shrink-0 items-center gap-2">
+                            <div className="relative h-6 w-24 transition-all duration-300 lg:h-7 lg:w-28">
                                 <Image
                                     src="/logo.png"
                                     alt="Marine Research Logo"
@@ -136,20 +144,23 @@ export function Header() {
                         </Link>
 
                         {/* Desktop Navigation - Morphing Menu */}
-                        <nav className="hidden lg:flex items-center">
-                            <MorphingDesktopNav onMenuOpen={setIsMenuOpen} headerOffset={headerOffset} />
+                        <nav className="hidden items-center lg:flex">
+                            <MorphingDesktopNav
+                                onMenuOpen={setIsMenuOpen}
+                                headerOffset={headerOffset}
+                            />
                         </nav>
                     </div>
 
                     {/* Right Actions */}
-                    <div className="hidden lg:flex items-center gap-8 relative z-10">
+                    <div className="relative z-10 hidden items-center gap-8 lg:flex">
                         <LanguageSwitcher />
                     </div>
 
                     {/* Mobile Menu Button */}
                     <button
                         onClick={() => setIsMobileMenuOpen(true)}
-                        className="lg:hidden p-1 text-white relative z-10"
+                        className="relative z-10 p-1 text-white lg:hidden"
                     >
                         <Menu size={24} />
                     </button>
@@ -170,11 +181,11 @@ export function Header() {
                 />
                 <div
                     ref={mobilePanelRef}
-                    className="absolute right-0 top-0 bottom-0 w-[300px] bg-marine-dark border-l border-white/10 shadow-2xl"
+                    className="bg-marine-dark absolute top-0 right-0 bottom-0 w-[300px] border-l border-white/10 shadow-2xl"
                     style={{ transform: "translateX(100%)" }}
                 >
-                    <div className="flex items-center justify-between p-6 border-b border-white/10">
-                        <span className="font-display font-bold text-lg text-white">MENU</span>
+                    <div className="flex items-center justify-between border-b border-white/10 p-6">
+                        <span className="font-display text-lg font-bold text-white">MENU</span>
                         <button
                             onClick={() => setIsMobileMenuOpen(false)}
                             className="p-2 text-white/60 hover:text-white"
@@ -182,7 +193,7 @@ export function Header() {
                             <X size={24} />
                         </button>
                     </div>
-                    <nav ref={mobileNavItemsRef} className="p-6 flex flex-col gap-6">
+                    <nav ref={mobileNavItemsRef} className="flex flex-col gap-6 p-6">
                         {Object.keys(NAV_CONTENT).map((tab) => {
                             const item = NAV_CONTENT[tab as NavKey];
                             return (
@@ -190,13 +201,13 @@ export function Header() {
                                     key={tab}
                                     href={item.href}
                                     onClick={() => setIsMobileMenuOpen(false)}
-                                    className="mobile-nav-item text-lg font-medium text-white/80 hover:text-white transition-colors"
+                                    className="mobile-nav-item text-lg font-medium text-white/80 transition-colors hover:text-white"
                                 >
                                     {isKorean ? item.sectionLabel : tab}
                                 </Link>
                             );
                         })}
-                        <div className="mt-4 pt-6 border-t border-white/10">
+                        <div className="mt-4 border-t border-white/10 pt-6">
                             <LanguageSwitcher />
                         </div>
                     </nav>

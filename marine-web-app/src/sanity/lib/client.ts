@@ -18,5 +18,4 @@ export const previewClient = createClient({
 });
 
 // Helper to get the appropriate client
-export const getClient = (preview = false) =>
-    preview ? previewClient : client;
+export const getClient = (preview = false) => (preview ? previewClient : client);

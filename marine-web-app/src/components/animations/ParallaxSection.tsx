@@ -81,14 +81,14 @@ export function ParallaxSection({
             {bgImage && (
                 <div
                     ref={bgRef}
-                    className="absolute inset-0 -top-[20%] -bottom-[20%] w-full h-[140%]"
+                    className="absolute inset-0 -top-[20%] -bottom-[20%] h-[140%] w-full"
                 >
                     <div
                         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                         style={{ backgroundImage: `url(${bgImage})` }}
                     />
                     {overlay && (
-                        <div className="absolute inset-0 bg-gradient-to-b from-marine-dark/80 via-marine-dark/60 to-marine-dark/80" />
+                        <div className="from-marine-dark/80 via-marine-dark/60 to-marine-dark/80 absolute inset-0 bg-gradient-to-b" />
                     )}
                 </div>
             )}

@@ -135,13 +135,13 @@ export default function HistoryPage() {
     );
 
     return (
-        <main ref={sectionRef} className="min-h-screen bg-marine-dark pt-32 pb-20">
+        <main ref={sectionRef} className="bg-marine-dark min-h-screen pt-32 pb-20">
             <div className="container-custom">
                 {/* Breadcrumb */}
                 <div className="mb-8">
                     <Link
                         href="/about"
-                        className="inline-flex items-center gap-2 text-white/50 hover:text-white transition-colors"
+                        className="inline-flex items-center gap-2 text-white/50 transition-colors hover:text-white"
                     >
                         <ArrowLeft size={16} />
                         {isKorean ? "회사 소개" : "About Us"}
@@ -150,13 +150,13 @@ export default function HistoryPage() {
 
                 {/* Header */}
                 <div className="mb-16">
-                    <span className="text-ocean-400 text-sm font-medium tracking-widest uppercase mb-4 block">
+                    <span className="text-ocean-400 mb-4 block text-sm font-medium tracking-widest uppercase">
                         {isKorean ? "연혁" : "History"}
                     </span>
-                    <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">
+                    <h1 className="font-display mb-4 text-4xl font-bold text-white md:text-5xl">
                         {isKorean ? "성장의 발자취" : "Milestones of Growth"}
                     </h1>
-                    <p className="text-white/60 text-lg max-w-2xl">
+                    <p className="max-w-2xl text-lg text-white/60">
                         {isKorean
                             ? "2004년 설립 이래 대한민국 해양조사 산업을 선도해온 마린리서치의 여정입니다."
                             : "The journey of Marine Research, leading Korea's marine survey industry since 2004."}
@@ -166,17 +166,17 @@ export default function HistoryPage() {
                 {/* Timeline */}
                 <div className="relative pl-8 md:pl-16">
                     {/* Timeline Line */}
-                    <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-ocean-500 via-ocean-500/50 to-transparent" />
+                    <div className="from-ocean-500 via-ocean-500/50 absolute top-0 bottom-0 left-0 w-px bg-gradient-to-b to-transparent" />
 
                     {/* Timeline Items */}
                     <div className="space-y-16">
                         {historyData.map((yearData) => (
                             <div key={yearData.year} className="history-item relative">
                                 {/* Year Dot */}
-                                <div className="absolute -left-8 md:-left-16 top-1 w-4 h-4 rounded-full bg-ocean-500 border-4 border-marine-dark" />
+                                <div className="bg-ocean-500 border-marine-dark absolute top-1 -left-8 h-4 w-4 rounded-full border-4 md:-left-16" />
 
                                 {/* Year */}
-                                <div className="font-display text-4xl md:text-5xl font-bold text-ocean-400 mb-6">
+                                <div className="font-display text-ocean-400 mb-6 text-4xl font-bold md:text-5xl">
                                     {yearData.year}
                                 </div>
 
@@ -185,9 +185,9 @@ export default function HistoryPage() {
                                     {yearData.events.map((event, idx) => (
                                         <div
                                             key={idx}
-                                            className="glass-panel rounded-xl p-5 hover:bg-white/10 transition-colors"
+                                            className="glass-panel rounded-xl p-5 transition-colors hover:bg-white/10"
                                         >
-                                            <p className="text-white font-medium">
+                                            <p className="font-medium text-white">
                                                 {isKorean ? event.titleKo : event.titleEn}
                                             </p>
                                         </div>

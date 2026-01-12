@@ -1,180 +1,177 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
-  --font-display: var(--font-outfit), "Outfit", sans-serif;
+    --font-sans:
+        "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
+        sans-serif;
+    --font-display: var(--font-outfit), "Outfit", sans-serif;
 
-  /* Premium Ocean Palette */
-  --color-ocean-50: #f0f9ff;
-  --color-ocean-100: #e0f2fe;
-  --color-ocean-200: #bae6fd;
-  --color-ocean-300: #7dd3fc;
-  --color-ocean-400: #38bdf8;
-  --color-ocean-500: #0ea5e9;
-  --color-ocean-600: #0284c7;
-  --color-ocean-700: #0369a1;
-  --color-ocean-800: #075985;
-  --color-ocean-900: #0c4a6e;
-  --color-ocean-950: #082f49;
+    /* Premium Ocean Palette */
+    --color-ocean-50: #f0f9ff;
+    --color-ocean-100: #e0f2fe;
+    --color-ocean-200: #bae6fd;
+    --color-ocean-300: #7dd3fc;
+    --color-ocean-400: #38bdf8;
+    --color-ocean-500: #0ea5e9;
+    --color-ocean-600: #0284c7;
+    --color-ocean-700: #0369a1;
+    --color-ocean-800: #075985;
+    --color-ocean-900: #0c4a6e;
+    --color-ocean-950: #082f49;
 
-  /* Deep Marine - Premium Dark Tones */
-  --color-marine-dark: #030608;
-  --color-marine-deeper: #010203;
-  --color-marine-glass: rgba(3, 6, 8, 0.85);
-  --color-marine-hero: #070d15;
+    /* Deep Marine - Premium Dark Tones */
+    --color-marine-dark: #030608;
+    --color-marine-deeper: #010203;
+    --color-marine-glass: rgba(3, 6, 8, 0.85);
+    --color-marine-hero: #070d15;
 
-  /* Premium Accent Colors */
-  --color-accent-blue: #38bdf8;
-  --color-accent-purple: #818cf8;
-  --color-accent-cyan: #22d3ee;
-  --color-accent-red: #ef4444;
-  --color-accent-coral: #f97316;
+    /* Premium Accent Colors */
+    --color-accent-blue: #38bdf8;
+    --color-accent-purple: #818cf8;
+    --color-accent-cyan: #22d3ee;
+    --color-accent-red: #ef4444;
+    --color-accent-coral: #f97316;
 
-  /* Ease Curves */
-  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    /* Ease Curves */
+    --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Global Styles */
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 body {
-  background: var(--color-marine-dark);
-  color: white;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    background: var(--color-marine-dark);
+    color: white;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 /* Selection */
 ::selection {
-  background: var(--color-ocean-500);
-  color: white;
+    background: var(--color-ocean-500);
+    color: white;
 }
 
 /* Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+    width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-marine-dark);
+    background: var(--color-marine-dark);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-ocean-800);
-  border-radius: 99px;
+    background: var(--color-ocean-800);
+    border-radius: 99px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-ocean-600);
+    background: var(--color-ocean-600);
 }
 
 /* Gradient Text Utilities */
 .text-gradient-ocean {
-  background: linear-gradient(135deg, #e0f2fe 0%, #38bdf8 50%, #0284c7 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+    background: linear-gradient(135deg, #e0f2fe 0%, #38bdf8 50%, #0284c7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .text-gradient-purple {
-  background: linear-gradient(135deg, #e0f2fe 0%, #818cf8 50%, #4f46e5 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+    background: linear-gradient(135deg, #e0f2fe 0%, #818cf8 50%, #4f46e5 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 /* Glassmorphism Utilities */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 .glass-pill {
-  background: rgba(10, 22, 40, 0.6);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    background: rgba(10, 22, 40, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 .nav-flyout-panel {
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
 }
 
 /* Text Glow */
 .text-glow {
-  text-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
+    text-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
 }
 
 /* Layout Utilities */
 .section-padding {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
 }
 
 @media (min-width: 768px) {
-  .section-padding {
-    padding-top: 8rem;
-    padding-bottom: 8rem;
-  }
+    .section-padding {
+        padding-top: 8rem;
+        padding-bottom: 8rem;
+    }
 }
 
 /* Container Utilities */
 .container-responsive,
 .container-custom {
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
 }
 
 @media (min-width: 640px) {
-
-  .container-responsive,
-  .container-custom {
-    max-width: 640px;
-  }
+    .container-responsive,
+    .container-custom {
+        max-width: 640px;
+    }
 }
 
 @media (min-width: 768px) {
-
-  .container-responsive,
-  .container-custom {
-    max-width: 768px;
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
+    .container-responsive,
+    .container-custom {
+        max-width: 768px;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
 }
 
 @media (min-width: 1024px) {
-
-  .container-responsive,
-  .container-custom {
-    max-width: 1024px;
-  }
+    .container-responsive,
+    .container-custom {
+        max-width: 1024px;
+    }
 }
 
 @media (min-width: 1280px) {
-
-  .container-responsive,
-  .container-custom {
-    max-width: 1280px;
-  }
+    .container-responsive,
+    .container-custom {
+        max-width: 1280px;
+    }
 }
 
 @media (min-width: 1536px) {
-
-  .container-responsive,
-  .container-custom {
-    max-width: 1400px;
-  }
+    .container-responsive,
+    .container-custom {
+        max-width: 1400px;
+    }
 }

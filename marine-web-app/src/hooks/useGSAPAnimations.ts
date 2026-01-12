@@ -25,12 +25,7 @@ export function useScrollAnimation<T extends HTMLElement>(
     animationConfig: gsap.TweenVars,
     options: ScrollAnimationOptions = {}
 ) {
-    const {
-        start = "top bottom",
-        end = "bottom top",
-        scrub = true,
-        markers = false,
-    } = options;
+    const { start = "top bottom", end = "bottom top", scrub = true, markers = false } = options;
 
     useGSAP(
         () => {

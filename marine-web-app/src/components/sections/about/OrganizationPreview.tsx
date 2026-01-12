@@ -57,19 +57,19 @@ export function OrganizationPreview() {
     );
 
     return (
-        <section ref={sectionRef} className="py-24 md:py-32 bg-marine-dark">
+        <section ref={sectionRef} className="bg-marine-dark py-24 md:py-32">
             <div className="container-custom">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
                     {/* Left: Content */}
                     <div>
                         <FadeIn>
-                            <span className="text-ocean-400 text-sm font-medium tracking-widest uppercase mb-4 block">
+                            <span className="text-ocean-400 mb-4 block text-sm font-medium tracking-widest uppercase">
                                 {isKorean ? "조직" : "Organization"}
                             </span>
                         </FadeIn>
 
                         <FadeIn delay={0.1}>
-                            <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-6">
+                            <h2 className="font-display mb-6 text-3xl font-bold text-white md:text-4xl">
                                 {isKorean
                                     ? "전문 인력이 이끄는\n기술 혁신"
                                     : "Technology Innovation\nLed by Experts"}
@@ -77,7 +77,7 @@ export function OrganizationPreview() {
                         </FadeIn>
 
                         <FadeIn delay={0.2}>
-                            <p className="text-white/60 text-lg leading-relaxed mb-8">
+                            <p className="mb-8 text-lg leading-relaxed text-white/60">
                                 {isKorean
                                     ? "마린리서치는 해양조사 분야의 최고 전문가들로 구성되어 있습니다. 석박사급 연구인력과 풍부한 현장 경험을 갖춘 기술인력이 함께 고객에게 최상의 서비스를 제공합니다."
                                     : "Marine Research is composed of top experts in the marine survey field. Our PhD-level researchers and experienced engineers work together to provide the best services to our clients."}
@@ -87,7 +87,7 @@ export function OrganizationPreview() {
                         <FadeIn delay={0.3}>
                             <Link
                                 href="/about/organization"
-                                className="inline-flex items-center gap-2 text-ocean-400 hover:text-ocean-300 transition-colors"
+                                className="text-ocean-400 hover:text-ocean-300 inline-flex items-center gap-2 transition-colors"
                             >
                                 {isKorean ? "조직도 보기" : "View Organization"}
                                 <ChevronRight size={18} />
@@ -102,13 +102,13 @@ export function OrganizationPreview() {
                                 key={stat.labelEn}
                                 className="org-card glass-panel rounded-2xl p-6 text-center"
                             >
-                                <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-ocean-500/20 flex items-center justify-center">
-                                    <stat.icon className="w-6 h-6 text-ocean-400" />
+                                <div className="bg-ocean-500/20 mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl">
+                                    <stat.icon className="text-ocean-400 h-6 w-6" />
                                 </div>
-                                <div className="font-display text-3xl font-bold text-white mb-1">
+                                <div className="font-display mb-1 text-3xl font-bold text-white">
                                     {isKorean ? stat.numberKo : stat.numberEn}
                                 </div>
-                                <div className="text-white/50 text-sm">
+                                <div className="text-sm text-white/50">
                                     {isKorean ? stat.labelKo : stat.labelEn}
                                 </div>
                             </div>

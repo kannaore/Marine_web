@@ -47,22 +47,22 @@ export function ClientsPreview() {
     return (
         <section
             ref={sectionRef}
-            className="py-24 md:py-32 bg-gradient-to-b from-[#050a10] to-marine-dark"
+            className="to-marine-dark bg-gradient-to-b from-[#050a10] py-24 md:py-32"
         >
             <div className="container-custom">
                 <FadeIn>
-                    <div className="flex items-end justify-between mb-12">
+                    <div className="mb-12 flex items-end justify-between">
                         <div>
-                            <span className="text-ocean-400 text-sm font-medium tracking-widest uppercase mb-4 block">
+                            <span className="text-ocean-400 mb-4 block text-sm font-medium tracking-widest uppercase">
                                 {isKorean ? "주요 고객사" : "Our Clients"}
                             </span>
-                            <h2 className="font-display text-3xl md:text-4xl font-bold text-white">
+                            <h2 className="font-display text-3xl font-bold text-white md:text-4xl">
                                 {isKorean ? "신뢰받는 파트너십" : "Trusted Partnerships"}
                             </h2>
                         </div>
                         <Link
                             href="/about/clients"
-                            className="hidden md:flex items-center gap-2 text-ocean-400 hover:text-ocean-300 transition-colors"
+                            className="text-ocean-400 hover:text-ocean-300 hidden items-center gap-2 transition-colors md:flex"
                         >
                             {isKorean ? "전체 고객사 보기" : "View All Clients"}
                             <ChevronRight size={18} />
@@ -71,13 +71,13 @@ export function ClientsPreview() {
                 </FadeIn>
 
                 {/* Clients Grid */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
                     {clients.map((client) => (
                         <div
                             key={client.nameEn}
-                            className="client-logo glass-panel rounded-xl p-6 md:p-8 flex items-center justify-center hover:bg-white/10 transition-colors duration-300"
+                            className="client-logo glass-panel flex items-center justify-center rounded-xl p-6 transition-colors duration-300 hover:bg-white/10 md:p-8"
                         >
-                            <span className="text-white/60 font-medium text-center text-sm md:text-base">
+                            <span className="text-center text-sm font-medium text-white/60 md:text-base">
                                 {isKorean ? client.name : client.nameEn}
                             </span>
                         </div>
@@ -85,10 +85,10 @@ export function ClientsPreview() {
                 </div>
 
                 {/* Mobile: View All Link */}
-                <div className="md:hidden mt-8 text-center">
+                <div className="mt-8 text-center md:hidden">
                     <Link
                         href="/about/clients"
-                        className="inline-flex items-center gap-2 text-ocean-400"
+                        className="text-ocean-400 inline-flex items-center gap-2"
                     >
                         {isKorean ? "전체 고객사 보기" : "View All Clients"}
                         <ChevronRight size={18} />

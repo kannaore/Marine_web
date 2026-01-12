@@ -87,7 +87,7 @@ export function EmblaCarousel({
                     {slides.map((slide, index) => (
                         <div
                             key={index}
-                            className="embla__slide flex-[0_0_100%] min-w-0 pl-4 first:pl-0"
+                            className="embla__slide min-w-0 flex-[0_0_100%] pl-4 first:pl-0"
                         >
                             {slide}
                         </div>
@@ -101,11 +101,7 @@ export function EmblaCarousel({
                     <button
                         onClick={scrollPrev}
                         disabled={!canScrollPrev && !options.loop}
-                        className="embla__button embla__button--prev absolute left-4 top-1/2 -translate-y-1/2 z-10
-                            w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20
-                            flex items-center justify-center
-                            hover:bg-white/20 transition-all duration-300
-                            disabled:opacity-30 disabled:cursor-not-allowed"
+                        className="embla__button embla__button--prev absolute top-1/2 left-4 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 backdrop-blur-md transition-all duration-300 hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-30"
                         aria-label="Previous slide"
                     >
                         <svg
@@ -125,11 +121,7 @@ export function EmblaCarousel({
                     <button
                         onClick={scrollNext}
                         disabled={!canScrollNext && !options.loop}
-                        className="embla__button embla__button--next absolute right-4 top-1/2 -translate-y-1/2 z-10
-                            w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20
-                            flex items-center justify-center
-                            hover:bg-white/20 transition-all duration-300
-                            disabled:opacity-30 disabled:cursor-not-allowed"
+                        className="embla__button embla__button--next absolute top-1/2 right-4 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 backdrop-blur-md transition-all duration-300 hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-30"
                         aria-label="Next slide"
                     >
                         <svg
@@ -151,15 +143,16 @@ export function EmblaCarousel({
 
             {/* Dots */}
             {showDots && (
-                <div className="embla__dots flex justify-center gap-2 mt-6">
+                <div className="embla__dots mt-6 flex justify-center gap-2">
                     {scrollSnaps.map((_, index) => (
                         <button
                             key={index}
                             onClick={() => scrollTo(index)}
-                            className={`w-2 h-2 rounded-full transition-all duration-300 ${index === selectedIndex
-                                    ? "w-8 bg-primary"
+                            className={`h-2 w-2 rounded-full transition-all duration-300 ${
+                                index === selectedIndex
+                                    ? "bg-primary w-8"
                                     : "bg-white/30 hover:bg-white/50"
-                                }`}
+                            }`}
                             aria-label={`Go to slide ${index + 1}`}
                         />
                     ))}
@@ -176,11 +169,7 @@ interface CardCarouselProps {
     className?: string;
 }
 
-export function CardCarousel({
-    children,
-    slidesPerView = 3,
-    className = "",
-}: CardCarouselProps) {
+export function CardCarousel({ children, slidesPerView = 3, className = "" }: CardCarouselProps) {
     const options: EmblaOptionsType = {
         loop: true,
         align: "start",
@@ -223,11 +212,11 @@ export function CardCarousel({
     return (
         <div className={`relative ${className}`}>
             <div className="overflow-hidden" ref={emblaRef}>
-                <div className="flex -ml-4">
+                <div className="-ml-4 flex">
                     {children.map((child, index) => (
                         <div
                             key={index}
-                            className="pl-4 min-w-0"
+                            className="min-w-0 pl-4"
                             style={{ flex: `0 0 ${slideWidth}` }}
                         >
                             {child}
@@ -237,14 +226,11 @@ export function CardCarousel({
             </div>
 
             {/* Navigation arrows */}
-            <div className="flex justify-end gap-2 mt-6">
+            <div className="mt-6 flex justify-end gap-2">
                 <button
                     onClick={scrollPrev}
                     disabled={!canScrollPrev}
-                    className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20
-                        flex items-center justify-center
-                        hover:bg-white/20 transition-all duration-300
-                        disabled:opacity-30 disabled:cursor-not-allowed"
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 backdrop-blur-md transition-all duration-300 hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-30"
                     aria-label="Previous"
                 >
                     <svg
@@ -262,10 +248,7 @@ export function CardCarousel({
                 <button
                     onClick={scrollNext}
                     disabled={!canScrollNext}
-                    className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20
-                        flex items-center justify-center
-                        hover:bg-white/20 transition-all duration-300
-                        disabled:opacity-30 disabled:cursor-not-allowed"
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 backdrop-blur-md transition-all duration-300 hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-30"
                     aria-label="Next"
                 >
                     <svg

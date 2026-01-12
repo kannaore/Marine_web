@@ -1,9 +1,5 @@
 import { getClient } from "./client";
-import {
-    vesselBySlugQuery,
-    vesselSlugsQuery,
-    vesselsQuery,
-} from "./queries";
+import { vesselBySlugQuery, vesselSlugsQuery, vesselsQuery } from "./queries";
 import type { Vessel } from "@/types";
 
 const DEFAULT_REVALIDATE = 60 * 10;
@@ -50,11 +46,7 @@ export type LocalizedVessel = Omit<
     deckMachinery?: LocalizedDeckItem[];
 };
 
-const pickLocalized = (
-    locale: Locale,
-    value?: string,
-    valueEn?: string
-) => {
+const pickLocalized = (locale: Locale, value?: string, valueEn?: string) => {
     if (locale === "en" && valueEn) {
         return valueEn;
     }
@@ -73,21 +65,13 @@ const localizeDeck = (items: Vessel["deckMachinery"] | undefined, locale: Locale
         value: pickLocalized(locale, item.value, item.valueEn),
     }));
 
-const localizeEquipment = (
-    groups: Vessel["equipmentGroups"] | undefined,
-    locale: Locale
-) =>
+const localizeEquipment = (groups: Vessel["equipmentGroups"] | undefined, locale: Locale) =>
     groups?.map((group) => ({
         category: group.category,
-        items: group.items.map((item) =>
-            pickLocalized(locale, item.text, item.textEn)
-        ),
+        items: group.items.map((item) => pickLocalized(locale, item.text, item.textEn)),
     }));
 
-export async function getVessels(
-    locale: Locale,
-    preview = false
-) {
+export async function getVessels(locale: Locale, preview = false) {
     const client = getClient(preview);
     const vessels = await client.fetch<Vessel[]>(
         vesselsQuery,

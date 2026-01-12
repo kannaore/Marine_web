@@ -30,23 +30,19 @@ const categories = [
     { ko: "외국기업", en: "International" },
 ];
 
-export default async function ClientsPage({
-    params,
-}: {
-    params: Promise<{ locale: string }>;
-}) {
+export default async function ClientsPage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = await params;
     setRequestLocale(locale);
     const isKorean = locale === "ko";
 
     return (
-        <main className="min-h-screen bg-marine-dark pt-32 pb-20">
+        <main className="bg-marine-dark min-h-screen pt-32 pb-20">
             <div className="container-custom">
                 {/* Breadcrumb */}
                 <div className="mb-8">
                     <Link
                         href="/about"
-                        className="inline-flex items-center gap-2 text-white/50 hover:text-white transition-colors"
+                        className="inline-flex items-center gap-2 text-white/50 transition-colors hover:text-white"
                     >
                         <ArrowLeft size={16} />
                         {isKorean ? "회사 소개" : "About Us"}
@@ -55,13 +51,13 @@ export default async function ClientsPage({
 
                 {/* Header */}
                 <div className="mb-12">
-                    <span className="text-ocean-400 text-sm font-medium tracking-widest uppercase mb-4 block">
+                    <span className="text-ocean-400 mb-4 block text-sm font-medium tracking-widest uppercase">
                         {isKorean ? "고객사" : "Clients"}
                     </span>
-                    <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">
+                    <h1 className="font-display mb-4 text-4xl font-bold text-white md:text-5xl">
                         {isKorean ? "주요 고객사" : "Our Clients"}
                     </h1>
-                    <p className="text-white/60 text-lg max-w-2xl">
+                    <p className="max-w-2xl text-lg text-white/60">
                         {isKorean
                             ? "마린리서치와 함께한 국내외 주요 파트너입니다."
                             : "Major domestic and international partners who have worked with Marine Research."}
@@ -71,23 +67,21 @@ export default async function ClientsPage({
                 {/* Clients by Category */}
                 <div className="space-y-12">
                     {categories.map((cat) => {
-                        const categoryClients = clients.filter(
-                            (c) => c.category === cat.ko
-                        );
+                        const categoryClients = clients.filter((c) => c.category === cat.ko);
                         if (categoryClients.length === 0) return null;
 
                         return (
                             <div key={cat.ko}>
-                                <h2 className="text-lg font-semibold text-ocean-400 mb-6">
+                                <h2 className="text-ocean-400 mb-6 text-lg font-semibold">
                                     {isKorean ? cat.ko : cat.en}
                                 </h2>
-                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
                                     {categoryClients.map((client) => (
                                         <div
                                             key={client.nameEn}
-                                            className="glass-panel rounded-xl p-6 flex items-center justify-center hover:bg-white/10 transition-colors"
+                                            className="glass-panel flex items-center justify-center rounded-xl p-6 transition-colors hover:bg-white/10"
                                         >
-                                            <span className="text-white/80 font-medium text-center">
+                                            <span className="text-center font-medium text-white/80">
                                                 {isKorean ? client.name : client.nameEn}
                                             </span>
                                         </div>
@@ -100,14 +94,12 @@ export default async function ClientsPage({
 
                 {/* CTA */}
                 <div className="mt-16 text-center">
-                    <p className="text-white/60 mb-6">
-                        {isKorean
-                            ? "파트너십에 관심이 있으신가요?"
-                            : "Interested in partnership?"}
+                    <p className="mb-6 text-white/60">
+                        {isKorean ? "파트너십에 관심이 있으신가요?" : "Interested in partnership?"}
                     </p>
                     <Link
                         href="/contact/inquiry"
-                        className="inline-flex items-center gap-2 px-6 py-3 bg-ocean-500 hover:bg-ocean-400 text-white font-medium rounded-xl transition-colors"
+                        className="bg-ocean-500 hover:bg-ocean-400 inline-flex items-center gap-2 rounded-xl px-6 py-3 font-medium text-white transition-colors"
                     >
                         {isKorean ? "영업팀 연락하기" : "Contact Sales Team"}
                         <ChevronRight size={18} />
