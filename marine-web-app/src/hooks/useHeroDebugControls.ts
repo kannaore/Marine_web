@@ -4,11 +4,12 @@ import { useControls, folder, button } from "leva";
 import { useState, useCallback, useEffect, useRef } from "react";
 
 // ======================
-// Local Storage Keys
+// Local Storage Keys (versioned to force new defaults on update)
 // ======================
 
-const WIREFRAME_STORAGE_KEY = "hero-wireframe-controls";
-const TYPOGRAPHY_STORAGE_KEY = "hero-typography-controls";
+const STORAGE_VERSION = "v2"; // Increment to force new defaults
+const WIREFRAME_STORAGE_KEY = `hero-wireframe-controls-${STORAGE_VERSION}`;
+const TYPOGRAPHY_STORAGE_KEY = `hero-typography-controls-${STORAGE_VERSION}`;
 
 // ======================
 // Font Options - Direct font stacks for cross-browser compatibility
@@ -84,6 +85,45 @@ export interface WireframeControlValues {
     bathyColor4: string; // Yellow
     bathyColor5: string; // Center (highest influence) - orange/red
     bathyColorPower: number; // Color ramp curve: <1 = more cool colors, >1 = more warm colors
+}
+
+// Forward declare TextStoreState for HeroPreset (actual interface is defined in Typography section)
+// Using a type alias that will be compatible with the actual interface
+interface TextStoreStateForPreset {
+    headline: TextStyleValuesBase;
+    highlight: TextStyleValuesBase;
+    subtitle: TextStyleValuesBase;
+    cta: TextStyleValuesBase;
+}
+
+interface TextStyleValuesBase {
+    fontFamily: string;
+    fontSize: number;
+    fontWeight: number;
+    letterSpacing: number;
+    lineHeight: number;
+    color: string;
+    opacity: number;
+    effects: {
+        gradientEnabled: boolean;
+        gradientStart: string;
+        gradientEnd: string;
+        gradientAngle: number;
+        gradientSpread: number;
+        glowEnabled: boolean;
+        glowColor: string;
+        glowSize: number;
+        glowOpacity: number;
+    };
+}
+
+// Preset interface for Export/Import
+export interface HeroPreset {
+    version: string;
+    createdAt: string;
+    name: string;
+    wireframe: WireframeControlValues;
+    typography: TextStoreStateForPreset;
 }
 
 // Default values from wireframe_set screenshots
@@ -442,6 +482,86 @@ export function useWireframeControls(): WireframeControlValues {
                 localStorage.removeItem(WIREFRAME_STORAGE_KEY);
                 alert("🔄 Settings reset! Refresh the page to apply defaults.");
             }),
+            
+            "📤 Export All Settings": button(() => {
+                // Get typography from localStorage
+                const typographySaved = localStorage.getItem(TYPOGRAPHY_STORAGE_KEY);
+                const typography: TextStoreState = typographySaved
+                    ? JSON.parse(typographySaved)
+                    : {
+                        headline: TEXT_DEFAULTS.headline,
+                        highlight: { ...TEXT_DEFAULTS.highlight, ...HIGHLIGHT_DEFAULTS },
+                        subtitle: TEXT_DEFAULTS.subtitle,
+                        cta: TEXT_DEFAULTS.cta,
+                    };
+                
+                const name = prompt("Enter preset name:", "My Preset") || "My Preset";
+                
+                const preset: HeroPreset = {
+                    version: STORAGE_VERSION,
+                    createdAt: new Date().toISOString(),
+                    name,
+                    wireframe: controls as WireframeControlValues,
+                    typography,
+                };
+                
+                // Download JSON
+                const json = JSON.stringify(preset, null, 2);
+                const blob = new Blob([json], { type: "application/json" });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement("a");
+                link.href = url;
+                link.download = `marine-preset-${name.toLowerCase().replace(/\s+/g, "-")}-${new Date().toISOString().slice(0, 10)}.json`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+                
+                alert(`✅ Preset "${name}" exported!`);
+            }),
+            
+            "📥 Import Settings": button(() => {
+                const input = document.createElement("input");
+                input.type = "file";
+                input.accept = ".json,application/json";
+                
+                input.onchange = async (e) => {
+                    const file = (e.target as HTMLInputElement).files?.[0];
+                    if (!file) return;
+                    
+                    try {
+                        const text = await file.text();
+                        const preset = JSON.parse(text) as HeroPreset;
+                        
+                        // Validate preset structure
+                        if (!preset.version || !preset.wireframe || !preset.typography) {
+                            alert("❌ Invalid preset file: missing required fields");
+                            return;
+                        }
+                        
+                        const confirmApply = confirm(
+                            `Apply preset "${preset.name}"?\n` +
+                            `Created: ${new Date(preset.createdAt).toLocaleString()}\n` +
+                            `Version: ${preset.version}\n\n` +
+                            `This will replace all current settings.`
+                        );
+                        
+                        if (confirmApply) {
+                            // Save to localStorage
+                            localStorage.setItem(WIREFRAME_STORAGE_KEY, JSON.stringify(preset.wireframe));
+                            localStorage.setItem(TYPOGRAPHY_STORAGE_KEY, JSON.stringify(preset.typography));
+                            
+                            alert("✅ Preset applied! Page will reload.");
+                            window.location.reload();
+                        }
+                    } catch (err) {
+                        console.error("Failed to parse preset:", err);
+                        alert("❌ Failed to parse preset file");
+                    }
+                };
+                
+                input.click();
+            }),
         },
         { collapsed: false },
         [initialValues, isHydrated]
@@ -531,22 +651,22 @@ const HIGHLIGHT_EFFECTS_DEFAULTS: TextEffects = {
     glowOpacity: 0.35,
 };
 
-// Default values for each text type (synced from Chrome localStorage)
+// Default values for each text type (synced from debug controls - 2026.1.13)
 const TEXT_DEFAULTS: Record<TextType, TextStyleValues> = {
     headline: {
         fontFamily: "Pretendard",
-        fontSize: 8.5,
+        fontSize: 5.9,
         fontWeight: 100,
         letterSpacing: -0.02,
         lineHeight: 1.1,
         color: "#ffffff",
         opacity: 1,
         effects: {
-            gradientEnabled: false,
+            gradientEnabled: true,
             gradientStart: "#ffffff",
             gradientEnd: "#91edff",
-            gradientAngle: 90,
-            gradientSpread: 100,
+            gradientAngle: 180,
+            gradientSpread: 50,
             glowEnabled: false,
             glowColor: "#61e5ff",
             glowSize: 0,
@@ -555,18 +675,18 @@ const TEXT_DEFAULTS: Record<TextType, TextStyleValues> = {
     },
     highlight: {
         fontFamily: "Pretendard",
-        fontSize: 6.3,
-        fontWeight: 100,
-        letterSpacing: -0.02,
+        fontSize: 5.5,
+        fontWeight: 400,
+        letterSpacing: -0.1,
         lineHeight: 1.1,
-        color: "#FFFFFF",
+        color: "#ffffff",
         opacity: 1,
         effects: {
             gradientEnabled: true,
-            gradientStart: "#efe9e9",
-            gradientEnd: "#91edff",
-            gradientAngle: 90,
-            gradientSpread: 100,
+            gradientStart: "#ffffff",
+            gradientEnd: "#5fa4b1",
+            gradientAngle: 180,
+            gradientSpread: 60,
             glowEnabled: false,
             glowColor: "#61e5ff",
             glowSize: 0,
@@ -575,12 +695,12 @@ const TEXT_DEFAULTS: Record<TextType, TextStyleValues> = {
     },
     subtitle: {
         fontFamily: "Pretendard",
-        fontSize: 1.15,
+        fontSize: 1.3,
         fontWeight: 300,
-        letterSpacing: 0,
-        lineHeight: 1.6,
-        color: "#FFFFFF",
-        opacity: 0.65,
+        letterSpacing: -0.02,
+        lineHeight: 1.25,
+        color: "#ffffff",
+        opacity: 0.7,
         effects: {
             gradientEnabled: false,
             gradientStart: "#ffffff",
@@ -595,12 +715,12 @@ const TEXT_DEFAULTS: Record<TextType, TextStyleValues> = {
     },
     cta: {
         fontFamily: "Pretendard",
-        fontSize: 0.75,
-        fontWeight: 400,
-        letterSpacing: 0.12,
-        lineHeight: 1.8,
-        color: "#FFFFFF",
-        opacity: 0.45,
+        fontSize: 0.8,
+        fontWeight: 300,
+        letterSpacing: -0.02,
+        lineHeight: 2,
+        color: "#ffffff",
+        opacity: 0.7,
         effects: {
             gradientEnabled: false,
             gradientStart: "#ffffff",
@@ -1105,6 +1225,81 @@ export function useTypographyControls() {
                     glowOpacity: resetEffects.glowOpacity,
                 });
             }),
+            
+            "📤 Export All Settings": button(() => {
+                // Get wireframe from localStorage
+                const wireframeSaved = localStorage.getItem(WIREFRAME_STORAGE_KEY);
+                const wireframe: WireframeControlValues = wireframeSaved
+                    ? { ...WIREFRAME_DEFAULTS, ...JSON.parse(wireframeSaved) }
+                    : WIREFRAME_DEFAULTS;
+                
+                const name = prompt("Enter preset name:", "My Preset") || "My Preset";
+                
+                const preset: HeroPreset = {
+                    version: STORAGE_VERSION,
+                    createdAt: new Date().toISOString(),
+                    name,
+                    wireframe,
+                    typography: textStoreRef.current,
+                };
+                
+                // Download JSON
+                const json = JSON.stringify(preset, null, 2);
+                const blob = new Blob([json], { type: "application/json" });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement("a");
+                link.href = url;
+                link.download = `marine-preset-${name.toLowerCase().replace(/\s+/g, "-")}-${new Date().toISOString().slice(0, 10)}.json`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+                
+                alert(`✅ Preset "${name}" exported!`);
+            }),
+            
+            "📥 Import Settings": button(() => {
+                const input = document.createElement("input");
+                input.type = "file";
+                input.accept = ".json,application/json";
+                
+                input.onchange = async (e) => {
+                    const file = (e.target as HTMLInputElement).files?.[0];
+                    if (!file) return;
+                    
+                    try {
+                        const text = await file.text();
+                        const preset = JSON.parse(text) as HeroPreset;
+                        
+                        // Validate preset structure
+                        if (!preset.version || !preset.wireframe || !preset.typography) {
+                            alert("❌ Invalid preset file: missing required fields");
+                            return;
+                        }
+                        
+                        const confirmApply = confirm(
+                            `Apply preset "${preset.name}"?\n` +
+                            `Created: ${new Date(preset.createdAt).toLocaleString()}\n` +
+                            `Version: ${preset.version}\n\n` +
+                            `This will replace all current settings.`
+                        );
+                        
+                        if (confirmApply) {
+                            // Save to localStorage
+                            localStorage.setItem(WIREFRAME_STORAGE_KEY, JSON.stringify(preset.wireframe));
+                            localStorage.setItem(TYPOGRAPHY_STORAGE_KEY, JSON.stringify(preset.typography));
+                            
+                            alert("✅ Preset applied! Page will reload.");
+                            window.location.reload();
+                        }
+                    } catch (err) {
+                        console.error("Failed to parse preset:", err);
+                        alert("❌ Failed to parse preset file");
+                    }
+                };
+                
+                input.click();
+            }),
         }),
         { collapsed: false },
         [isHydrated]
@@ -1142,10 +1337,10 @@ export function useTypographyControls() {
         // Set syncing flag to prevent onChange callbacks from firing
         isSyncingRef.current = true;
         setAny(updateObj);
-        // Use requestAnimationFrame to reset flag after Leva processes the update
-        requestAnimationFrame(() => {
+        // Use setTimeout to reset flag after Leva processes the update (more reliable than rAF)
+        setTimeout(() => {
             isSyncingRef.current = false;
-        });
+        }, 50);
     }, [activeText, isHydrated, set]); // NOT textStore - prevents circular updates
 
     // Also sync leva UI after hydration (once textStore is loaded)
@@ -1191,10 +1386,10 @@ export function useTypographyControls() {
             glowSize: effects.glowSize,
             glowOpacity: effects.glowOpacity,
         });
-        // Use requestAnimationFrame to reset flag after Leva processes the update
-        requestAnimationFrame(() => {
+        // Use setTimeout to reset flag after Leva processes the update (more reliable than rAF)
+        setTimeout(() => {
             isSyncingRef.current = false;
-        });
+        }, 50);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isHydrated]); // Only run when hydrated
 
@@ -1203,7 +1398,7 @@ export function useTypographyControls() {
     useEffect(() => {
         if (!isHydrated) return;
         
-        // Wait 1000ms after hydration before allowing auto-save
+        // Wait 1500ms after hydration before allowing auto-save
         // This accounts for:
         // - Leva's internal initialization
         // - Initial sync effect running
@@ -1211,7 +1406,7 @@ export function useTypographyControls() {
         const timer = setTimeout(() => {
             isInitializingRef.current = false;
             console.log("[Typography] Initialization complete, auto-save enabled");
-        }, 1000);
+        }, 1500);
         
         return () => clearTimeout(timer);
     }, [isHydrated]);
@@ -1454,4 +1649,173 @@ function generateAllCSS(textStore: TextStoreState): string {
 }`;
 
     return css;
+}
+
+// ======================
+// Preset System - Export/Import all settings as JSON
+// ======================
+
+// Note: HeroPreset interface is defined at top of file
+
+// Download JSON file to user's device
+function downloadPresetJSON(preset: HeroPreset): void {
+    const json = JSON.stringify(preset, null, 2);
+    const blob = new Blob([json], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `marine-preset-${preset.name.toLowerCase().replace(/\s+/g, "-")}-${new Date().toISOString().slice(0, 10)}.json`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+}
+
+// Create file input and trigger file picker
+function importPresetJSON(): Promise<HeroPreset | null> {
+    return new Promise((resolve) => {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = ".json,application/json";
+        
+        input.onchange = async (e) => {
+            const file = (e.target as HTMLInputElement).files?.[0];
+            if (!file) {
+                resolve(null);
+                return;
+            }
+            
+            try {
+                const text = await file.text();
+                const preset = JSON.parse(text) as HeroPreset;
+                
+                // Validate preset structure
+                if (!preset.version || !preset.wireframe || !preset.typography) {
+                    alert("❌ Invalid preset file: missing required fields");
+                    resolve(null);
+                    return;
+                }
+                
+                resolve(preset);
+            } catch (err) {
+                console.error("Failed to parse preset:", err);
+                alert("❌ Failed to parse preset file");
+                resolve(null);
+            }
+        };
+        
+        input.click();
+    });
+}
+
+// Export function for use in components
+export function createPresetExporter(
+    getWireframeControls: () => WireframeControlValues,
+    getTypographyStore: () => TextStoreState
+) {
+    return {
+        exportPreset: (name: string = "My Preset") => {
+            const preset: HeroPreset = {
+                version: STORAGE_VERSION,
+                createdAt: new Date().toISOString(),
+                name,
+                wireframe: getWireframeControls(),
+                typography: getTypographyStore(),
+            };
+            downloadPresetJSON(preset);
+            console.log("[Preset] Exported:", preset);
+        },
+        
+        importPreset: async (): Promise<HeroPreset | null> => {
+            const preset = await importPresetJSON();
+            if (preset) {
+                console.log("[Preset] Imported:", preset);
+            }
+            return preset;
+        },
+    };
+}
+
+// Hook for preset management with apply functionality
+export function usePresetManager() {
+    const applyPreset = useCallback((
+        preset: HeroPreset,
+        options: {
+            setWireframeValues?: (values: WireframeControlValues) => void;
+            setTypographyStore?: (store: TextStoreState) => void;
+        }
+    ) => {
+        // Apply wireframe settings
+        if (options.setWireframeValues && preset.wireframe) {
+            localStorage.setItem(WIREFRAME_STORAGE_KEY, JSON.stringify(preset.wireframe));
+        }
+        
+        // Apply typography settings
+        if (options.setTypographyStore && preset.typography) {
+            localStorage.setItem(TYPOGRAPHY_STORAGE_KEY, JSON.stringify(preset.typography));
+        }
+        
+        // Reload to apply changes (cleanest way to reset all Leva controls)
+        alert("✅ Preset applied! Page will reload to apply settings.");
+        window.location.reload();
+    }, []);
+    
+    const exportCurrentSettings = useCallback(() => {
+        // Load current settings from localStorage
+        const wireframeSaved = localStorage.getItem(WIREFRAME_STORAGE_KEY);
+        const typographySaved = localStorage.getItem(TYPOGRAPHY_STORAGE_KEY);
+        
+        const wireframe: WireframeControlValues = wireframeSaved 
+            ? { ...WIREFRAME_DEFAULTS, ...JSON.parse(wireframeSaved) }
+            : WIREFRAME_DEFAULTS;
+            
+        const typography: TextStoreState = typographySaved
+            ? JSON.parse(typographySaved)
+            : {
+                headline: TEXT_DEFAULTS.headline,
+                highlight: { ...TEXT_DEFAULTS.highlight, ...HIGHLIGHT_DEFAULTS },
+                subtitle: TEXT_DEFAULTS.subtitle,
+                cta: TEXT_DEFAULTS.cta,
+            };
+        
+        const name = prompt("Enter preset name:", "My Preset") || "My Preset";
+        
+        const preset: HeroPreset = {
+            version: STORAGE_VERSION,
+            createdAt: new Date().toISOString(),
+            name,
+            wireframe,
+            typography,
+        };
+        
+        downloadPresetJSON(preset);
+        alert(`✅ Preset "${name}" exported!`);
+    }, []);
+    
+    const importAndApplyPreset = useCallback(async () => {
+        const preset = await importPresetJSON();
+        if (!preset) return;
+        
+        const confirmApply = confirm(
+            `Apply preset "${preset.name}"?\n` +
+            `Created: ${new Date(preset.createdAt).toLocaleString()}\n` +
+            `Version: ${preset.version}\n\n` +
+            `This will replace all current settings.`
+        );
+        
+        if (confirmApply) {
+            // Save to localStorage
+            localStorage.setItem(WIREFRAME_STORAGE_KEY, JSON.stringify(preset.wireframe));
+            localStorage.setItem(TYPOGRAPHY_STORAGE_KEY, JSON.stringify(preset.typography));
+            
+            alert("✅ Preset applied! Page will reload.");
+            window.location.reload();
+        }
+    }, []);
+    
+    return {
+        exportCurrentSettings,
+        importAndApplyPreset,
+        applyPreset,
+    };
 }
