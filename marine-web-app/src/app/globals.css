@@ -175,3 +175,64 @@ body {
         max-width: 1400px;
     }
 }
+
+/* ========================================
+   Hero Section Typography
+   ======================================== */
+
+.hero-headline {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: #ffffff;
+    white-space: nowrap;
+}
+
+.hero-word {
+    display: inline;
+}
+
+.hero-word-inner {
+    display: inline-block;
+}
+
+/* Discovery. text with horizontal gradient from white to cyan */
+.hero-headline-highlight {
+    background: linear-gradient(90deg, #ffffff 0%, #70D1E5 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    /* Glow effect removed - controlled via debug panel instead */
+}
+
+.hero-subtitle {
+    font-family: var(--font-sans);
+    font-size: clamp(0.95rem, 1.3vw, 1.15rem);
+    font-weight: 300;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.65);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.hero-cta-text {
+    font-family: var(--font-sans);
+    font-size: clamp(0.65rem, 0.8vw, 0.75rem);
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: rgba(255, 255, 255, 0.45);
+    text-transform: uppercase;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.8;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

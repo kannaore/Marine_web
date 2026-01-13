@@ -42,15 +42,11 @@
         "inquiry": "Contact Us",
         "location": "Location"
     },
-    "hero": {
-        "badge": "Marine Survey Specialists",
-        "title": "Creating a Safe and Sustainable",
-        "titleHighlight": "Ocean Future",
-        "titleEnd": "",
-        "description": "Marine Research discovers the possibilities of the sea with expertise in offshore wind, geophysical surveys, and geotechnical investigations.",
-        "cta": "Explore Services",
-        "ctaSecondary": "About Us",
-        "scroll": "Scroll"
+"hero": {
+        "headline": "Deep. Precision. Discovery.",
+        "subtitle": "Unveiling the ocean's secrets through advanced bathymetric intelligence",
+        "ctaText": "EXPLORE THE AREA TO DETERMINE THE MINING SITE'S DIMENSIONS AND TOPOGRAPHY.",
+        "scrollHint": "Scroll to Discover"
     },
     "services": {
         "title": "Core Services",

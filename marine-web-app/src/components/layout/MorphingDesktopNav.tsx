@@ -230,9 +230,9 @@ export function MorphingDesktopNav({
 
             // 카테고리 섹션 내부의 자식 요소들 선택 (콘텐츠 애니메이션과 동일한 패턴)
             const sectionLabel = target.querySelector("span");
-            const buttons = target.querySelectorAll("button");
+            const links = target.querySelectorAll("a"); // Link 컴포넌트는 a 태그로 렌더링
             const divider = target.querySelector(".absolute"); // 구분선
-            const elements = [sectionLabel, ...Array.from(buttons)].filter(Boolean);
+            const elements = [sectionLabel, ...Array.from(links)].filter(Boolean);
 
             // 기존 트윈 정리
             elements.forEach((el) => el && gsap.killTweensOf(el));
@@ -450,7 +450,7 @@ export function MorphingDesktopNav({
                         href={NAV_CONTENT[tab as NavKey].href}
                         onClick={handleCloseDropdown}
                         className={cn(
-                            "relative z-20 block py-4 text-center font-medium uppercase",
+                            "relative z-20 block py-3 text-center font-medium uppercase",
                             isKorean
                                 ? "font-sans text-[14px] tracking-[0.14em]"
                                 : "font-display text-[12px] font-semibold tracking-[0.18em]",
@@ -511,17 +511,19 @@ export function MorphingDesktopNav({
                                             </span>
 
                                             {currentContent.categories.map((cat, idx) => (
-                                                <button
+                                                <Link
                                                     key={cat.id}
+                                                    href={cat.href}
+                                                    onClick={handleCloseDropdown}
                                                     onMouseEnter={() => handleCategoryEnter(idx)}
                                                     className={cn(
-                                                        "flex w-full items-center justify-between rounded-xl px-4 py-2.5 text-left font-sans font-medium transition-colors duration-200",
+                                                        "flex w-full items-center justify-between rounded-xl border px-4 py-2.5 text-left font-sans font-medium transition-colors duration-200",
                                                         isKorean
                                                             ? "text-[14px] tracking-[0.02em]"
                                                             : "text-[14px] tracking-[0.03em]",
                                                         activeCategoryIndex === idx
-                                                            ? "text-marine-dark/90 border border-white/80 bg-white"
-                                                            : "text-white/75 hover:bg-white/5 hover:text-white"
+                                                            ? "text-marine-dark/90 border-white/80 bg-white"
+                                                            : "border-transparent text-white/75 hover:bg-white/5 hover:text-white"
                                                     )}
                                                 >
                                                     {isKorean ? cat.label : cat.labelEn}
@@ -531,7 +533,7 @@ export function MorphingDesktopNav({
                                                             className="text-marine-dark/80"
                                                         />
                                                     )}
-                                                </button>
+                                                </Link>
                                             ))}
                                         </div>
 
@@ -557,7 +559,8 @@ export function MorphingDesktopNav({
                                                     </p>
                                                     <Link
                                                         href={currentCategory.href}
-                                                        className="hover:text-marine-dark group inline-flex w-fit -translate-x-1 items-center gap-3 rounded-full border border-white/10 bg-white/5 px-5 py-2.5 text-[14px] font-semibold text-white/90 transition-colors duration-300 hover:bg-white"
+                                                        onClick={handleCloseDropdown}
+                                                        className="hover:text-marine-dark group -ml-2 inline-flex w-fit items-center gap-3 rounded-full border border-white/10 bg-white/5 px-5 py-2.5 text-[14px] font-semibold text-white/90 transition-colors duration-300 hover:bg-white"
                                                     >
                                                         Explore Details
                                                         <ChevronRight

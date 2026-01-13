@@ -43,14 +43,10 @@
         "location": "찾아오시는 길"
     },
     "hero": {
-        "badge": "해양조사 전문기업",
-        "title": "안전하고 지속 가능한",
-        "titleHighlight": "해양의 미래",
-        "titleEnd": "를 만듭니다",
-        "description": "마린리서치는 해상풍력, 지구물리탐사, 지반조사 분야에서 최고의 전문성과 기술력으로 바다의 가능성을 발견합니다",
-        "cta": "서비스 알아보기",
-        "ctaSecondary": "회사소개",
-        "scroll": "스크롤"
+        "headline": "Deep. Precision. Discovery.",
+        "subtitle": "첨단 측량 및 탐사 기술로 바다의 비밀을 밝혀냅니다",
+        "ctaText": "정밀한 지형 분석으로 해저의 규모와 지형을 파악합니다.",
+        "scrollHint": "스크롤하여 더 알아보기"
     },
     "services": {
         "title": "핵심 서비스",

@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
 import { AlertTriangle, RefreshCcw, Home } from "lucide-react";
-import { Link } from "@/i18n/navigation";
+import Link from "next/link";
 
 export default function Error({
     error,
