@@ -30,6 +30,7 @@ export function MorphingDesktopNav({
     const dimmerRef = useRef<HTMLDivElement>(null);
     const categoriesRef = useRef<HTMLDivElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
+    const imageContainerRef = useRef<HTMLDivElement>(null);
     const imageRef = useRef<HTMLDivElement>(null);
     const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const prevActiveTabRef = useRef<NavKey | null>(null);
@@ -158,27 +159,27 @@ export function MorphingDesktopNav({
                     gsap.set(dimmer, { opacity: 0 });
                     gsap.to(dimmer, {
                         opacity: 1,
-                        duration: 0.32,
+                        duration: 0.45,
                         ease: "power2.out",
-                        delay: 0.08,
+                        delay: 0.1,
                         overwrite: "auto",
                     });
                     gsap.to(panel, {
                         height: targetHeight,
-                        duration: 0.4,
+                        duration: 0.56,
                         ease: "power2.out",
                         overwrite: "auto",
                     });
                 } else {
                     gsap.to(dimmer, {
                         opacity: 1,
-                        duration: 0.2,
+                        duration: 0.28,
                         ease: "power2.out",
                         overwrite: "auto",
                     });
                     gsap.to(panel, {
                         height: targetHeight,
-                        duration: 0.32,
+                        duration: 0.45,
                         ease: "power2.out",
                         overwrite: "auto",
                     });
@@ -196,7 +197,7 @@ export function MorphingDesktopNav({
 
                 tl.to(panel, {
                     height: 0,
-                    duration: 0.3,
+                    duration: 0.42,
                     ease: "power2.inOut",
                     overwrite: "auto",
                 }).to(
@@ -250,7 +251,7 @@ export function MorphingDesktopNav({
                 }
             });
 
-            // Stagger 애니메이션 - 촤라락 효과
+            // Stagger 애니메이션 - 1단계: 메뉴가 먼저 나타남 (40% 느리게)
             elements.forEach((el, index) => {
                 if (el) {
                     gsap.to(el, {
@@ -258,9 +259,9 @@ export function MorphingDesktopNav({
                         x: 0,
                         y: 0,
                         filter: "blur(0px)",
-                        duration: 0.4,
+                        duration: 0.5,
                         ease: "power2.out",
-                        delay: isOpening ? 0.12 + index * 0.05 : 0.02 + index * 0.04,
+                        delay: isOpening ? 0.12 + index * 0.055 : 0.04 + index * 0.045,
                         overwrite: "auto",
                         clearProps: "filter",
                     });
@@ -324,7 +325,7 @@ export function MorphingDesktopNav({
                     }
                 });
 
-                // Stagger animate each element
+                // Stagger animate each element (40% 느리게)
                 elements.forEach((el, index) => {
                     if (el) {
                         gsap.to(el, {
@@ -332,33 +333,54 @@ export function MorphingDesktopNav({
                             x: 0,
                             y: 0,
                             filter: "blur(0px)",
-                            duration: 0.4,
+                            duration: 0.56,
                             ease: "power2.out",
-                            delay: isOpening ? 0.15 + index * 0.07 : 0.05 + index * 0.06,
+                            delay: isOpening ? 0.32 + index * 0.08 : 0.12 + index * 0.07,
                             overwrite: "auto",
                             clearProps: "filter",
                         });
                     }
                 });
 
-                // Image animation
-                if (image) {
-                    gsap.set(image, {
+                // Image container animation (blur+slide 스타일, 40% 느리게)
+                const imageContainer = imageContainerRef.current;
+                if (imageContainer) {
+                    gsap.killTweensOf(imageContainer);
+                    gsap.set(imageContainer, {
                         opacity: 0,
-                        scale: 1.08,
-                        x: -15,
-                        y: -10,
-                        filter: "blur(15px)",
+                        x: -12,
+                        y: -8,
+                        filter: "blur(10px)",
                     });
-                    gsap.to(image, {
+                    gsap.to(imageContainer, {
                         opacity: 1,
-                        scale: 1,
                         x: 0,
                         y: 0,
                         filter: "blur(0px)",
-                        duration: 0.5,
+                        duration: 0.56,
                         ease: "power2.out",
-                        delay: isOpening ? 0.12 : 0.06,
+                        delay: isOpening ? 0.52 : 0.24,
+                        overwrite: "auto",
+                        clearProps: "filter",
+                    });
+                }
+
+                // Image animation (blur+slide 스타일로 통일, 40% 느리게)
+                if (image) {
+                    gsap.set(image, {
+                        opacity: 0,
+                        x: -10,
+                        y: -6,
+                        filter: "blur(12px)",
+                    });
+                    gsap.to(image, {
+                        opacity: 1,
+                        x: 0,
+                        y: 0,
+                        filter: "blur(0px)",
+                        duration: 0.6,
+                        ease: "power2.out",
+                        delay: isOpening ? 0.58 : 0.28,
                         overwrite: "auto",
                         clearProps: "filter",
                     });
@@ -390,7 +412,7 @@ export function MorphingDesktopNav({
                     }
                 });
 
-                // Stagger animate each element with Apple-like timing
+                // Stagger animate each element with Apple-like timing (40% 느리게)
                 elements.forEach((el, index) => {
                     if (el) {
                         gsap.to(el, {
@@ -398,33 +420,54 @@ export function MorphingDesktopNav({
                             x: 0,
                             y: 0,
                             filter: "blur(0px)",
-                            duration: 0.35,
+                            duration: 0.5,
                             ease: "power2.out",
-                            delay: 0.05 + index * 0.06, // Stagger: 0.05, 0.11, 0.17
+                            delay: 0.07 + index * 0.08,
                             overwrite: "auto",
                             clearProps: "filter",
                         });
                     }
                 });
 
-                // Image: slightly delayed, with scale and blur
-                if (image) {
-                    gsap.set(image, {
+                // Image container: blur+slide 스타일 (40% 느리게)
+                const imageContainer = imageContainerRef.current;
+                if (imageContainer) {
+                    gsap.killTweensOf(imageContainer);
+                    gsap.set(imageContainer, {
                         opacity: 0,
-                        scale: 1.05,
-                        x: -10,
-                        y: -8,
-                        filter: "blur(12px)",
+                        x: -8,
+                        y: -5,
+                        filter: "blur(8px)",
                     });
-                    gsap.to(image, {
+                    gsap.to(imageContainer, {
                         opacity: 1,
-                        scale: 1,
                         x: 0,
                         y: 0,
                         filter: "blur(0px)",
-                        duration: 0.4,
+                        duration: 0.5,
                         ease: "power2.out",
                         delay: 0.08,
+                        overwrite: "auto",
+                        clearProps: "filter",
+                    });
+                }
+
+                // Image: blur+slide 스타일로 통일 (40% 느리게)
+                if (image) {
+                    gsap.set(image, {
+                        opacity: 0,
+                        x: -8,
+                        y: -5,
+                        filter: "blur(10px)",
+                    });
+                    gsap.to(image, {
+                        opacity: 1,
+                        x: 0,
+                        y: 0,
+                        filter: "blur(0px)",
+                        duration: 0.55,
+                        ease: "power2.out",
+                        delay: 0.12,
                         overwrite: "auto",
                         clearProps: "filter",
                     });
@@ -570,7 +613,13 @@ export function MorphingDesktopNav({
                                                     </Link>
                                                 </div>
 
-                                                <div className="relative h-[200px] w-[300px] shrink-0 overflow-hidden rounded-2xl border border-white/10 shadow-2xl">
+                                                <div
+                                                    ref={imageContainerRef}
+                                                    className="relative h-[200px] w-[300px] shrink-0 overflow-hidden rounded-2xl border border-white/10 shadow-2xl"
+                                                    style={{
+                                                        willChange: "opacity, transform, filter",
+                                                    }}
+                                                >
                                                     <div
                                                         ref={imageRef}
                                                         className="absolute inset-0 bg-cover bg-center"

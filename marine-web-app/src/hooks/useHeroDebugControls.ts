@@ -419,8 +419,8 @@ export function useWireframeControls(): WireframeControlValues {
                     },
                     bathyColorPower: {
                         value: initialValues.bathyColorPower,
-                        min: 0.2,
-                        max: 3.0,
+                        min: 0.1,
+                        max: 5.0,
                         step: 0.1,
                         label: "Color Curve (↓쿨톤 ↑웜톤)",
                     },
