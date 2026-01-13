@@ -133,16 +133,16 @@ const WIREFRAME_DEFAULTS: WireframeControlValues = {
     
     // Mouse Interaction
     mouseEnabled: true,
-    mouseRadius: 15.0,
-    mouseStrength: 3.0,
-    mouseHighlightIntensity: 0.6,
-    // Bathymetry color ramp (5 stops: edge → center) - subtle version
-    bathyColor1: "#6b5b95", // Edge - muted purple
-    bathyColor2: "#4a90d9", // Blue
+    mouseRadius: 9.0,
+    mouseStrength: 2.5,
+    mouseHighlightIntensity: 1.0,
+    // Bathymetry color ramp (5 stops: edge → center)
+    bathyColor1: "#5f23f5", // Edge - vibrant purple
+    bathyColor2: "#1f76d4", // Blue
     bathyColor3: "#50c878", // Emerald green
     bathyColor4: "#f4d03f", // Yellow
     bathyColor5: "#e67e22", // Center - orange
-    bathyColorPower: 0.5, // <1 = expand cool colors (purple/blue/green), >1 = expand warm colors
+    bathyColorPower: 3.0, // <1 = expand cool colors, >1 = expand warm colors (웜톤 강조)
 };
 
 // Helper to load from localStorage (client-side only)
@@ -531,42 +531,42 @@ const HIGHLIGHT_EFFECTS_DEFAULTS: TextEffects = {
     glowOpacity: 0.35,
 };
 
-// Default values for each text type (from font_set.png)
+// Default values for each text type (synced from Chrome localStorage)
 const TEXT_DEFAULTS: Record<TextType, TextStyleValues> = {
     headline: {
         fontFamily: "Pretendard",
-        fontSize: 5.199999999999999,
-        fontWeight: 400,
+        fontSize: 8.5,
+        fontWeight: 100,
         letterSpacing: -0.02,
         lineHeight: 1.1,
         color: "#ffffff",
         opacity: 1,
         effects: {
-            gradientEnabled: true,
+            gradientEnabled: false,
             gradientStart: "#ffffff",
-            gradientEnd: "#5396a3",
-            gradientAngle: 180,
-            gradientSpread: 55,
+            gradientEnd: "#91edff",
+            gradientAngle: 90,
+            gradientSpread: 100,
             glowEnabled: false,
             glowColor: "#61e5ff",
-            glowSize: 40,
-            glowOpacity: 1,
+            glowSize: 0,
+            glowOpacity: 0.35,
         },
     },
     highlight: {
         fontFamily: "Pretendard",
-        fontSize: 3.8999999999999995,
-        fontWeight: 400,
+        fontSize: 6.3,
+        fontWeight: 100,
         letterSpacing: -0.02,
         lineHeight: 1.1,
-        color: "#ffffff",
+        color: "#FFFFFF",
         opacity: 1,
         effects: {
             gradientEnabled: true,
-            gradientStart: "#ffffff",
-            gradientEnd: "#5fa4b1",
-            gradientAngle: 180,
-            gradientSpread: 60,
+            gradientStart: "#efe9e9",
+            gradientEnd: "#91edff",
+            gradientAngle: 90,
+            gradientSpread: 100,
             glowEnabled: false,
             glowColor: "#61e5ff",
             glowSize: 0,
@@ -575,12 +575,12 @@ const TEXT_DEFAULTS: Record<TextType, TextStyleValues> = {
     },
     subtitle: {
         fontFamily: "Pretendard",
-        fontSize: 1.4999999999999991,
+        fontSize: 1.15,
         fontWeight: 300,
-        letterSpacing: 0.009999999999999998,
-        lineHeight: 0.8,
-        color: "#ffffff",
-        opacity: 0.7,
+        letterSpacing: 0,
+        lineHeight: 1.6,
+        color: "#FFFFFF",
+        opacity: 0.65,
         effects: {
             gradientEnabled: false,
             gradientStart: "#ffffff",
@@ -595,12 +595,12 @@ const TEXT_DEFAULTS: Record<TextType, TextStyleValues> = {
     },
     cta: {
         fontFamily: "Pretendard",
-        fontSize: 0.6999999999999993,
+        fontSize: 0.75,
         fontWeight: 400,
-        letterSpacing: 0.14,
-        lineHeight: 0.8,
+        letterSpacing: 0.12,
+        lineHeight: 1.8,
         color: "#FFFFFF",
-        opacity: 0.3999999999999999,
+        opacity: 0.45,
         effects: {
             gradientEnabled: false,
             gradientStart: "#ffffff",
