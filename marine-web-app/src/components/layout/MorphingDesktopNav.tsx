@@ -30,7 +30,7 @@ export function MorphingDesktopNav({
     const dimmerRef = useRef<HTMLDivElement>(null);
     const categoriesRef = useRef<HTMLDivElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
-    const imageContainerRef = useRef<HTMLDivElement>(null);
+    const imageContainerRef = useRef<HTMLDivElement>(null); // 이미지 컨테이너
     const imageRef = useRef<HTMLDivElement>(null);
     const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const prevActiveTabRef = useRef<NavKey | null>(null);
@@ -155,13 +155,14 @@ export function MorphingDesktopNav({
                 gsap.set(wrapper, { display: "block", pointerEvents: "auto" });
 
                 if (!prevTab) {
+                    // 첫 오픈: 40% 느리게
                     gsap.set(panel, { height: 0 });
                     gsap.set(dimmer, { opacity: 0 });
                     gsap.to(dimmer, {
                         opacity: 1,
                         duration: 0.45,
                         ease: "power2.out",
-                        delay: 0.1,
+                        delay: 0.12,
                         overwrite: "auto",
                     });
                     gsap.to(panel, {
@@ -171,6 +172,7 @@ export function MorphingDesktopNav({
                         overwrite: "auto",
                     });
                 } else {
+                    // 탭 전환: 40% 느리게
                     gsap.to(dimmer, {
                         opacity: 1,
                         duration: 0.28,
@@ -195,6 +197,7 @@ export function MorphingDesktopNav({
 
                 closeTimelineRef.current = tl;
 
+                // 닫기: 40% 느리게
                 tl.to(panel, {
                     height: 0,
                     duration: 0.42,
@@ -204,7 +207,7 @@ export function MorphingDesktopNav({
                     dimmer,
                     {
                         opacity: 0,
-                        duration: 0.24,
+                        duration: 0.34,
                         ease: "power2.out",
                         overwrite: "auto",
                     },
@@ -325,7 +328,7 @@ export function MorphingDesktopNav({
                     }
                 });
 
-                // Stagger animate each element (40% 느리게)
+                // 2단계: 서브메뉴 - 메뉴 뒤에 시작 (40% 느리게, 320ms~)
                 elements.forEach((el, index) => {
                     if (el) {
                         gsap.to(el, {
@@ -342,8 +345,10 @@ export function MorphingDesktopNav({
                     }
                 });
 
-                // Image container animation (blur+slide 스타일, 40% 느리게)
+                // 3단계: 이미지 컨테이너 + 이미지 (40% 느리게, blur+slide 스타일 통일)
                 const imageContainer = imageContainerRef.current;
+
+                // 이미지 컨테이너: 다른 요소들과 동일한 blur+slide 스타일
                 if (imageContainer) {
                     gsap.killTweensOf(imageContainer);
                     gsap.set(imageContainer, {
@@ -365,7 +370,7 @@ export function MorphingDesktopNav({
                     });
                 }
 
-                // Image animation (blur+slide 스타일로 통일, 40% 느리게)
+                // 이미지: 컨테이너와 동일한 스타일
                 if (image) {
                     gsap.set(image, {
                         opacity: 0,
@@ -412,7 +417,7 @@ export function MorphingDesktopNav({
                     }
                 });
 
-                // Stagger animate each element with Apple-like timing (40% 느리게)
+                // Stagger animate each element (40% 느리게)
                 elements.forEach((el, index) => {
                     if (el) {
                         gsap.to(el, {
@@ -429,14 +434,15 @@ export function MorphingDesktopNav({
                     }
                 });
 
-                // Image container: blur+slide 스타일 (40% 느리게)
+                // 이미지 컨테이너 + 이미지 (blur+slide 스타일 통일)
                 const imageContainer = imageContainerRef.current;
+
                 if (imageContainer) {
                     gsap.killTweensOf(imageContainer);
                     gsap.set(imageContainer, {
                         opacity: 0,
-                        x: -8,
-                        y: -5,
+                        x: -10,
+                        y: -6,
                         filter: "blur(8px)",
                     });
                     gsap.to(imageContainer, {
@@ -446,13 +452,12 @@ export function MorphingDesktopNav({
                         filter: "blur(0px)",
                         duration: 0.5,
                         ease: "power2.out",
-                        delay: 0.08,
+                        delay: 0.18,
                         overwrite: "auto",
                         clearProps: "filter",
                     });
                 }
 
-                // Image: blur+slide 스타일로 통일 (40% 느리게)
                 if (image) {
                     gsap.set(image, {
                         opacity: 0,
@@ -467,7 +472,7 @@ export function MorphingDesktopNav({
                         filter: "blur(0px)",
                         duration: 0.55,
                         ease: "power2.out",
-                        delay: 0.12,
+                        delay: 0.22,
                         overwrite: "auto",
                         clearProps: "filter",
                     });
@@ -528,7 +533,7 @@ export function MorphingDesktopNav({
                             >
                                 <div
                                     ref={dropdownBgRef}
-                                    className="nav-flyout-panel bg-marine-dark/85 relative overflow-hidden border-b border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.55)]"
+                                    className="nav-flyout-panel bg-marine-dark/80 relative overflow-hidden border-b border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.55)]"
                                 >
                                     <div
                                         className="absolute right-0 left-0 mx-auto flex max-w-[1240px] items-start px-8 pb-6"
@@ -580,7 +585,8 @@ export function MorphingDesktopNav({
                                             ))}
                                         </div>
 
-                                        <div className="flex-1 pl-10">
+                                        {/* pt-[36px]: 왼쪽 섹션 라벨(EXPLORE SERVICES) 높이만큼 상단 여백 추가하여 첫 번째 메뉴와 제목 정렬 */}
+                                        <div className="flex-1 pt-[44px] pl-10">
                                             <div
                                                 ref={contentRef}
                                                 className="flex items-start gap-8"
@@ -616,9 +622,6 @@ export function MorphingDesktopNav({
                                                 <div
                                                     ref={imageContainerRef}
                                                     className="relative h-[200px] w-[300px] shrink-0 overflow-hidden rounded-2xl border border-white/10 shadow-2xl"
-                                                    style={{
-                                                        willChange: "opacity, transform, filter",
-                                                    }}
                                                 >
                                                     <div
                                                         ref={imageRef}
