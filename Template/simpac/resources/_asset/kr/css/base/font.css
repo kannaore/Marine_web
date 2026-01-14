@@ -1,0 +1,537 @@
+@charset "utf-8";
+
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+@font-face {
+  font-family: "SpecialGothicExpanded";
+  src: url("../../fonts/SpecialGothicExpanded-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+}
+@font-face {
+  font-family: "SpecialGothicExpanded";
+  src: url("../../fonts/SpecialGothicExpanded-Medium.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "SpecialGothicExpanded";
+  src: url("../../fonts/SpecialGothicExpanded-SemiBold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 600;
+}
+@font-face {
+  font-family: "SpecialGothicExpanded";
+  src: url("../../fonts/SpecialGothicExpanded-Bold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+}
+
+:root {
+  /* heading */
+  --heading-01-font-size: 4.5rem;
+  --heading-01-line-height: 1.166666;
+  /*--heading-01-font-weight: 600;*/
+  --heading-01-font-weight: 520;
+  --heading-01-letter-spacing: -0.00833333em;
+
+  --heading-02-font-size: 2.625rem;
+  --heading-02-line-height: 1.47619;
+  /*--heading-02-font-weight: 600;*/
+  --heading-02-font-weight: 520;
+  --heading-02-letter-spacing: -0.019047619047619em;
+
+  --heading-03-font-size: 2rem;
+  --heading-03-line-height: 1.5;
+  /*--heading-03-font-weight: 600;*/
+  --heading-03-font-weight: 520;
+  --heading-03-letter-spacing: -0.025em;
+
+  /* subhead */
+  --subhead-01-font-size: 1.75rem;
+  --subhead-01-line-height: 1.7142857;
+  /*--subhead-01-font-weight: 600;*/
+  --subhead-01-font-weight: 520;
+  --subhead-01-letter-spacing: -0.0214285em;
+
+  --subhead-02-font-size: 1.5rem;
+  --subhead-02-line-height: 1.666666666;
+  /*--subhead-02-font-weight: 600;*/
+  --subhead-02-font-weight: 520;
+  --subhead-02-letter-spacing: -0.02083333em;
+
+  /* body */
+  --body-01-font-size: 1.5rem;
+  --body-01-line-height: 1.5;
+  /*--body-01-font-weight: 500;*/
+  --body-01-font-weight: 400;
+  --body-01-letter-spacing: -0.02083333em;
+
+  --body-02-sb-font-size: 1.25rem;
+  --body-02-sb-line-height: 1.5;
+  /*--body-02-sb-font-weight: 500;*/
+  --body-02-sb-font-weight: 400;
+  --body-02-sb-letter-spacing: -0.015em;
+
+  --body-02-md-font-size: 1.25rem;
+  --body-02-md-line-height: 1.5;
+  /*--body-02-md-font-weight: 500;*/
+  --body-02-md-font-weight: 400;
+  --body-02-md-letter-spacing: -0.015em;
+
+  /* label */
+  --label-01-font-size: 1.25rem;
+  --label-01-line-height: 1.1;
+  /*--label-01-font-weight: 500;*/
+  --label-01-font-weight: 400;
+  --label-01-letter-spacing: -0.02em;
+
+  --label-02-font-size: 1.125rem;
+  --label-02-line-height: 1.1111;
+  /*--label-02-font-weight: 600;*/
+  --label-02-font-weight: 520;
+  --label-02-letter-spacing: -0.0166666em;
+
+  --label-03-font-size: 1.125rem;
+  --label-03-line-height: 1.33;
+  /*--label-03-font-weight: 500;*/
+  --label-03-font-weight: 400;
+  --label-03-letter-spacing: -0.0166666em;
+
+  /* caption */
+  --caption-font-size: 1rem;
+  --caption-line-height: 1.25;
+  /*--caption-font-weight: 500;*/
+  --caption-font-weight: 400;
+  --caption-letter-spacing: -0.0125em;
+
+  /* gothic-display */
+  --gothic-display-01-font-family: "SpecialGothicExpanded";
+  --gothic-display-01-font-size: 5.5rem;
+  --gothic-display-01-line-height: 1.29545;
+  --gothic-display-01-font-weight: 400;
+  --gothic-display-01-letter-spacing: -0.0295454em;
+
+  --gothic-display-02-font-family: "SpecialGothicExpanded";
+  --gothic-display-02-font-size: 5rem;
+  --gothic-display-02-line-height: 1.125;
+  --gothic-display-02-font-weight: 600;
+  --gothic-display-02-letter-spacing: -0.02em;
+
+  --gothic-display-03-font-family: "SpecialGothicExpanded";
+  --gothic-display-03-font-size: 2.625rem;
+  --gothic-display-03-line-height: 1.28571;
+  --gothic-display-03-font-weight: 400;
+  --gothic-display-03-letter-spacing: -0.021428em;
+
+  /* gothic-title */
+  --gothic-title-01-font-family: "SpecialGothicExpanded";
+  --gothic-title-01-font-size: 3rem;
+  --gothic-title-01-line-height: 1.20833;
+  --gothic-title-01-font-weight: 600;
+  --gothic-title-01-letter-spacing: -0.0291666em;
+
+  --gothic-title-02-font-family: "SpecialGothicExpanded";
+  --gothic-title-02-font-size: 2.25rem;
+  --gothic-title-02-line-height: 1.5;
+  --gothic-title-02-font-weight: 600;
+  --gothic-title-02-letter-spacing: -0.025em;
+
+  --gothic-title-03-font-family: "SpecialGothicExpanded";
+  --gothic-title-03-font-size: 1.75rem;
+  --gothic-title-03-line-height: 1.28571;
+  --gothic-title-03-font-weight: 600;
+  --gothic-title-03-letter-spacing: -0.014285em;
+
+  /* gothic-label */
+  --gothic-label-01-font-family: "SpecialGothicExpanded";
+  --gothic-label-01-font-size: 1.25rem;
+  --gothic-label-01-line-height: 1.1;
+  --gothic-label-01-font-weight: 600;
+  --gothic-label-01-letter-spacing: -0.02em;
+
+  --gothic-label-02-font-family: "SpecialGothicExpanded";
+  --gothic-label-02-font-size: 1.125rem;
+  --gothic-label-02-line-height: 1.1111;
+  --gothic-label-02-font-weight: 600;
+  --gothic-label-02-letter-spacing: -0.0166666em;
+}
+
+.heading-01 {
+  font-size: var(--heading-01-font-size);
+  line-height: var(--heading-01-line-height);
+  font-weight: var(--heading-01-font-weight);
+  letter-spacing: var(--heading-01-letter-spacing);
+}
+
+.heading-02 {
+  font-size: var(--heading-02-font-size);
+  line-height: var(--heading-02-line-height);
+  font-weight: var(--heading-02-font-weight);
+  letter-spacing: var(--heading-02-letter-spacing);
+}
+
+.heading-03 {
+  font-size: var(--heading-03-font-size);
+  line-height: var(--heading-03-line-height);
+  font-weight: var(--heading-03-font-weight);
+  letter-spacing: var(--heading-03-letter-spacing);
+}
+
+/* subhead */
+.subhead-01 {
+  font-size: var(--subhead-01-font-size);
+  line-height: var(--subhead-01-line-height);
+  font-weight: var(--subhead-01-font-weight);
+  letter-spacing: var(--subhead-01-letter-spacing);
+}
+
+.subhead-02 {
+  font-size: var(--subhead-02-font-size);
+  line-height: var(--subhead-02-line-height);
+  font-weight: var(--subhead-02-font-weight);
+  letter-spacing: var(--subhead-02-letter-spacing);
+}
+
+/* body */
+.body-01 {
+  font-size: var(--body-01-font-size);
+  line-height: var(--body-01-line-height);
+  font-weight: var(--body-01-font-weight);
+  letter-spacing: var(--body-01-letter-spacing);
+}
+
+.body-02-sb {
+  font-size: var(--body-02-sb-font-size);
+  line-height: var(--body-02-sb-line-height);
+  font-weight: var(--body-02-sb-font-weight);
+  letter-spacing: var(--body-02-sb-letter-spacing);
+}
+
+.body-02-md {
+  font-size: var(--body-02-md-font-size);
+  line-height: var(--body-02-md-line-height);
+  font-weight: var(--body-02-md-font-weight);
+  letter-spacing: var(--body-02-md-letter-spacing);
+}
+
+/* label */
+.label-01 {
+  font-size: var(--label-01-font-size);
+  line-height: var(--label-01-line-height);
+  font-weight: var(--label-01-font-weight);
+  letter-spacing: var(--label-01-letter-spacing);
+}
+
+.label-02 {
+  font-size: var(--label-02-font-size);
+  line-height: var(--label-02-line-height);
+  font-weight: var(--label-02-font-weight);
+  letter-spacing: var(--label-02-letter-spacing);
+}
+
+.label-03 {
+  font-size: var(--label-03-font-size);
+  line-height: var(--label-03-line-height);
+  font-weight: var(--label-03-font-weight);
+  letter-spacing: var(--label-03-letter-spacing);
+}
+
+/* caption */
+.caption {
+  font-size: var(--caption-font-size);
+  line-height: var(--caption-line-height);
+  font-weight: var(--caption-font-weight);
+  letter-spacing: var(--caption-letter-spacing);
+}
+
+/* gothic-display */
+.gothic-display-01 {
+  font-family: var(--gothic-display-01-font-family);
+  font-size: var(--gothic-display-01-font-size);
+  line-height: var(--gothic-display-01-line-height);
+  font-weight: var(--gothic-display-01-font-weight);
+  letter-spacing: var(--gothic-display-01-letter-spacing);
+}
+
+.gothic-display-02 {
+  font-family: var(--gothic-display-02-font-family);
+  font-size: var(--gothic-display-02-font-size);
+  line-height: var(--gothic-display-02-line-height);
+  font-weight: var(--gothic-display-02-font-weight);
+  letter-spacing: var(--gothic-display-02-letter-spacing);
+}
+
+.gothic-display-03 {
+  font-family: var(--gothic-display-03-font-family);
+  font-size: var(--gothic-display-03-font-size);
+  line-height: var(--gothic-display-03-line-height);
+  font-weight: var(--gothic-display-03-font-weight);
+  letter-spacing: var(--gothic-display-03-letter-spacing);
+}
+
+/* gothic-title */
+.gothic-title-01 {
+  font-family: var(--gothic-title-01-font-family);
+  font-size: var(--gothic-title-01-font-size);
+  line-height: var(--gothic-title-01-line-height);
+  font-weight: var(--gothic-title-01-font-weight);
+  letter-spacing: var(--gothic-title-01-letter-spacing);
+}
+
+.gothic-title-02 {
+  font-family: var(--gothic-title-02-font-family);
+  font-size: var(--gothic-title-02-font-size);
+  line-height: var(--gothic-title-02-line-height);
+  font-weight: var(--gothic-title-02-font-weight);
+  letter-spacing: var(--gothic-title-02-letter-spacing);
+}
+
+.gothic-title-03 {
+  font-family: var(--gothic-title-03-font-family);
+  font-size: var(--gothic-title-03-font-size);
+  line-height: var(--gothic-title-03-line-height);
+  font-weight: var(--gothic-title-03-font-weight);
+  letter-spacing: var(--gothic-title-03-letter-spacing);
+}
+
+/* gothic-label */
+.gothic-label-01 {
+  font-family: var(--gothic-label-01-font-family);
+  font-size: var(--gothic-label-01-font-size);
+  line-height: var(--gothic-label-01-line-height);
+  font-weight: var(--gothic-label-01-font-weight);
+  letter-spacing: var(--gothic-label-01-letter-spacing);
+}
+
+.gothic-label-02 {
+  font-family: var(--gothic-label-02-font-family);
+  font-size: var(--gothic-label-02-font-size);
+  line-height: var(--gothic-label-02-line-height);
+  font-weight: var(--gothic-label-02-font-weight);
+  letter-spacing: var(--gothic-label-02-letter-spacing);
+}
+
+@media screen and (max-width: 1024px) {
+  :root {
+    /* heading */
+    --heading-01-font-size: 4.5rem;
+    --heading-01-line-height: 1.166666;
+    --heading-01-font-weight: 600;
+    --heading-01-letter-spacing: -0.00833333em;
+
+    --heading-02-font-size: 2rem;
+    --heading-02-line-height: 1.5;
+    --heading-02-font-weight: 600;
+    --heading-02-letter-spacing: -0.025em;
+
+    --heading-03-font-size: 1.75rem;
+    --heading-03-line-height: 1.5;
+    --heading-03-font-weight: 600;
+    --heading-03-letter-spacing: -0.0285714285em;
+
+    /* subhead */
+    --subhead-01-font-size: 1.5rem;
+    --subhead-01-line-height: 1.5;
+    --subhead-01-font-weight: 600;
+    --subhead-01-letter-spacing: -0.025em;
+
+    --subhead-02-font-size: 1.25rem;
+    --subhead-02-line-height: 1.6;
+    --subhead-02-font-weight: 600;
+    --subhead-02-letter-spacing: -0.025em;
+
+    /* body */
+    --body-01-font-size: 1.25rem;
+    --body-01-line-height: 1.5;
+    --body-01-font-weight: 500;
+    --body-01-letter-spacing: -0.025em;
+
+    --body-02-sb-font-size: 1rem;
+    --body-02-sb-line-height: 1.5;
+    --body-02-sb-font-weight: 500;
+    --body-02-sb-letter-spacing: -0.0125em;
+
+    --body-02-md-font-size: 1rem;
+    --body-02-md-line-height: 1.5;
+    --body-02-md-font-weight: 500;
+    --body-02-md-letter-spacing: -0.0125em;
+
+    /* label */
+    --label-01-font-size: 1.125rem;
+    --label-01-line-height: 1.1;
+    --label-01-font-weight: 500;
+    --label-01-letter-spacing: -0.0166666em;
+
+    --label-02-font-size: 1rem;
+    --label-02-line-height: 1;
+    --label-02-font-weight: 600;
+    --label-02-letter-spacing: -0.0125em;
+
+    --label-03-font-size: 0.875rem;
+    --label-03-line-height: 1.42857;
+    --label-03-font-weight: 500;
+    --label-03-letter-spacing: -0.0142857em;
+
+    /* caption */
+    --caption-font-size: 0.875rem;
+    --caption-line-height: 1.28571;
+    --caption-font-weight: 500;
+    --caption-letter-spacing: -0.0142857em;
+
+    /* gothic-display */
+    --gothic-display-01-font-size: 3.5rem;
+    --gothic-display-01-line-height: 1.20833;
+    --gothic-display-01-font-weight: 400;
+    --gothic-display-01-letter-spacing: -0.03928em;
+
+    --gothic-display-02-font-size: 3rem;
+    --gothic-display-02-line-height: 1.125;
+    --gothic-display-02-font-weight: 600;
+    --gothic-display-02-letter-spacing: -0.0333333em;
+
+    --gothic-display-03-font-size: 2.125rem;
+    --gothic-display-03-line-height: 1.58824;
+    --gothic-display-03-font-weight: 400;
+    --gothic-display-03-letter-spacing: -0.02647em;
+
+    /* gothic-title */
+    --gothic-title-01-font-size: 2rem;
+    --gothic-title-01-line-height: 1.1875;
+    --gothic-title-01-font-weight: 600;
+    --gothic-title-01-letter-spacing: -0.04375em;
+
+    --gothic-title-02-font-size: 1.625rem;
+    --gothic-title-02-line-height: 1.38462;
+    --gothic-title-02-font-weight: 600;
+    --gothic-title-02-letter-spacing: -0.030769em;
+
+    --gothic-title-03-font-size: 1.625rem;
+    --gothic-title-03-line-height: 1.23077;
+    --gothic-title-03-font-weight: 600;
+    --gothic-title-03-letter-spacing: -0.015384em;
+
+    /* gothic-label */
+    --gothic-label-01-font-size: 1.125rem;
+    --gothic-label-01-line-height: 1.2222;
+    --gothic-label-01-font-weight: 600;
+    --gothic-label-01-letter-spacing: -0.0166666em;
+
+    --gothic-label-02-font-size: 1rem;
+    --gothic-label-02-line-height: 1;
+    --gothic-label-02-font-weight: 600;
+    --gothic-label-02-letter-spacing: -0.0125em;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  :root {
+    /* heading */
+    --heading-01-font-size: 2rem;
+    --heading-01-line-height: 1.25;
+    --heading-01-font-weight: 600;
+    --heading-01-letter-spacing: -0.0125em;
+
+    --heading-02-font-size: 1.5rem;
+    --heading-02-line-height: 1.4166666;
+    --heading-02-font-weight: 600;
+    --heading-02-letter-spacing: -0.025em;
+
+    --heading-03-font-size: 1.5rem;
+    --heading-03-line-height: 1.4166666;
+    --heading-03-font-weight: 600;
+    --heading-03-letter-spacing: -0.025em;
+
+    /* subhead */
+    --subhead-01-font-size: 1.25rem;
+    --subhead-01-line-height: 1.5;
+    --subhead-01-font-weight: 600;
+    --subhead-01-letter-spacing: -0.03em;
+
+    --subhead-02-font-size: 1.125rem;
+    --subhead-02-line-height: 1.55555555555;
+    --subhead-02-font-weight: 600;
+    --subhead-02-letter-spacing: -0.02777777em;
+
+    /* body */
+    --body-01-font-size: 1.125rem;
+    --body-01-line-height: 1.44444444;
+    --body-01-font-weight: 500;
+    --body-01-letter-spacing: -0.022222222222em;
+
+    --body-02-sb-font-size: 1rem;
+    --body-02-sb-line-height: 1.5;
+    --body-02-sb-font-weight: 500;
+    --body-02-sb-letter-spacing: -0.0125em;
+
+    --body-02-md-font-size: 1rem;
+    --body-02-md-line-height: 1.5;
+    --body-02-md-font-weight: 500;
+    --body-02-md-letter-spacing: -0.0125em;
+
+    /* label */
+    --label-01-font-size: 0.875rem;
+    --label-01-line-height: 1.14286;
+    --label-01-font-weight: 500;
+    --label-01-letter-spacing: -0.0166666em;
+
+    --label-02-font-size: 0.875rem;
+    --label-02-line-height: 1.14286;
+    --label-02-font-weight: 600;
+    --label-02-letter-spacing: -0.0125em;
+
+    --label-03-font-size: 0.875rem;
+    --label-03-line-height: 1.28571;
+    --label-03-font-weight: 500;
+    --label-03-letter-spacing: -0.0142857em;
+
+    /* caption */
+    --caption-font-size: 0.875rem;
+    --caption-line-height: 1.28571;
+    --caption-font-weight: 500;
+    --caption-letter-spacing: -0.0071428em;
+
+    /* gothic-display */
+    --gothic-display-01-font-size: 2.875rem;
+    --gothic-display-01-line-height: 1.08696;
+    --gothic-display-01-font-weight: 400;
+    --gothic-display-01-letter-spacing: -0.041304em;
+
+    --gothic-display-02-font-size: 2.25rem;
+    --gothic-display-02-line-height: 1.22222;
+    --gothic-display-02-font-weight: 600;
+    --gothic-display-02-letter-spacing: -0.0444444em;
+
+    --gothic-display-03-font-size: 1.5rem;
+    --gothic-display-03-line-height: 1.3333;
+    --gothic-display-03-font-weight: 400;
+    --gothic-display-03-letter-spacing: -0.033333em;
+
+    /* gothic-title */
+    --gothic-title-01-font-size: 1.5rem;
+    --gothic-title-01-line-height: 1.25;
+    --gothic-title-01-font-weight: 600;
+    --gothic-title-01-letter-spacing: -0.05em;
+
+    --gothic-title-02-font-size: 1.5rem;
+    --gothic-title-02-line-height: 1.3333;
+    --gothic-title-02-font-weight: 600;
+    --gothic-title-02-letter-spacing: -0.0333333em;
+
+    --gothic-title-03-font-size: 1.25rem;
+    --gothic-title-03-line-height: 1.5;
+    --gothic-title-03-font-weight: 600;
+    --gothic-title-03-letter-spacing: -0.015em;
+
+    /* gothic-label */
+    --gothic-label-01-font-size: 0.875rem;
+    --gothic-label-01-line-height: 1.14286;
+    --gothic-label-01-font-weight: 600;
+    --gothic-label-01-letter-spacing: -0.021428em;
+
+    --gothic-label-02-font-size: 0.875rem;
+    --gothic-label-02-line-height: 1.14286;
+    --gothic-label-02-font-weight: 600;
+    --gothic-label-02-letter-spacing: -0.0142857em;
+  }
+}

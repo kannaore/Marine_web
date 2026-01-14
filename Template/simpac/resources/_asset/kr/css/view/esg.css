@@ -1,0 +1,299 @@
+@charset "utf-8";
+/* ===========================
+// esg
+=========================== */
+
+.esg-overview-direction {
+  .point-icons {
+    .point-items {
+      .item-inner {
+        aspect-ratio: 4/4.8;
+      }
+    }
+  }
+}
+
+.governance-responsible {
+  .point-icons {
+    grid-template-columns: repeat(2, 1fr);
+    .point-items {
+      .item-inner {
+        aspect-ratio: 4/2.25;
+      }
+    }
+  }
+}
+
+.governance-strategies {
+    .point-icons {
+      grid-template-columns: repeat(2, 1fr);
+      .point-items {
+        .item-inner {
+          aspect-ratio: 4/2.25;
+        }
+      }
+    }
+  }
+
+@media screen and (max-width: 1660px) {
+  .esg-overview-direction {
+    .point-icons {
+      .point-items {
+        .item-inner {
+          min-height: 100%;
+          aspect-ratio: auto;
+        }
+      }
+    }
+  }
+  .governance-responsible {
+    .point-icons {
+      .point-items {
+        .item-inner {
+          min-height: 100%;
+          aspect-ratio: auto;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1440px) {
+}
+
+@media screen and (max-width: 1280px) {
+  .esg-overview-direction {
+    .point-icons {
+      grid-template-columns: repeat(2, 1fr);
+      .point-items {
+        .item-inner {
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .esg-overview-direction {
+    .point-icons {
+      .point-items {
+        .item-inner {
+          min-height:0;
+          aspect-ratio: 4/4.8;
+        }
+      }
+    }
+  }
+  .governance-responsible {
+    .point-icons {
+      .point-items {
+        .item-inner {
+          min-height:0;
+          aspect-ratio: 1/1;
+        }
+      }
+    }
+  }
+
+  .governance-strategies {
+    .point-icons {
+      .point-items {
+        .item-inner {
+          min-height:0;
+          aspect-ratio: 1/1;
+        }
+      }
+    }
+  }
+  
+}
+
+
+@media screen and (min-width: 769px) and (max-width: 1023px) {
+  .esg-overview-direction {
+    .point-icons {
+      .point-items {
+        min-height:23.625rem;
+        .item-inner {
+          min-height:100%;
+          aspect-ratio:auto;
+        }
+      }
+    }
+  }
+
+  .governance-responsible {
+    .point-icons {
+      .point-items {
+        min-height:19.625rem;
+        .item-inner {
+          min-height:100%;
+          aspect-ratio:auto;
+        }
+      }
+    }
+  }
+
+  .governance-strategies {
+    .point-icons {
+      .point-items {
+        min-height:19.625rem;
+        .item-inner {
+          min-height:100%;
+          aspect-ratio:auto;
+        }
+      }
+    }
+  }
+
+}
+
+@media screen and (max-width: 768px) {
+
+    .esg-overview {
+        .page-title {
+            .tb-block {
+                display:block;
+            }
+            .mo-block {
+                display:none;
+            }
+        }
+    }
+
+  .esg-overview-direction {
+    .point-icons {
+      grid-template-columns: repeat(2, 1fr);
+      .point-items {
+        .item-inner {
+          min-height: auto;
+          aspect-ratio: 4/3;
+        }
+      }
+    }
+  }
+
+  .governance-responsible {
+    .point-icons {
+      grid-template-columns: repeat(2, 1fr);
+      .point-items {
+        .item-inner {
+          min-height: auto;
+          aspect-ratio: 4/2.761;
+        }
+        .item-info {
+            padding-top:1.0rem;
+        }
+      }
+    }
+  }
+
+  .governance-strategies {
+    .point-icons {
+      grid-template-columns: repeat(2, 1fr);
+      .point-items {
+        .item-inner {
+          min-height: auto;
+          aspect-ratio: 4/2.761;
+        }
+        .item-info {
+            padding-top:1.0rem;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 767px) {
+  .esg-overview-direction {
+    .point-icons {
+      .point-items {
+        min-height:16.875rem;
+        .item-inner {
+          min-height:100%;
+          aspect-ratio:auto;
+        }
+      }
+    }
+  }
+  .governance-responsible {
+    .point-icons {
+      .point-items {
+        min-height:15.188rem;
+        .item-inner {
+          min-height:100%;
+          aspect-ratio:auto;
+        }
+      }
+    }
+  }
+
+  .governance-strategies {
+    .point-icons {
+      .point-items {
+        min-height:15.188rem;
+        .item-inner {
+          min-height:100%;
+          aspect-ratio:auto;
+        }
+      }
+    }
+  }
+}
+
+
+@media screen and (max-width: 480px) {
+    .esg-overview {
+        .page-title {
+            .tb-block {
+                display:none;
+            }
+            .mo-block {
+                display:block;
+            }
+        }
+    }
+
+
+    .esg-overview-direction {
+        .point-icons {
+            grid-template-columns: repeat(1, 1fr);
+            .point-items {
+                .item-inner {
+                    min-height: auto;
+                    aspect-ratio: 4/2.997;
+                }
+            }
+        }
+    }
+
+    .governance-responsible {
+        .point-icons {
+            grid-template-columns: repeat(1, 1fr);
+            .point-items {
+                .item-inner {
+                    min-height: auto;
+                    aspect-ratio: 4/3;
+                }
+                .item-info {
+                    padding-top:1.0rem;
+                }
+            }
+        }
+    }
+
+    .governance-strategies {
+        .point-icons {
+            grid-template-columns: repeat(1, 1fr);
+            .point-items {
+                .item-inner {
+                    min-height: auto;
+                    aspect-ratio: 4/3;
+                }
+                .item-info {
+                    padding-top:1.0rem;
+                }
+            }
+        }
+    }
+}

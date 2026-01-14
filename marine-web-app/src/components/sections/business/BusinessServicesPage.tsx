@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectFade } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { ChevronDown } from "lucide-react";
@@ -10,9 +9,9 @@ import { SentenceReveal } from "./SentenceReveal";
 import { BusinessNav } from "./BusinessNav";
 import { BusinessMenuPopup } from "./BusinessMenuPopup";
 import { BusinessDetailPopup } from "./BusinessDetailPopup";
+import { useAnimationConfig } from "@/hooks/useAnimationConfig";
 
 import "swiper/css";
-import "swiper/css/effect-fade";
 
 // 마린리서치 서비스 데이터 (6개 카테고리)
 const servicesData = [
@@ -26,6 +25,7 @@ const servicesData = [
         ],
         gradient: "from-ocean-600 via-ocean-700 to-marine-dark",
         accentColor: "ocean-500",
+        imageSrc: "/images/services/offshore-wind.jpg",
     },
     {
         id: 2,
@@ -37,6 +37,7 @@ const servicesData = [
         ],
         gradient: "from-accent-blue via-ocean-600 to-marine-dark",
         accentColor: "accent-blue",
+        imageSrc: "/images/services/geophysical.jpg",
     },
     {
         id: 3,
@@ -48,6 +49,7 @@ const servicesData = [
         ],
         gradient: "from-accent-purple via-ocean-800 to-marine-dark",
         accentColor: "accent-purple",
+        imageSrc: "/images/services/hydrographic.jpg",
     },
     {
         id: 4,
@@ -59,6 +61,7 @@ const servicesData = [
         ],
         gradient: "from-accent-cyan via-ocean-600 to-marine-dark",
         accentColor: "accent-cyan",
+        imageSrc: "/images/services/oceanography.jpg",
     },
     {
         id: 5,
@@ -70,6 +73,7 @@ const servicesData = [
         ],
         gradient: "from-ocean-500 via-ocean-700 to-marine-dark",
         accentColor: "ocean-400",
+        imageSrc: "/images/services/fisheries.jpg",
     },
     {
         id: 6,
@@ -81,10 +85,11 @@ const servicesData = [
         ],
         gradient: "from-ocean-800 via-accent-blue to-marine-dark",
         accentColor: "accent-blue",
+        imageSrc: "/images/services/research.jpg",
     },
 ];
 
-// Animated gradient background component
+// Animated gradient background component (fallback)
 function AnimatedGradientBackground({ gradient, isActive }: { gradient: string; isActive: boolean }) {
     const bgRef = useRef<HTMLDivElement>(null);
 
@@ -110,14 +115,117 @@ function AnimatedGradientBackground({ gradient, isActive }: { gradient: string; 
     );
 }
 
+// Image background component with Ken Burns effect
+function ImageBackground({ imageSrc, gradient, isActive }: { imageSrc?: string; gradient: string; isActive: boolean }) {
+    const imgRef = useRef<HTMLDivElement>(null);
+
+    useGSAP(() => {
+        if (!imgRef.current || !isActive) return;
+
+        // Subtle Ken Burns zoom effect
+        gsap.fromTo(imgRef.current,
+            { scale: 1.0 },
+            {
+                scale: 1.05,
+                duration: 20,
+                ease: "sine.inOut",
+                repeat: -1,
+                yoyo: true,
+            }
+        );
+    }, { scope: imgRef, dependencies: [isActive] });
+
+    // If no image, fall back to gradient
+    if (!imageSrc) {
+        return <AnimatedGradientBackground gradient={gradient} isActive={isActive} />;
+    }
+
+    return (
+        <>
+            <div
+                ref={imgRef}
+                className="absolute inset-0"
+                style={{
+                    backgroundImage: `url(${imageSrc})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                }}
+            />
+            {/* Gradient overlay for color tinting */}
+            <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-40`} />
+        </>
+    );
+}
+
 export function BusinessServicesPage() {
     const [activeIndex, setActiveIndex] = useState(0);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isDetailOpen, setIsDetailOpen] = useState(false);
     const [isReady, setIsReady] = useState(false);
+    const [isTouchDevice, setIsTouchDevice] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
     const dataSwiperRef = useRef<SwiperType | null>(null);
     const bgSwiperRef = useRef<SwiperType | null>(null);
+
+    // Animation config from leva (debug controls)
+    const { swiperSpeed, wheelThreshold, wheelDecay } = useAnimationConfig();
+
+    // Wheel scroll state (simpac-style accumulator pattern)
+    const wheelAccum = useRef(0);
+    const wheelLastT = useRef(0);
+    const isTransitioning = useRef(false);
+
+    // Detect touch device on mount
+    useEffect(() => {
+        setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    }, []);
+
+    // Wheel event handler (simpac-identical logic)
+    const handleWheel = useCallback((e: WheelEvent) => {
+        // Block during transition or when popups are open
+        if (isTransitioning.current || isMenuOpen || isDetailOpen) return;
+
+        // Normalize to pixels (deltaMode 1 = lines → ~16px per line)
+        const dy = (e.deltaMode === 1 ? e.deltaY * 16 : e.deltaY) || 0;
+
+        // Accumulate with decay reset
+        const now = performance.now();
+        if (now - wheelLastT.current > wheelDecay) wheelAccum.current = 0;
+        wheelLastT.current = now;
+        wheelAccum.current += dy;
+
+        // Below threshold - just prevent default and wait
+        if (Math.abs(wheelAccum.current) < wheelThreshold) {
+            e.preventDefault();
+            return;
+        }
+
+        e.preventDefault();
+
+        // Execute slide change
+        if (wheelAccum.current > 0) {
+            dataSwiperRef.current?.slideNext();
+        } else {
+            dataSwiperRef.current?.slidePrev();
+        }
+
+        // Reset accumulator after action
+        wheelAccum.current = 0;
+        isTransitioning.current = true;
+    }, [wheelThreshold, wheelDecay, isMenuOpen, isDetailOpen]);
+
+    // Register wheel event listener
+    useEffect(() => {
+        const container = containerRef.current;
+        if (!container) return;
+
+        // Use passive: false to allow preventDefault
+        container.addEventListener('wheel', handleWheel, { passive: false });
+
+        return () => {
+            container.removeEventListener('wheel', handleWheel);
+        };
+    }, [handleWheel]);
 
     // Initialize and show content
     useGSAP(() => {
@@ -137,18 +245,23 @@ export function BusinessServicesPage() {
 
     // Sync swipers
     const handleSlideChange = useCallback((swiper: SwiperType) => {
-        setActiveIndex(swiper.activeIndex);
-        if (bgSwiperRef.current && bgSwiperRef.current.activeIndex !== swiper.activeIndex) {
-            bgSwiperRef.current.slideTo(swiper.activeIndex);
+        setActiveIndex(swiper.realIndex);
+        if (bgSwiperRef.current && bgSwiperRef.current.realIndex !== swiper.realIndex) {
+            bgSwiperRef.current.slideToLoop(swiper.realIndex);
         }
-        if (dataSwiperRef.current && dataSwiperRef.current.activeIndex !== swiper.activeIndex) {
-            dataSwiperRef.current.slideTo(swiper.activeIndex);
+        if (dataSwiperRef.current && dataSwiperRef.current.realIndex !== swiper.realIndex) {
+            dataSwiperRef.current.slideToLoop(swiper.realIndex);
         }
+    }, []);
+
+    // Reset transition flag when slide change animation ends
+    const handleSlideChangeTransitionEnd = useCallback(() => {
+        isTransitioning.current = false;
     }, []);
 
     const handleMenuItemClick = useCallback((index: number) => {
         if (dataSwiperRef.current) {
-            dataSwiperRef.current.slideTo(index);
+            dataSwiperRef.current.slideToLoop(index);
         }
         setIsMenuOpen(false);
     }, []);
@@ -159,19 +272,19 @@ export function BusinessServicesPage() {
             <div className={`business-view ${isReady ? "ready" : ""}`}>
                 <div className="business-video">
                     <Swiper
-                        modules={[EffectFade]}
-                        effect="fade"
-                        fadeEffect={{ crossFade: true }}
-                        speed={1600}
-                        allowTouchMove={false}
+                        speed={swiperSpeed}
+                        loop={true}
+                        allowTouchMove={isTouchDevice}
                         onSwiper={(swiper) => { bgSwiperRef.current = swiper; }}
+                        onSlideChangeTransitionEnd={handleSlideChangeTransitionEnd}
                         className="h-full w-full"
                     >
                         {servicesData.map((service, index) => (
                             <SwiperSlide key={service.id}>
                                 <div className="video-wrap relative h-full w-full">
-                                    {/* Animated Gradient Background */}
-                                    <AnimatedGradientBackground
+                                    {/* Image Background with Ken Burns effect */}
+                                    <ImageBackground
+                                        imageSrc={service.imageSrc}
                                         gradient={service.gradient}
                                         isActive={index === activeIndex}
                                     />
@@ -193,12 +306,12 @@ export function BusinessServicesPage() {
                 {/* Content Data Layer */}
                 <div className="business-data">
                     <Swiper
-                        modules={[EffectFade]}
-                        effect="fade"
-                        fadeEffect={{ crossFade: true }}
-                        speed={1600}
+                        speed={swiperSpeed}
+                        loop={true}
+                        allowTouchMove={isTouchDevice}
                         onSwiper={(swiper) => { dataSwiperRef.current = swiper; }}
                         onSlideChange={handleSlideChange}
+                        onSlideChangeTransitionEnd={handleSlideChangeTransitionEnd}
                         className="h-full w-full"
                     >
                         {servicesData.map((service) => (

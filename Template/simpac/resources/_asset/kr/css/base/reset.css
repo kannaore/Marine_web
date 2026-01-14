@@ -1,0 +1,323 @@
+* , *:before,*:after {  
+  box-sizing: border-box;  
+}
+
+html {
+  font-family: "Pretendard Variable", sans-serif;
+  color:var(--Colors-Solid-Mono-Black);
+  font-size:16px;
+  line-height: 1;
+  font-weight: 400;  
+  word-break: keep-all;
+  -webkit-text-size-adjust: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+i {
+  font-family: "Roboto", "Helvetica Neue", "Arial", sans-serif;
+}
+
+html {
+  overflow-y: scroll;
+}
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+input,
+select,
+textarea,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0px;
+  padding: 0px;
+  vertical-align: top;
+}
+
+ul,
+ol,
+dl {
+  list-style-type: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  word-break: break-all;
+}
+
+table th {
+  font-weight: normal;
+}
+
+img,
+button,
+fieldset,
+abbr,
+acronym {
+  border: 0;
+}
+
+label {
+  cursor: pointer;
+}
+
+button {
+  touch-action: manipulation;
+  color: inherit;
+}
+
+address,
+caption,
+cite,
+code,
+dfn,
+var {
+  font-weight: normal;
+}
+
+em {
+  font-style: normal;
+}
+
+caption,
+legend {
+  width: 0px;
+  height: 0px;
+  font-size: 0px;
+  line-height: 0px;
+  visibility: hidden;
+}
+
+img {
+  max-width: 100%;
+}
+
+q:before,
+q:after {
+  content: "";
+}
+
+hr {
+  display: none;
+}
+
+iframe {
+  border: none;
+  outline: none;
+}
+
+br {
+  font-family: dotum;
+}
+
+fieldset {
+  display: block;
+  min-width: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+a:link,
+a:visited {
+  text-decoration: none;
+}
+
+a:hover,
+a:focus,
+a:active {
+  text-decoration: none;
+}
+
+/*
+*::selection {
+  color: #fff;
+  background: #f5cc00;
+}
+*::-moz-selection {
+  color: #fff;
+  background: #f5cc00;
+}
+*/
+
+/* ìž…ë ¥ number íƒ€ìž… í™”ì‚´í‘œ ì œê±° */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 40px #efefef inset;
+  -webkit-text-fill-color: #333;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+button,
+textarea,
+select,
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+input[type="search"],
+input[type="file"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="image"],
+input[type="reset"],
+input[type="button"],
+input[type="submit"] {
+  padding: 0;
+  font-family: "Pretendard Variable", sans-serif;
+  border: none;
+  outline: none;
+  letter-spacing: -0.01em;
+  border-radius: 0;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  vertical-align: top;
+  background: none;
+}
+
+input[type="file"],
+input[type="image"],
+input[type="reset"],
+input[type="button"],
+input[type="submit"],
+button {
+  cursor: pointer;
+}
+
+button:focus,
+button:hover {
+  outline: none;
+}
+
+::-webkit-input-placeholder {
+  color: var(--Colors-Text-Gray-400);
+}
+
+::-moz-placeholder {
+  color: var(--Colors-Text-Gray-400);
+}
+
+:-ms-input-placeholder {
+  color: var(--Colors-Text-Gray-400);
+}
+
+:-moz-placeholder {
+  color: var(--Colors-Text-Gray-400);
+}
+
+/*
+@media screen and (min-width: 1921px) {
+  html {
+    font-size: calc(10 / 1920 * 1920px);
+  }
+}
+
+
+@media screen and (max-width: 1023px) {
+  html {
+    font-size: calc(10 / 375 * 100vw);
+  }
+}
+*/

@@ -1,0 +1,227 @@
+@charset "utf-8";
+/* ===========================
+// form
+=========================== */
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="tel"],
+input[type="url"],
+input[type="search"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="file"],
+input[type="password"] {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 3.25rem;
+  padding: 0 1.5rem;
+  color: var(--Colors-Text-Gray-800);
+  font-size: var(--label-02-font-size);
+  line-height: var(--label-02-line-height);
+  font-weight: var(--label-02-font-weight);
+  letter-spacing: var(--label-02-letter-spacing);
+  border: 1px solid var(--Colors-Solid-Mono-100);
+  border-radius: 0.5rem;
+  background-color: var(--Colors-Solid-Mono-100);
+  z-index: 0;
+}
+
+input[type="file"] {
+  line-height: 3.25rem;
+}
+
+textarea {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 120px;
+  padding: 0.5rem 1.5rem;
+  color: var(--Colors-Text-Gray-800);
+  text-align: left;
+  font-size: var(--label-02-font-size);
+  line-height: var(--label-02-line-height);
+  font-weight: var(--label-02-font-weight);
+  letter-spacing: var(--label-02-letter-spacing);
+  border: 1px solid #a1a1aa;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  overflow: auto;
+  resize: none;
+  z-index: 0;
+}
+
+select {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 3.25rem;
+  padding: 0 3.25rem 0 1.5rem;
+  color: var(--Colors-Text-Gray-800);
+  text-align: left;
+  font-size: var(--label-02-font-size);
+  line-height: var(--label-02-line-height);
+  font-weight: var(--label-02-font-weight);
+  letter-spacing: var(--label-02-letter-spacing);
+  border: 1px solid var(--Colors-Solid-Stroke-2);
+  border-radius: 0.5rem;
+  background-image: url(../../images/icon/icon-select-arrow-black.svg);
+  background-position: right 1.5rem center;
+  background-repeat: no-repeat;
+  background-color: #fff;
+  background-size: 1.25rem 1.25rem;
+  z-index: 0;
+
+  &.inline {
+    width: auto;
+  }
+}
+
+/*
+select:hover {
+	background-image: url(/images/kr/icon/icon-select-arrow-hover.png);
+}
+
+select:focus {
+	background-image: url(/images/kr/icon/icon-select-arrow-focus.png);
+}
+
+select:disabled {
+	background-image: url(/images/kr/icon/icon-select-arrow-disabled.png);
+}
+	*/
+
+/* hover 
+select:hover,
+textarea:hover,
+input[type=text]:hover,
+input[type=number]:hover,
+input[type=email]:hover,
+input[type=tel]:hover,
+input[type=url]:hover,
+input[type=password]:hover {
+	border-color: #A1A1AA;
+	box-shadow: 0px 4px 4px 0px rgba(31, 34, 39, 0.08);
+	z-index: 1;
+}
+*/
+
+/* focus 
+textarea:focus,
+input[type=text]:focus,
+input[type=number]:focus,
+input[type=email]:focus,
+input[type=tel]:focus,
+input[type=url]:focus,
+input[type=password]:focus {
+	border-color: #3F3F46;
+}
+*/
+/*
+textarea:focus {border-color:#000; box-shadow:0px 0px 10px rgba(0,0,0,0.1); z-index:1;}
+select:focus {border-color:#000; box-shadow:0px 0px 10px rgba(0,0,0,0.1); z-index:1;}
+*/
+
+/* Readonly */
+input[type="text"]:read-only,
+input[type="number"]:read-only,
+input[type="email"]:read-only,
+input[type="tel"]:read-only,
+input[type="url"]:read-only,
+input[type="password"]:read-only,
+textarea:read-only {
+}
+
+/* Disabled */
+input[type="text"]:disabled,
+input[type="number"]:disabled,
+input[type="email"]:disabled,
+input[type="tel"]:disabled,
+input[type="url"]:disabled,
+input[type="password"]:disabled,
+select:disabled,
+textarea:disabled {
+  opacity: 0.5;
+  box-shadow: none;
+}
+
+.form-search {
+  position: relative;
+
+  input {
+    padding-right: 5.875rem;
+
+    &.fill ~ .btn-input-del {
+      display: block;
+    }
+  }
+
+  .btn-input-del {
+    display: none;
+    position: absolute;
+    top: 50%;
+    right: 3.75rem;
+    transform: translate(0%, -50%);
+  }
+  .btn-form-search {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translate(0%, -50%);
+  }
+}
+
+/* ===========================
+// device width : 1280
+=========================== */
+@media screen and (max-width: 1280px) {
+}
+
+/* ===========================
+// device width : 1024
+=========================== */
+@media screen and (max-width: 1024px) {
+
+}
+
+/* ===========================
+// device width : 768
+=========================== */
+@media screen and (max-width: 768px) {
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="search"],
+  input[type="date"],
+  input[type="datetime-local"],
+  input[type="month"],
+  input[type="time"],
+  input[type="week"],
+  input[type="file"],
+  input[type="password"] {
+    padding: 0 1.25rem;
+    height: 3rem;
+  }
+
+  textarea {
+    padding: 1.25rem;
+  }
+
+  select {
+    padding: 0 3.25rem 0 1.25rem;
+    height: 3rem;
+  }
+
+  .form-search {
+    input {
+      padding-right: 5.625rem;
+    }
+  }
+}

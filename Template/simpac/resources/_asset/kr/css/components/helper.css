@@ -1,0 +1,149 @@
+.hidden {
+  position: absolute;
+  top: 0;
+  left: -9999px;
+  width: 0;
+  height: 0;
+  font-size: 0;
+  line-height: 0;
+  visibility: hidden;
+  text-indent: -9999px;
+}
+.blind {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.flex {
+  display: flex;
+}
+.flex-inline {
+  display: inline-flex;
+}
+.flex-direction-row {
+  flex-direction: row;
+}
+.flex-direction-column {
+  flex-direction: column;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+.flex-justify-content-start {
+  justify-content: flex-start;
+}
+.flex-justify-content-end {
+  justify-content: flex-end;
+}
+.flex-justify-content-center {
+  justify-content: center;
+}
+.flex-justify-content-between {
+  justify-content: space-between;
+}
+.flex-justify-content-around {
+  justify-content: space-around;
+}
+.flex-align-content-start {
+  align-content: flex-start;
+}
+.flex-align-content-end {
+  align-content: flex-end;
+}
+.flex-align-content-center {
+  align-content: center;
+}
+.flex-align-content-between {
+  align-content: space-between;
+}
+.flex-align-content-around {
+  align-content: space-around;
+}
+.flex-align-self-start {
+  align-self: flex-start;
+}
+.flex-align-self-center {
+  align-self: center;
+}
+.flex-align-self-end {
+  align-self: flex-end;
+}
+.flex-align-items-start {
+  align-items: flex-start;
+}
+.flex-align-items-center {
+  align-items: center;
+}
+.flex-align-items-end {
+  align-items: flex-end;
+}
+.flex-align-items-center {
+  align-items: center;
+}
+.flex-align-items-baseline {
+  align-items: baseline;
+}
+.flex-auto {
+  flex: 0 0 auto !important;
+  width: auto !important;
+}
+.flex-1 {
+  flex: 1 !important;
+}
+.flex-2 {
+  flex: 2 !important;
+}
+.flex-3 {
+  flex: 3 !important;
+}
+.flex-4 {
+  flex: 4 !important;
+}
+.flex-5 {
+  flex: 5 !important;
+}
+
+.gap-8 {
+  gap: 0.5rem;
+}
+
+.text-overflow-mulityline-1 {
+  display: block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.text-overflow-mulityline-2 {
+  display: block;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.text-overflow-mulityline-3 {
+  display: block;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+.text-overflow-mulityline-4 {
+  display: block;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
