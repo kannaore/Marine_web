@@ -9,6 +9,7 @@ import { ChevronDown } from "lucide-react";
 import { SentenceReveal } from "./SentenceReveal";
 import { BusinessNav } from "./BusinessNav";
 import { BusinessMenuPopup } from "./BusinessMenuPopup";
+import { BusinessDetailPopup } from "./BusinessDetailPopup";
 
 import "swiper/css";
 import "swiper/css/effect-fade";
@@ -248,6 +249,13 @@ export function BusinessServicesPage() {
                 isOpen={isMenuOpen}
                 onClose={() => setIsMenuOpen(false)}
                 onItemClick={handleMenuItemClick}
+            />
+
+            {/* Detail Popup */}
+            <BusinessDetailPopup
+                service={servicesData[activeIndex]}
+                isOpen={isDetailOpen}
+                onClose={() => setIsDetailOpen(false)}
             />
         </div>
     );
