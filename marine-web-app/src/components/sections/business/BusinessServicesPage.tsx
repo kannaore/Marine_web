@@ -2,7 +2,7 @@
 
 import { useState, useRef, useCallback } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectFade, Autoplay } from "swiper/modules";
+import { EffectFade } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { ChevronDown } from "lucide-react";
@@ -112,6 +112,7 @@ function AnimatedGradientBackground({ gradient, isActive }: { gradient: string; 
 export function BusinessServicesPage() {
     const [activeIndex, setActiveIndex] = useState(0);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isDetailOpen, setIsDetailOpen] = useState(false);
     const [isReady, setIsReady] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
     const dataSwiperRef = useRef<SwiperType | null>(null);
@@ -144,18 +145,6 @@ export function BusinessServicesPage() {
         }
     }, []);
 
-    const handlePrev = useCallback(() => {
-        if (dataSwiperRef.current) {
-            dataSwiperRef.current.slidePrev();
-        }
-    }, []);
-
-    const handleNext = useCallback(() => {
-        if (dataSwiperRef.current) {
-            dataSwiperRef.current.slideNext();
-        }
-    }, []);
-
     const handleMenuItemClick = useCallback((index: number) => {
         if (dataSwiperRef.current) {
             dataSwiperRef.current.slideTo(index);
@@ -172,7 +161,7 @@ export function BusinessServicesPage() {
                         modules={[EffectFade]}
                         effect="fade"
                         fadeEffect={{ crossFade: true }}
-                        speed={800}
+                        speed={1600}
                         allowTouchMove={false}
                         onSwiper={(swiper) => { bgSwiperRef.current = swiper; }}
                         className="h-full w-full"
@@ -203,14 +192,10 @@ export function BusinessServicesPage() {
                 {/* Content Data Layer */}
                 <div className="business-data">
                     <Swiper
-                        modules={[EffectFade, Autoplay]}
+                        modules={[EffectFade]}
                         effect="fade"
                         fadeEffect={{ crossFade: true }}
-                        speed={800}
-                        autoplay={{
-                            delay: 6000,
-                            disableOnInteraction: false,
-                        }}
+                        speed={1600}
                         onSwiper={(swiper) => { dataSwiperRef.current = swiper; }}
                         onSlideChange={handleSlideChange}
                         className="h-full w-full"
@@ -244,14 +229,13 @@ export function BusinessServicesPage() {
                 services={servicesData}
                 activeIndex={activeIndex}
                 isReady={isReady}
-                onPrev={handlePrev}
-                onNext={handleNext}
                 onMenuOpen={() => setIsMenuOpen(true)}
+                onLearnMore={() => setIsDetailOpen(true)}
             />
 
             {/* Scroll Indicator */}
             <div className={`nav-scroller ${isReady ? "open" : ""}`}>
-                <button className="btn-split" onClick={handleNext}>
+                <button className="btn-split" onClick={() => dataSwiperRef.current?.slideNext()}>
                     <span>Scroll to explore</span>
                     <ChevronDown size={16} />
                 </button>
