@@ -554,6 +554,28 @@ body {
     max-width: 57.5rem;
 }
 
+/* 3+2 Staggered Grid Layout */
+.business-menu .menu-outer.staggered-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4rem;
+}
+
+.business-menu .staggered-grid .grid-row {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+}
+
+.business-menu .staggered-grid .top-row {
+    /* 3 items */
+}
+
+.business-menu .staggered-grid .bottom-row {
+    /* 2 items - naturally centered due to flex */
+}
+
 .business-menu .menu-item {
     width: 15rem;
     text-align: center;
@@ -585,6 +607,15 @@ body {
 }
 
 .business-menu .btn-menu-nav:hover .thumb img {
+    transform: scale(1.1);
+}
+
+.business-menu .btn-menu-nav .thumb > div {
+    transform: scale(1);
+    transition: transform 0.4s var(--ease-smooth);
+}
+
+.business-menu .btn-menu-nav:hover .thumb > div {
     transform: scale(1.1);
 }
 
