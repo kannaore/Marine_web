@@ -26,6 +26,8 @@ const servicesData = [
         gradient: "from-ocean-600 via-ocean-700 to-marine-dark",
         accentColor: "ocean-500",
         imageSrc: "/images/services/offshore-wind.jpg",
+        thumbnailSrc: "/images/services/menu/business-menu-visual-1.jpg",
+        videoSrc: "/images/services/bg/business-visual-1.mp4",
     },
     {
         id: 2,
@@ -38,6 +40,9 @@ const servicesData = [
         gradient: "from-accent-blue via-ocean-600 to-marine-dark",
         accentColor: "accent-blue",
         imageSrc: "/images/services/geophysical.jpg",
+        thumbnailSrc: "/images/services/menu/business-menu-visual-3.jpg",
+        videoSrc: "/images/services/bg/business-visual-3.mp4",
+        videoSrcMobile: "/images/services/bg/business-visual-3-mo.mp4",
     },
     {
         id: 3,
@@ -50,6 +55,9 @@ const servicesData = [
         gradient: "from-accent-purple via-ocean-800 to-marine-dark",
         accentColor: "accent-purple",
         imageSrc: "/images/services/hydrographic.jpg",
+        thumbnailSrc: "/images/services/menu/business-menu-visual-4.jpg",
+        videoSrc: "/images/services/bg/business-visual-4.mp4",
+        videoSrcMobile: "/images/services/bg/business-visual-4-mo.mp4",
     },
     {
         id: 4,
@@ -62,6 +70,9 @@ const servicesData = [
         gradient: "from-accent-cyan via-ocean-600 to-marine-dark",
         accentColor: "accent-cyan",
         imageSrc: "/images/services/oceanography.jpg",
+        thumbnailSrc: "/images/services/menu/business-menu-visual-5.jpg",
+        videoSrc: "/images/services/bg/business-visual-5.mp4",
+        videoSrcMobile: "/images/services/bg/business-visual-5-mo.mp4",
     },
     {
         id: 5,
@@ -74,6 +85,8 @@ const servicesData = [
         gradient: "from-ocean-500 via-ocean-700 to-marine-dark",
         accentColor: "ocean-400",
         imageSrc: "/images/services/fisheries.jpg",
+        thumbnailSrc: "/images/services/menu/business-menu-visual-6.jpg",
+        videoSrc: "/images/services/bg/business-visual-6.mp4",
     },
     {
         id: 6,
@@ -86,6 +99,7 @@ const servicesData = [
         gradient: "from-ocean-800 via-accent-blue to-marine-dark",
         accentColor: "accent-blue",
         imageSrc: "/images/services/research.jpg",
+        thumbnailSrc: "/images/services/menu/business-menu-visual-1.jpg",
     },
 ];
 
@@ -112,6 +126,54 @@ function AnimatedGradientBackground({ gradient, isActive }: { gradient: string; 
             className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-90`}
             style={{ backgroundSize: "200% 200%", backgroundPosition: "0% 0%" }}
         />
+    );
+}
+
+// Video background component with fallback to ImageBackground
+function VideoBackground({ 
+    videoSrc, 
+    videoSrcMobile, 
+    imageSrc, 
+    gradient, 
+    isActive 
+}: { 
+    videoSrc?: string; 
+    videoSrcMobile?: string;
+    imageSrc?: string; 
+    gradient: string; 
+    isActive: boolean 
+}) {
+    const [hasError, setHasError] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    const currentSrc = isMobile && videoSrcMobile ? videoSrcMobile : videoSrc;
+
+    // 비디오 없거나 에러 시 ImageBackground 폴백
+    if (!currentSrc || hasError) {
+        return <ImageBackground imageSrc={imageSrc} gradient={gradient} isActive={isActive} />;
+    }
+
+    return (
+        <>
+            <video
+                className="absolute inset-0 w-full h-full object-cover"
+                src={currentSrc}
+                autoPlay
+                muted
+                loop
+                playsInline
+                onError={() => setHasError(true)}
+            />
+            {/* Gradient overlay for color tinting */}
+            <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-40`} />
+        </>
     );
 }
 
@@ -274,6 +336,7 @@ export function BusinessServicesPage() {
                     <Swiper
                         speed={swiperSpeed}
                         loop={true}
+                        loopAdditionalSlides={1}
                         allowTouchMove={isTouchDevice}
                         onSwiper={(swiper) => { bgSwiperRef.current = swiper; }}
                         onSlideChangeTransitionEnd={handleSlideChangeTransitionEnd}
@@ -282,8 +345,10 @@ export function BusinessServicesPage() {
                         {servicesData.map((service, index) => (
                             <SwiperSlide key={service.id}>
                                 <div className="video-wrap relative h-full w-full">
-                                    {/* Image Background with Ken Burns effect */}
-                                    <ImageBackground
+                                    {/* Video Background with image fallback */}
+                                    <VideoBackground
+                                        videoSrc={service.videoSrc}
+                                        videoSrcMobile={service.videoSrcMobile}
                                         imageSrc={service.imageSrc}
                                         gradient={service.gradient}
                                         isActive={index === activeIndex}
@@ -308,6 +373,7 @@ export function BusinessServicesPage() {
                     <Swiper
                         speed={swiperSpeed}
                         loop={true}
+                        loopAdditionalSlides={1}
                         allowTouchMove={isTouchDevice}
                         onSwiper={(swiper) => { dataSwiperRef.current = swiper; }}
                         onSlideChange={handleSlideChange}
