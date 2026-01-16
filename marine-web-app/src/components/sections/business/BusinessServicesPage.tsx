@@ -19,10 +19,7 @@ const servicesData = [
         id: 1,
         title: "Offshore Wind",
         titleKo: "해상풍력",
-        description: [
-            "해상풍력발전단지 건설을 위한",
-            "종합적인 해양조사 서비스를 제공합니다.",
-        ],
+        description: ["해상풍력발전단지 건설을 위한", "종합적인 해양조사 서비스를 제공합니다."],
         gradient: "from-ocean-600 via-ocean-700 to-marine-dark",
         accentColor: "ocean-500",
         imageSrc: "/images/services/offshore-wind.jpg",
@@ -48,10 +45,7 @@ const servicesData = [
         id: 3,
         title: "Hydrographic Survey",
         titleKo: "수로조사",
-        description: [
-            "정밀 수심 측량과 해도 제작을 위한",
-            "통합 수로조사 서비스입니다.",
-        ],
+        description: ["정밀 수심 측량과 해도 제작을 위한", "통합 수로조사 서비스입니다."],
         gradient: "from-accent-purple via-ocean-800 to-marine-dark",
         accentColor: "accent-purple",
         imageSrc: "/images/services/hydrographic.jpg",
@@ -63,10 +57,7 @@ const servicesData = [
         id: 4,
         title: "Physical Oceanography",
         titleKo: "해양물리조사",
-        description: [
-            "물리환경 데이터를 기반으로",
-            "해양 프로젝트의 리스크를 줄입니다.",
-        ],
+        description: ["물리환경 데이터를 기반으로", "해양 프로젝트의 리스크를 줄입니다."],
         gradient: "from-accent-cyan via-ocean-600 to-marine-dark",
         accentColor: "accent-cyan",
         imageSrc: "/images/services/oceanography.jpg",
@@ -78,10 +69,7 @@ const servicesData = [
         id: 5,
         title: "Fisheries Resources Survey",
         titleKo: "수산자원조사",
-        description: [
-            "어장 환경과 자원 평가를 통해",
-            "지속 가능한 관리 기반을 제공합니다.",
-        ],
+        description: ["어장 환경과 자원 평가를 통해", "지속 가능한 관리 기반을 제공합니다."],
         gradient: "from-ocean-500 via-ocean-700 to-marine-dark",
         accentColor: "ocean-400",
         imageSrc: "/images/services/fisheries.jpg",
@@ -92,10 +80,7 @@ const servicesData = [
         id: 6,
         title: "Research & Development",
         titleKo: "R&D",
-        description: [
-            "해양조사 기술 혁신을 위한",
-            "연구개발 활동입니다.",
-        ],
+        description: ["해양조사 기술 혁신을 위한", "연구개발 활동입니다."],
         gradient: "from-ocean-800 via-accent-blue to-marine-dark",
         accentColor: "accent-blue",
         imageSrc: "/images/services/research.jpg",
@@ -104,21 +89,30 @@ const servicesData = [
 ];
 
 // Animated gradient background component (fallback)
-function AnimatedGradientBackground({ gradient, isActive }: { gradient: string; isActive: boolean }) {
+function AnimatedGradientBackground({
+    gradient,
+    isActive,
+}: {
+    gradient: string;
+    isActive: boolean;
+}) {
     const bgRef = useRef<HTMLDivElement>(null);
 
-    useGSAP(() => {
-        if (!bgRef.current || !isActive) return;
+    useGSAP(
+        () => {
+            if (!bgRef.current || !isActive) return;
 
-        // Subtle animation for gradient
-        gsap.to(bgRef.current, {
-            backgroundPosition: "100% 100%",
-            duration: 15,
-            repeat: -1,
-            yoyo: true,
-            ease: "sine.inOut",
-        });
-    }, { scope: bgRef, dependencies: [isActive] });
+            // Subtle animation for gradient
+            gsap.to(bgRef.current, {
+                backgroundPosition: "100% 100%",
+                duration: 15,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut",
+            });
+        },
+        { scope: bgRef, dependencies: [isActive] }
+    );
 
     return (
         <div
@@ -130,18 +124,18 @@ function AnimatedGradientBackground({ gradient, isActive }: { gradient: string; 
 }
 
 // Video background component with fallback to ImageBackground
-function VideoBackground({ 
-    videoSrc, 
-    videoSrcMobile, 
-    imageSrc, 
-    gradient, 
-    isActive 
-}: { 
-    videoSrc?: string; 
+function VideoBackground({
+    videoSrc,
+    videoSrcMobile,
+    imageSrc,
+    gradient,
+    isActive,
+}: {
+    videoSrc?: string;
     videoSrcMobile?: string;
-    imageSrc?: string; 
-    gradient: string; 
-    isActive: boolean 
+    imageSrc?: string;
+    gradient: string;
+    isActive: boolean;
 }) {
     const [hasError, setHasError] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
@@ -149,8 +143,8 @@ function VideoBackground({
     useEffect(() => {
         const checkMobile = () => setIsMobile(window.innerWidth < 768);
         checkMobile();
-        window.addEventListener('resize', checkMobile);
-        return () => window.removeEventListener('resize', checkMobile);
+        window.addEventListener("resize", checkMobile);
+        return () => window.removeEventListener("resize", checkMobile);
     }, []);
 
     const currentSrc = isMobile && videoSrcMobile ? videoSrcMobile : videoSrc;
@@ -162,7 +156,7 @@ function VideoBackground({
 
     return (
         <video
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 h-full w-full object-cover"
             src={currentSrc}
             autoPlay
             muted
@@ -174,24 +168,36 @@ function VideoBackground({
 }
 
 // Image background component with Ken Burns effect
-function ImageBackground({ imageSrc, gradient, isActive }: { imageSrc?: string; gradient: string; isActive: boolean }) {
+function ImageBackground({
+    imageSrc,
+    gradient,
+    isActive,
+}: {
+    imageSrc?: string;
+    gradient: string;
+    isActive: boolean;
+}) {
     const imgRef = useRef<HTMLDivElement>(null);
 
-    useGSAP(() => {
-        if (!imgRef.current || !isActive) return;
+    useGSAP(
+        () => {
+            if (!imgRef.current || !isActive) return;
 
-        // Subtle Ken Burns zoom effect
-        gsap.fromTo(imgRef.current,
-            { scale: 1.0 },
-            {
-                scale: 1.05,
-                duration: 20,
-                ease: "sine.inOut",
-                repeat: -1,
-                yoyo: true,
-            }
-        );
-    }, { scope: imgRef, dependencies: [isActive] });
+            // Subtle Ken Burns zoom effect
+            gsap.fromTo(
+                imgRef.current,
+                { scale: 1.0 },
+                {
+                    scale: 1.05,
+                    duration: 20,
+                    ease: "sine.inOut",
+                    repeat: -1,
+                    yoyo: true,
+                }
+            );
+        },
+        { scope: imgRef, dependencies: [isActive] }
+    );
 
     // If no image, fall back to gradient
     if (!imageSrc) {
@@ -231,55 +237,63 @@ export function BusinessServicesPage() {
     // Wheel scroll state (simpac-style accumulator pattern)
     const wheelAccum = useRef(0);
     const wheelLastT = useRef(0);
-    const syncLock = useRef(false);
 
     // Detect touch device on mount
     useEffect(() => {
-        setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+        setIsTouchDevice("ontouchstart" in window || navigator.maxTouchPoints > 0);
     }, []);
 
     // Wheel event handler (simpac-identical logic)
-    const handleWheel = useCallback((e: WheelEvent) => {
-        // Guard: ensure Swipers are initialized
-        if (!(dataSwiper as any)?.initialized || !(bgSwiper as any)?.initialized) {
-            return;
-        }
+    const handleWheel = useCallback(
+        (e: WheelEvent) => {
+            // Guard: ensure Swipers are initialized
+            if (!(dataSwiper as any)?.initialized || !(bgSwiper as any)?.initialized) {
+                return;
+            }
 
-        // Block during transition or when popups are open
-        if (dataSwiper?.animating || isMenuOpen || isDetailOpen) {
-            console.log('[Swiper] Wheel blocked:', { animating: dataSwiper?.animating, isMenuOpen, isDetailOpen });
+            // Block during transition or when popups are open
+            if (dataSwiper?.animating || bgSwiper?.animating || isMenuOpen || isDetailOpen) {
+                console.log("[Swiper] Wheel blocked:", {
+                    dataAnimating: dataSwiper?.animating,
+                    bgAnimating: bgSwiper?.animating,
+                    isMenuOpen,
+                    isDetailOpen,
+                });
+                e.preventDefault();
+                return;
+            }
+
+            // Normalize to pixels (deltaMode 1 = lines → ~16px per line)
+            const dy = (e.deltaMode === 1 ? e.deltaY * 16 : e.deltaY) || 0;
+
+            // Accumulate with decay reset
+            const now = performance.now();
+            if (now - wheelLastT.current > wheelDecay) wheelAccum.current = 0;
+            wheelLastT.current = now;
+            wheelAccum.current += dy;
+
+            // Below threshold - just prevent default and wait
+            if (Math.abs(wheelAccum.current) < wheelThreshold) {
+                e.preventDefault();
+                return;
+            }
+
             e.preventDefault();
-            return;
-        }
 
-        // Normalize to pixels (deltaMode 1 = lines → ~16px per line)
-        const dy = (e.deltaMode === 1 ? e.deltaY * 16 : e.deltaY) || 0;
+            if (wheelAccum.current > 0) {
+                dataSwiper?.slideNext(swiperSpeed);
+                bgSwiper?.slideNext(swiperSpeed);
+            } else {
+                dataSwiper?.slidePrev(swiperSpeed);
+                bgSwiper?.slidePrev(swiperSpeed);
+            }
 
-        // Accumulate with decay reset
-        const now = performance.now();
-        if (now - wheelLastT.current > wheelDecay) wheelAccum.current = 0;
-        wheelLastT.current = now;
-        wheelAccum.current += dy;
-
-        // Below threshold - just prevent default and wait
-        if (Math.abs(wheelAccum.current) < wheelThreshold) {
-            e.preventDefault();
-            return;
-        }
-
-        e.preventDefault();
-
-        // Execute slide change using slideNext/slidePrev (uses loop clones for seamless transition)
-        if (wheelAccum.current > 0) {
-            dataSwiper?.slideNext(swiperSpeed);
-        } else {
-            dataSwiper?.slidePrev(swiperSpeed);
-        }
-
-        // Reset accumulator after action
-        wheelAccum.current = 0;
-        console.log('[Swiper] Transition started, realIndex:', dataSwiper?.realIndex);
-    }, [wheelThreshold, wheelDecay, isMenuOpen, isDetailOpen, dataSwiper, bgSwiper, swiperSpeed]);
+            // Reset accumulator after action
+            wheelAccum.current = 0;
+            console.log("[Swiper] Transition started, realIndex:", dataSwiper?.realIndex);
+        },
+        [wheelThreshold, wheelDecay, isMenuOpen, isDetailOpen, dataSwiper, bgSwiper, swiperSpeed]
+    );
 
     // Register wheel event listener
     useEffect(() => {
@@ -287,53 +301,50 @@ export function BusinessServicesPage() {
         if (!container) return;
 
         // Use passive: false to allow preventDefault
-        container.addEventListener('wheel', handleWheel, { passive: false });
+        container.addEventListener("wheel", handleWheel, { passive: false });
 
         return () => {
-            container.removeEventListener('wheel', handleWheel);
+            container.removeEventListener("wheel", handleWheel);
         };
     }, [handleWheel]);
 
     // Initialize and show content
-    useGSAP(() => {
-        if (!containerRef.current) return;
+    useGSAP(
+        () => {
+            if (!containerRef.current) return;
 
-        const tl = gsap.timeline({
-            delay: 0.3,
-            onComplete: () => setIsReady(true),
-        });
+            const tl = gsap.timeline({
+                delay: 0.3,
+                onComplete: () => setIsReady(true),
+            });
 
-        tl.to(containerRef.current, {
-            opacity: 1,
-            duration: 0.5,
-            ease: "power2.out",
-        });
-    }, { scope: containerRef });
+            tl.to(containerRef.current, {
+                opacity: 1,
+                duration: 0.5,
+                ease: "power2.out",
+            });
+        },
+        { scope: containerRef }
+    );
 
     const handleSlideChange = useCallback((swiper: SwiperType) => {
         const newIndex = swiper.realIndex;
-        console.log('[Swiper] SlideChange:', { realIndex: newIndex });
+        console.log("[Swiper] SlideChange:", { realIndex: newIndex });
         setActiveIndex(newIndex);
-        
-        // Prevent re-entrant sync (ping-pong)
-        if (syncLock.current) return;
-        
-        if (bgSwiper && bgSwiper.realIndex !== newIndex) {
-            syncLock.current = true;
-            bgSwiper.slideToLoop(newIndex, swiperSpeed);
-            // Release lock after transition completes
-            setTimeout(() => { syncLock.current = false; }, swiperSpeed + 50);
-        }
-    }, [bgSwiper, swiperSpeed]);
-
-    const handleSlideChangeTransitionEnd = useCallback(() => {
-        console.log('[Swiper] TransitionEnd fired');
     }, []);
 
-    const handleMenuItemClick = useCallback((index: number) => {
-        dataSwiper?.slideToLoop(index);
-        setIsMenuOpen(false);
-    }, [dataSwiper]);
+    const handleSlideChangeTransitionEnd = useCallback(() => {
+        console.log("[Swiper] TransitionEnd fired");
+    }, []);
+
+    const handleMenuItemClick = useCallback(
+        (index: number) => {
+            dataSwiper?.slideToLoop(index, swiperSpeed);
+            bgSwiper?.slideToLoop(index, swiperSpeed);
+            setIsMenuOpen(false);
+        },
+        [dataSwiper, bgSwiper, swiperSpeed]
+    );
 
     return (
         <div ref={containerRef} className="business-wrap" style={{ opacity: 0 }}>
@@ -343,7 +354,7 @@ export function BusinessServicesPage() {
                     <Swiper
                         speed={swiperSpeed}
                         loop={true}
-                        loopAdditionalSlides={1}
+                        loopAdditionalSlides={2}
                         allowTouchMove={isTouchDevice}
                         onSwiper={setBgSwiper}
                         onSlideChangeTransitionEnd={handleSlideChangeTransitionEnd}
@@ -368,7 +379,7 @@ export function BusinessServicesPage() {
                                         }}
                                     />
                                     {/* Dark overlay for text readability */}
-                                    <div className="absolute inset-0 bg-marine-dark/30" />
+                                    <div className="bg-marine-dark/30 absolute inset-0" />
                                 </div>
                             </SwiperSlide>
                         ))}
@@ -380,7 +391,7 @@ export function BusinessServicesPage() {
                     <Swiper
                         speed={swiperSpeed}
                         loop={true}
-                        loopAdditionalSlides={1}
+                        loopAdditionalSlides={2}
                         allowTouchMove={isTouchDevice}
                         onSwiper={setDataSwiper}
                         onSlideChange={handleSlideChange}
@@ -399,7 +410,9 @@ export function BusinessServicesPage() {
                                         <div className="item-desc">
                                             <SentenceReveal
                                                 text={service.description}
-                                                isActive={servicesData[activeIndex]?.id === service.id}
+                                                isActive={
+                                                    servicesData[activeIndex]?.id === service.id
+                                                }
                                                 delay={0.2}
                                             />
                                         </div>
