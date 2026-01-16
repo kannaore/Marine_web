@@ -269,18 +269,12 @@ export function BusinessServicesPage() {
 
         e.preventDefault();
 
-        // Execute slide change using realIndex (prevents loop drift)
-        const currentReal = dataSwiper?.realIndex ?? 0;
-        const totalSlides = 6; // servicesData.length
-        let nextIndex: number;
-
+        // Execute slide change using slideNext/slidePrev (uses loop clones for seamless transition)
         if (wheelAccum.current > 0) {
-            nextIndex = (currentReal + 1) % totalSlides;
+            dataSwiper?.slideNext(swiperSpeed);
         } else {
-            nextIndex = (currentReal - 1 + totalSlides) % totalSlides;
+            dataSwiper?.slidePrev(swiperSpeed);
         }
-
-        dataSwiper?.slideToLoop(nextIndex, swiperSpeed);
 
         // Reset accumulator after action
         wheelAccum.current = 0;
@@ -428,10 +422,7 @@ export function BusinessServicesPage() {
 
             {/* Scroll Indicator */}
             <div className={`nav-scroller ${isReady ? "open" : ""}`}>
-                <button className="btn-split" onClick={() => {
-                    const next = ((dataSwiper?.realIndex ?? 0) + 1) % 6;
-                    dataSwiper?.slideToLoop(next, swiperSpeed);
-                }}>
+                <button className="btn-split" onClick={() => dataSwiper?.slideNext(swiperSpeed)}>
                     <span>Scroll to explore</span>
                     <ChevronDown size={16} />
                 </button>
