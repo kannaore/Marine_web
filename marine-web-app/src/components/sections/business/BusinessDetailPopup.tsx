@@ -11,6 +11,7 @@ interface Service {
     description: string[];
     gradient?: string;
     accentColor?: string;
+    imageSrc?: string;
 }
 
 interface BusinessDetailPopupProps {
@@ -107,8 +108,17 @@ export function BusinessDetailPopup({
                         <h3 className="title-ko">{service.titleKo}</h3>
                     </div>
 
-                    {/* Main Visual - Gradient background */}
-                    <div className={`detail-visual bg-gradient-to-br ${service.gradient || 'from-ocean-600 to-ocean-900'}`}>
+                    {/* Main Visual - Image with gradient fallback */}
+                    <div className="detail-visual">
+                        {service.imageSrc ? (
+                            <img 
+                                src={service.imageSrc} 
+                                alt={service.titleKo}
+                                className="absolute inset-0 w-full h-full object-cover"
+                            />
+                        ) : (
+                            <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient || 'from-ocean-600 to-ocean-900'}`} />
+                        )}
                         <div className="visual-overlay" />
                     </div>
 

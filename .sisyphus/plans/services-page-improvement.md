@@ -195,7 +195,7 @@ Task 0 (Pre-req) → Task 1 → Task 2 → Task 3 → Task 4 → Task 5
 
 ---
 
-- [ ] 2. Swiper 무한 루프 수정
+- [x] 2. Swiper 무한 루프 수정
 
   **What to do**:
   - 두 Swiper 인스턴스(bgSwiper, dataSwiper)에 `loopAdditionalSlides: 1` 추가
@@ -225,10 +225,10 @@ Task 0 (Pre-req) → Task 1 → Task 2 → Task 3 → Task 4 → Task 5
   - 두 Swiper가 동기화되어 있으므로 동일한 설정 적용 필요
 
   **Acceptance Criteria**:
-  - [ ] 휠 스크롤로 6→1 전환 시 **오른쪽**으로 이동 (왼쪽으로 돌아가지 않음)
-  - [ ] 터치 스와이프로 6→1 전환 동일하게 동작
-  - [ ] 1→6 (역방향)도 자연스러운 왼쪽 이동
-  - [ ] 배경/콘텐츠 Swiper 동기화 유지
+  - [x] 휠 스크롤로 6→1 전환 시 **오른쪽**으로 이동 (왼쪽으로 돌아가지 않음)
+  - [x] 터치 스와이프로 6→1 전환 동일하게 동작
+  - [x] 1→6 (역방향)도 자연스러운 왼쪽 이동
+  - [x] 배경/콘텐츠 Swiper 동기화 유지
   - [ ] Using playwright: localhost:3000/services에서 6번 스크롤 후 방향 확인
 
   **Commit**: YES
@@ -238,7 +238,7 @@ Task 0 (Pre-req) → Task 1 → Task 2 → Task 3 → Task 4 → Task 5
 
 ---
 
-- [ ] 3. BusinessMenuPopup 썸네일 이미지 적용
+- [x] 3. BusinessMenuPopup 썸네일 이미지 적용
 
   **What to do**:
   - `Service` 인터페이스에 `thumbnailSrc` 필드 추가
@@ -263,10 +263,10 @@ Task 0 (Pre-req) → Task 1 → Task 2 → Task 3 → Task 4 → Task 5
   - 이미 CSS에 img 스타일이 정의되어 있음 → div를 img로만 교체하면 됨
 
   **Acceptance Criteria**:
-  - [ ] 메뉴 팝업 열면 6개 썸네일에 실제 이미지 표시
-  - [ ] 이미지 로딩 전에는 gradient 플레이스홀더 표시
-  - [ ] hover 시 이미지 1.1x 확대 애니메이션 동작
-  - [ ] active 상태에서 lime dot 표시
+  - [x] 메뉴 팝업 열면 6개 썸네일에 실제 이미지 표시
+  - [x] 이미지 로딩 전에는 gradient 플레이스홀더 표시
+  - [x] hover 시 이미지 1.1x 확대 애니메이션 동작
+  - [x] active 상태에서 lime dot 표시
   - [ ] Using playwright: 메뉴 열고 썸네일 이미지 확인
 
   **Commit**: YES
@@ -276,7 +276,7 @@ Task 0 (Pre-req) → Task 1 → Task 2 → Task 3 → Task 4 → Task 5
 
 ---
 
-- [ ] 4. BusinessDetailPopup 비주얼 개선
+- [x] 4. BusinessDetailPopup 비주얼 개선
 
   **What to do**:
   - 16:9 비주얼 영역에 실제 이미지 표시 (gradient 대신)
@@ -300,9 +300,9 @@ Task 0 (Pre-req) → Task 1 → Task 2 → Task 3 → Task 4 → Task 5
   - 현재 gradient만 있는 영역에 이미지 추가
 
   **Acceptance Criteria**:
-  - [ ] "Learn More" 클릭 시 상세 팝업에 16:9 이미지 표시
-  - [ ] 이미지 위에 gradient overlay 적용 (하단으로 갈수록 어두워짐)
-  - [ ] 텍스트 가독성 유지
+  - [x] "Learn More" 클릭 시 상세 팝업에 16:9 이미지 표시
+  - [x] 이미지 위에 gradient overlay 적용 (하단으로 갈수록 어두워짐)
+  - [x] 텍스트 가독성 유지
   - [ ] Using playwright: Learn More 클릭 후 비주얼 이미지 확인
 
   **Commit**: YES
@@ -312,7 +312,7 @@ Task 0 (Pre-req) → Task 1 → Task 2 → Task 3 → Task 4 → Task 5
 
 ---
 
-- [ ] 5. glassmorphism 효과 강화 (globals.css)
+- [x] 5. glassmorphism 효과 강화 (globals.css)
 
   **What to do**:
   - 메뉴 팝업 배경 blur 강화: `blur(30px)` → `blur(40px)`
@@ -338,10 +338,10 @@ Task 0 (Pre-req) → Task 1 → Task 2 → Task 3 → Task 4 → Task 5
   - glassmorphism 효과가 적용된 모든 요소 일괄 개선
 
   **Acceptance Criteria**:
-  - [ ] 메뉴 팝업 배경이 더 뚜렷하게 블러됨
-  - [ ] 상세 팝업 배경이 더 뚜렷하게 블러됨
-  - [ ] 버튼 테두리가 살짝 더 밝아짐
-  - [ ] 전체적으로 "고급스러운" 느낌 향상
+  - [x] 메뉴 팝업 배경이 더 뚜렷하게 블러됨
+  - [x] 상세 팝업 배경이 더 뚜렷하게 블러됨
+  - [x] 버튼 테두리가 살짝 더 밝아짐
+  - [x] 전체적으로 "고급스러운" 느낌 향상
   - [ ] Using playwright: 팝업 열고 배경 블러 효과 확인 (스크린샷 비교)
 
   **Commit**: YES

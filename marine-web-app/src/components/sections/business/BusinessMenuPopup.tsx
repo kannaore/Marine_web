@@ -10,6 +10,7 @@ interface Service {
     titleKo: string;
     gradient?: string;
     posterSrc?: string;
+    thumbnailSrc?: string;
 }
 
 interface BusinessMenuPopupProps {
@@ -114,7 +115,15 @@ export function BusinessMenuPopup({
                                         style={{ opacity: 0 }}
                                     >
                                         <span className="thumb">
-                                            <div className={`aspect-[4/3] w-full rounded-lg bg-gradient-to-br ${service.gradient || 'from-ocean-600 to-ocean-900'}`} />
+                                            {service.thumbnailSrc ? (
+                                                <img 
+                                                    src={service.thumbnailSrc} 
+                                                    alt={service.titleKo}
+                                                    className="aspect-[4/3] w-full rounded-lg object-cover"
+                                                />
+                                            ) : (
+                                                <div className={`aspect-[4/3] w-full rounded-lg bg-gradient-to-br ${service.gradient || 'from-ocean-600 to-ocean-900'}`} />
+                                            )}
                                         </span>
                                         <span className="name">
                                             {service.titleKo}
@@ -139,7 +148,15 @@ export function BusinessMenuPopup({
                                             style={{ opacity: 0 }}
                                         >
                                             <span className="thumb">
-                                                <div className={`aspect-[4/3] w-full rounded-lg bg-gradient-to-br ${service.gradient || 'from-ocean-600 to-ocean-900'}`} />
+                                                {service.thumbnailSrc ? (
+                                                    <img 
+                                                        src={service.thumbnailSrc} 
+                                                        alt={service.titleKo}
+                                                        className="aspect-[4/3] w-full rounded-lg object-cover"
+                                                    />
+                                                ) : (
+                                                    <div className={`aspect-[4/3] w-full rounded-lg bg-gradient-to-br ${service.gradient || 'from-ocean-600 to-ocean-900'}`} />
+                                                )}
                                             </span>
                                             <span className="name">
                                                 {service.titleKo}

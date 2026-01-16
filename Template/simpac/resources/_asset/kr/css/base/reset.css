@@ -220,7 +220,7 @@ a:active {
 }
 */
 
-/* ìž…ë ¥ number íƒ€ìž… í™”ì‚´í‘œ ì œê±° */
+/* 입력 number 타입 화살표 제거 */
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
