@@ -43,6 +43,23 @@
 }
 
 :root {
+    /* Simpac Color System */
+    --Colors-Solid-Mono-700: #535862;
+    --Colors-Solid-Mono-800: #2f363a;
+    --Colors-Text-Gray-600: var(--Colors-Solid-Mono-700);
+    --Colors-Text-Gray-800: var(--Colors-Solid-Mono-800);
+
+    /* Simpac Typography Variables */
+    --gothic-title-01-font-size: 3rem;
+    --gothic-title-01-line-height: 1.20833;
+    --gothic-title-01-font-weight: 600;
+    --gothic-title-01-letter-spacing: -0.0291666em;
+
+    --body-02-md-font-size: 1.25rem;
+    --body-02-md-line-height: 1.5;
+    --body-02-md-font-weight: 400;
+    --body-02-md-letter-spacing: -0.015em;
+
     /* Glassmorphism Variables - Base (overridden by useGlassConfig in dev) */
     --glass-bg-dark: rgba(47, 54, 58, 0.4);
     --glass-bg-darker: rgba(47, 54, 58, 0.6);
@@ -359,46 +376,41 @@ body {
     height: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     z-index: 5;
 }
 
 .business-view .item-data .inner {
-    text-align: center;
+    text-align: left;
     max-width: 100%;
-    padding: 0 2rem;
+    padding: 0 var(--guide-left, 2rem);
+    margin-left: 5%;
 }
 
 .business-view .item-data h3 {
     font-family: var(--font-display);
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
-    font-weight: 600;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    color: #1a1a1a;
+    font-size: var(--gothic-title-01-font-size);
+    font-weight: var(--gothic-title-01-font-weight);
+    line-height: var(--gothic-title-01-line-height);
+    letter-spacing: var(--gothic-title-01-letter-spacing);
+    color: var(--Colors-Text-Gray-800);
 }
 
 .business-view .item-data .item-desc {
-    margin-top: 1.5rem;
-    font-size: clamp(1rem, 1.5vw, 1.25rem);
-    line-height: 1.6;
-    color: #4a4a4a;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-top: 1rem;
+    font-size: var(--body-02-md-font-size);
+    line-height: var(--body-02-md-line-height);
+    font-weight: var(--body-02-md-font-weight);
+    letter-spacing: var(--body-02-md-letter-spacing);
+    color: var(--Colors-Text-Gray-600);
 }
 
-.business-view .item-data .item-desc {
-    margin-top: 1.5rem;
-    font-size: clamp(1rem, 1.5vw, 1.25rem);
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.95);
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-    text-shadow:
-        0 1px 4px rgba(0, 0, 0, 0.5),
-        0 2px 12px rgba(0, 0, 0, 0.3);
+.business-view .item-1 h3 {
+    color: #fff;
+}
+
+.business-view .item-1 .item-desc {
+    color: rgba(255, 255, 255, 0.8);
 }
 
 /* Bottom navigation */
@@ -1077,5 +1089,45 @@ body {
     .business-detail .btn-detail-cta {
         padding: 0.875rem 1.5rem;
         font-size: 0.8125rem;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    :root {
+        --gothic-title-01-font-size: 2rem;
+        --gothic-title-01-line-height: 1.1875;
+        --gothic-title-01-letter-spacing: -0.04375em;
+        --body-02-md-font-size: 1rem;
+        --body-02-md-line-height: 1.5;
+    }
+
+    .business-view .item-data {
+        align-items: flex-start;
+        padding-top: 6.25rem;
+    }
+
+    .business-view .item-data .inner {
+        margin-left: 0;
+    }
+
+    .business-view .item-data .item-desc {
+        margin-top: 1rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    :root {
+        --gothic-title-01-font-size: 1.5rem;
+        --gothic-title-01-line-height: 1.25;
+        --gothic-title-01-letter-spacing: -0.05em;
+        --body-02-md-font-size: 1rem;
+    }
+
+    .business-view .item-data {
+        padding-top: 6.25rem;
+    }
+
+    .business-view .item-data .item-desc {
+        margin-top: 0.5rem;
     }
 }

@@ -391,7 +391,7 @@ export function BusinessServicesPage() {
                     >
                         {servicesData.map((service) => (
                             <SwiperSlide key={service.id}>
-                                <div className="item-data">
+                                <div className={`item-data item-${service.id}`}>
                                     <div className="inner">
                                         <SentenceReveal
                                             as="h3"
