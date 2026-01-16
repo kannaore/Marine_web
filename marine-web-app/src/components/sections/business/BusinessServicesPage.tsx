@@ -161,19 +161,15 @@ function VideoBackground({
     }
 
     return (
-        <>
-            <video
-                className="absolute inset-0 w-full h-full object-cover"
-                src={currentSrc}
-                autoPlay
-                muted
-                loop
-                playsInline
-                onError={() => setHasError(true)}
-            />
-            {/* Gradient overlay for color tinting */}
-            <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-40`} />
-        </>
+        <video
+            className="absolute inset-0 w-full h-full object-cover"
+            src={currentSrc}
+            autoPlay
+            muted
+            loop
+            playsInline
+            onError={() => setHasError(true)}
+        />
     );
 }
 
@@ -226,8 +222,8 @@ export function BusinessServicesPage() {
     const [isReady, setIsReady] = useState(false);
     const [isTouchDevice, setIsTouchDevice] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
-    const dataSwiperRef = useRef<SwiperType | null>(null);
-    const bgSwiperRef = useRef<SwiperType | null>(null);
+    const [bgSwiper, setBgSwiper] = useState<SwiperType | null>(null);
+    const [dataSwiper, setDataSwiper] = useState<SwiperType | null>(null);
 
     // Animation config from leva (debug controls)
     const { swiperSpeed, wheelThreshold, wheelDecay } = useAnimationConfig();
@@ -235,7 +231,6 @@ export function BusinessServicesPage() {
     // Wheel scroll state (simpac-style accumulator pattern)
     const wheelAccum = useRef(0);
     const wheelLastT = useRef(0);
-    const isTransitioning = useRef(false);
 
     // Detect touch device on mount
     useEffect(() => {
@@ -245,7 +240,11 @@ export function BusinessServicesPage() {
     // Wheel event handler (simpac-identical logic)
     const handleWheel = useCallback((e: WheelEvent) => {
         // Block during transition or when popups are open
-        if (isTransitioning.current || isMenuOpen || isDetailOpen) return;
+        if (dataSwiper?.animating || isMenuOpen || isDetailOpen) {
+            console.log('[Swiper] Wheel blocked:', { animating: dataSwiper?.animating, isMenuOpen, isDetailOpen });
+            e.preventDefault();
+            return;
+        }
 
         // Normalize to pixels (deltaMode 1 = lines → ~16px per line)
         const dy = (e.deltaMode === 1 ? e.deltaY * 16 : e.deltaY) || 0;
@@ -266,15 +265,15 @@ export function BusinessServicesPage() {
 
         // Execute slide change
         if (wheelAccum.current > 0) {
-            dataSwiperRef.current?.slideNext();
+            dataSwiper?.slideNext();
         } else {
-            dataSwiperRef.current?.slidePrev();
+            dataSwiper?.slidePrev();
         }
 
         // Reset accumulator after action
         wheelAccum.current = 0;
-        isTransitioning.current = true;
-    }, [wheelThreshold, wheelDecay, isMenuOpen, isDetailOpen]);
+        console.log('[Swiper] Transition started, realIndex:', dataSwiper?.realIndex);
+    }, [wheelThreshold, wheelDecay, isMenuOpen, isDetailOpen, dataSwiper]);
 
     // Register wheel event listener
     useEffect(() => {
@@ -305,28 +304,23 @@ export function BusinessServicesPage() {
         });
     }, { scope: containerRef });
 
-    // Sync swipers
     const handleSlideChange = useCallback((swiper: SwiperType) => {
-        setActiveIndex(swiper.realIndex);
-        if (bgSwiperRef.current && bgSwiperRef.current.realIndex !== swiper.realIndex) {
-            bgSwiperRef.current.slideToLoop(swiper.realIndex);
+        const newIndex = swiper.realIndex;
+        console.log('[Swiper] SlideChange:', { realIndex: newIndex });
+        setActiveIndex(newIndex);
+        if (bgSwiper && bgSwiper.realIndex !== newIndex) {
+            bgSwiper.slideToLoop(newIndex, swiperSpeed);
         }
-        if (dataSwiperRef.current && dataSwiperRef.current.realIndex !== swiper.realIndex) {
-            dataSwiperRef.current.slideToLoop(swiper.realIndex);
-        }
-    }, []);
+    }, [bgSwiper, swiperSpeed]);
 
-    // Reset transition flag when slide change animation ends
     const handleSlideChangeTransitionEnd = useCallback(() => {
-        isTransitioning.current = false;
+        console.log('[Swiper] TransitionEnd fired');
     }, []);
 
     const handleMenuItemClick = useCallback((index: number) => {
-        if (dataSwiperRef.current) {
-            dataSwiperRef.current.slideToLoop(index);
-        }
+        dataSwiper?.slideToLoop(index);
         setIsMenuOpen(false);
-    }, []);
+    }, [dataSwiper]);
 
     return (
         <div ref={containerRef} className="business-wrap" style={{ opacity: 0 }}>
@@ -336,9 +330,9 @@ export function BusinessServicesPage() {
                     <Swiper
                         speed={swiperSpeed}
                         loop={true}
-                        loopAdditionalSlides={1}
+                        loopAdditionalSlides={6}
                         allowTouchMove={isTouchDevice}
-                        onSwiper={(swiper) => { bgSwiperRef.current = swiper; }}
+                        onSwiper={setBgSwiper}
                         onSlideChangeTransitionEnd={handleSlideChangeTransitionEnd}
                         className="h-full w-full"
                     >
@@ -373,9 +367,9 @@ export function BusinessServicesPage() {
                     <Swiper
                         speed={swiperSpeed}
                         loop={true}
-                        loopAdditionalSlides={1}
+                        loopAdditionalSlides={6}
                         allowTouchMove={isTouchDevice}
-                        onSwiper={(swiper) => { dataSwiperRef.current = swiper; }}
+                        onSwiper={setDataSwiper}
                         onSlideChange={handleSlideChange}
                         onSlideChangeTransitionEnd={handleSlideChangeTransitionEnd}
                         className="h-full w-full"
@@ -415,7 +409,7 @@ export function BusinessServicesPage() {
 
             {/* Scroll Indicator */}
             <div className={`nav-scroller ${isReady ? "open" : ""}`}>
-                <button className="btn-split" onClick={() => dataSwiperRef.current?.slideNext()}>
+                <button className="btn-split" onClick={() => dataSwiper?.slideNext()}>
                     <span>Scroll to explore</span>
                     <ChevronDown size={16} />
                 </button>

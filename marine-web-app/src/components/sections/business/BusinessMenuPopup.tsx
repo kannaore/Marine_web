@@ -88,6 +88,11 @@ export function BusinessMenuPopup({
             aria-modal="true"
             aria-label="Services menu"
         >
+            <div 
+                className="pop-backdrop" 
+                onClick={onClose}
+                aria-hidden="true"
+            />
             <div className="pop-inner">
                 {/* Close Button */}
                 <button
