@@ -231,6 +231,7 @@ export function BusinessServicesPage() {
     // Wheel scroll state (simpac-style accumulator pattern)
     const wheelAccum = useRef(0);
     const wheelLastT = useRef(0);
+    const syncLock = useRef(false);
 
     // Detect touch device on mount
     useEffect(() => {
@@ -239,6 +240,11 @@ export function BusinessServicesPage() {
 
     // Wheel event handler (simpac-identical logic)
     const handleWheel = useCallback((e: WheelEvent) => {
+        // Guard: ensure Swipers are initialized
+        if (!(dataSwiper as any)?.initialized || !(bgSwiper as any)?.initialized) {
+            return;
+        }
+
         // Block during transition or when popups are open
         if (dataSwiper?.animating || isMenuOpen || isDetailOpen) {
             console.log('[Swiper] Wheel blocked:', { animating: dataSwiper?.animating, isMenuOpen, isDetailOpen });
@@ -263,17 +269,23 @@ export function BusinessServicesPage() {
 
         e.preventDefault();
 
-        // Execute slide change
+        // Execute slide change using realIndex (prevents loop drift)
+        const currentReal = dataSwiper?.realIndex ?? 0;
+        const totalSlides = 6; // servicesData.length
+        let nextIndex: number;
+
         if (wheelAccum.current > 0) {
-            dataSwiper?.slideNext();
+            nextIndex = (currentReal + 1) % totalSlides;
         } else {
-            dataSwiper?.slidePrev();
+            nextIndex = (currentReal - 1 + totalSlides) % totalSlides;
         }
+
+        dataSwiper?.slideToLoop(nextIndex, swiperSpeed);
 
         // Reset accumulator after action
         wheelAccum.current = 0;
         console.log('[Swiper] Transition started, realIndex:', dataSwiper?.realIndex);
-    }, [wheelThreshold, wheelDecay, isMenuOpen, isDetailOpen, dataSwiper]);
+    }, [wheelThreshold, wheelDecay, isMenuOpen, isDetailOpen, dataSwiper, bgSwiper, swiperSpeed]);
 
     // Register wheel event listener
     useEffect(() => {
@@ -308,8 +320,15 @@ export function BusinessServicesPage() {
         const newIndex = swiper.realIndex;
         console.log('[Swiper] SlideChange:', { realIndex: newIndex });
         setActiveIndex(newIndex);
+        
+        // Prevent re-entrant sync (ping-pong)
+        if (syncLock.current) return;
+        
         if (bgSwiper && bgSwiper.realIndex !== newIndex) {
+            syncLock.current = true;
             bgSwiper.slideToLoop(newIndex, swiperSpeed);
+            // Release lock after transition completes
+            setTimeout(() => { syncLock.current = false; }, swiperSpeed + 50);
         }
     }, [bgSwiper, swiperSpeed]);
 
@@ -330,7 +349,7 @@ export function BusinessServicesPage() {
                     <Swiper
                         speed={swiperSpeed}
                         loop={true}
-                        loopAdditionalSlides={6}
+                        loopAdditionalSlides={1}
                         allowTouchMove={isTouchDevice}
                         onSwiper={setBgSwiper}
                         onSlideChangeTransitionEnd={handleSlideChangeTransitionEnd}
@@ -367,7 +386,7 @@ export function BusinessServicesPage() {
                     <Swiper
                         speed={swiperSpeed}
                         loop={true}
-                        loopAdditionalSlides={6}
+                        loopAdditionalSlides={1}
                         allowTouchMove={isTouchDevice}
                         onSwiper={setDataSwiper}
                         onSlideChange={handleSlideChange}
@@ -409,7 +428,10 @@ export function BusinessServicesPage() {
 
             {/* Scroll Indicator */}
             <div className={`nav-scroller ${isReady ? "open" : ""}`}>
-                <button className="btn-split" onClick={() => dataSwiper?.slideNext()}>
+                <button className="btn-split" onClick={() => {
+                    const next = ((dataSwiper?.realIndex ?? 0) + 1) % 6;
+                    dataSwiper?.slideToLoop(next, swiperSpeed);
+                }}>
                     <span>Scroll to explore</span>
                     <ChevronDown size={16} />
                 </button>
