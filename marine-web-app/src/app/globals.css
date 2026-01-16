@@ -42,6 +42,34 @@
     --transition-easeInOutQuart: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
+:root {
+    /* Glassmorphism Variables - Base (overridden by useGlassConfig in dev) */
+    --glass-bg-dark: rgba(47, 54, 58, 0.40);
+    --glass-bg-darker: rgba(47, 54, 58, 0.60);
+    --glass-blur-lg: blur(40px);
+    --glass-blur-md: blur(32px);
+    --glass-blur-sm: blur(20px);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.15);
+    --glass-border-gradient: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.05));
+
+    /* Refraction - filters */
+    --glass-saturate: saturate(180%);
+    --glass-brightness: brightness(100%);
+    --glass-contrast: contrast(100%);
+
+    /* Surface - noise & blend */
+    --glass-noise-opacity: 0;
+    --glass-blend-mode: normal;
+
+    /* Edge - border radius */
+    --glass-border-radius: 8px;
+
+    /* Shadow - depth effects */
+    --glass-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.3);
+    --glass-inner-glow: none;
+    --glass-top-bevel: none;
+}
+
 /* Global Styles */
 html {
     scroll-behavior: smooth;
@@ -388,10 +416,10 @@ body {
     padding: 0.5rem 1.5rem 0.5rem 0.5rem;
     border-radius: 0.5rem;
     gap: 1rem;
-    background: rgba(3, 6, 8, 0.7);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: var(--glass-bg-dark);
+    backdrop-filter: var(--glass-blur-md);
+    -webkit-backdrop-filter: var(--glass-blur-md);
+    border: var(--glass-border);
     font-family: var(--font-sans);
     font-size: 0.875rem;
     font-weight: 500;
@@ -464,10 +492,10 @@ body {
     width: 5rem;
     height: 5rem;
     border-radius: 0.5rem;
-    background: rgba(3, 6, 8, 0.7);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: var(--glass-bg-dark);
+    backdrop-filter: var(--glass-blur-md);
+    -webkit-backdrop-filter: var(--glass-blur-md);
+    border: var(--glass-border);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -501,21 +529,27 @@ body {
     transition: visibility 0s 0s ease;
 }
 
-.business-pop .pop-inner {
+.business-pop .pop-backdrop {
     position: absolute;
+    inset: 0;
+    background: transparent;
+    pointer-events: auto;
+    z-index: 1;
+}
+
+.business-pop .pop-inner {
+    position: relative;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     opacity: 0;
-    background: rgba(3, 6, 8, 0.9);
-    backdrop-filter: blur(40px);
-    -webkit-backdrop-filter: blur(40px);
+    background: var(--glass-bg-darker);
+    backdrop-filter: var(--glass-blur-lg);
+    -webkit-backdrop-filter: var(--glass-blur-lg);
     transition: opacity 0.3s ease;
-}
-
-.business-pop.active .pop-inner {
-    opacity: 1;
+    z-index: 2;
+    pointer-events: none;
 }
 
 .business-pop .btn-pop-close {
@@ -534,10 +568,15 @@ body {
     border: none;
     cursor: pointer;
     transition: background 0.2s ease;
+    pointer-events: auto;
 }
 
 .business-pop .btn-pop-close:hover {
     background: rgba(255, 255, 255, 0.2);
+}
+
+.business-pop.active .pop-inner {
+    opacity: 1;
 }
 
 /* Menu grid */
@@ -559,6 +598,7 @@ body {
     justify-content: center;
     gap: 5.25rem 6.25rem;
     max-width: 57.5rem;
+    pointer-events: auto;
 }
 
 /* 3+2 Staggered Grid Layout */
@@ -672,9 +712,10 @@ body {
 .business-detail .detail-backdrop {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
+    background: var(--glass-bg-darker);
+    backdrop-filter: var(--glass-blur-lg);
+    -webkit-backdrop-filter: var(--glass-blur-lg);
+    pointer-events: auto;
 }
 
 .business-detail .detail-inner {
@@ -686,6 +727,7 @@ body {
     justify-content: center;
     padding: 4rem 2rem;
     overflow-y: auto;
+    pointer-events: none;
 }
 
 .business-detail .btn-detail-close {
@@ -704,6 +746,7 @@ body {
     border: none;
     cursor: pointer;
     transition: background 0.2s ease;
+    pointer-events: auto;
 }
 
 .business-detail .btn-detail-close:hover {
@@ -713,6 +756,7 @@ body {
 .business-detail .detail-content {
     max-width: 48rem;
     width: 100%;
+    pointer-events: auto;
 }
 
 .business-detail .detail-header {
