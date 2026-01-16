@@ -35,7 +35,7 @@
     /* Ease Curves */
     --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
     --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
-    
+
     /* simpac Ease Curves */
     --transition-easeOutQuart: cubic-bezier(0.165, 0.84, 0.44, 1);
     --transition-easeOutQuint: cubic-bezier(0.23, 1, 0.32, 1);
@@ -44,13 +44,17 @@
 
 :root {
     /* Glassmorphism Variables - Base (overridden by useGlassConfig in dev) */
-    --glass-bg-dark: rgba(47, 54, 58, 0.40);
-    --glass-bg-darker: rgba(47, 54, 58, 0.60);
+    --glass-bg-dark: rgba(47, 54, 58, 0.4);
+    --glass-bg-darker: rgba(47, 54, 58, 0.6);
     --glass-blur-lg: blur(40px);
     --glass-blur-md: blur(32px);
     --glass-blur-sm: blur(20px);
     --glass-border: 1px solid rgba(255, 255, 255, 0.15);
-    --glass-border-gradient: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.05));
+    --glass-border-gradient: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.2),
+        rgba(255, 255, 255, 0.05)
+    );
 
     /* Refraction - filters */
     --glass-saturate: saturate(180%);
@@ -233,7 +237,7 @@ body {
 
 /* Discovery. text with horizontal gradient from white to cyan */
 .hero-headline-highlight {
-    background: linear-gradient(90deg, #ffffff 0%, #70D1E5 100%);
+    background: linear-gradient(90deg, #ffffff 0%, #70d1e5 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -326,7 +330,7 @@ body {
 .business-view .swiper {
     width: 100%;
     height: 100%;
-    overflow: visible;  /* Shows adjacent slides slightly */
+    overflow: visible; /* Shows adjacent slides slightly */
 }
 
 .business-video .video-wrap {
@@ -371,17 +375,30 @@ body {
     font-weight: 600;
     line-height: 1.1;
     letter-spacing: -0.02em;
-    color: #ffffff;
+    color: #1a1a1a;
 }
 
 .business-view .item-data .item-desc {
     margin-top: 1.5rem;
     font-size: clamp(1rem, 1.5vw, 1.25rem);
     line-height: 1.6;
-    color: rgba(255, 255, 255, 0.8);
+    color: #4a4a4a;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.business-view .item-data .item-desc {
+    margin-top: 1.5rem;
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.95);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    text-shadow:
+        0 1px 4px rgba(0, 0, 0, 0.5),
+        0 2px 12px rgba(0, 0, 0, 0.3);
 }
 
 /* Bottom navigation */
@@ -480,7 +497,9 @@ body {
 
 .business-nav .btn-more-nav .more-icon {
     color: rgba(255, 255, 255, 0.6);
-    transition: color 0.3s ease, transform 0.3s ease;
+    transition:
+        color 0.3s ease,
+        transform 0.3s ease;
 }
 
 .business-nav .btn-more-nav:hover .more-icon {
@@ -700,7 +719,9 @@ body {
     pointer-events: none;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
 }
 
 .business-detail.active {
@@ -854,7 +875,9 @@ body {
     display: block;
     transform: translateY(100%);
     opacity: 0;
-    transition: transform 0.6s var(--transition-easeOutQuart), opacity 0.6s var(--transition-easeOutQuart);
+    transition:
+        transform 0.6s var(--transition-easeOutQuart),
+        opacity 0.6s var(--transition-easeOutQuart);
 }
 
 .effect-sentence.revealed .sentence .value {
@@ -863,12 +886,24 @@ body {
 }
 
 /* Staggered reveal for multiple sentences (simpac: 0.05s increments) */
-.effect-sentence.revealed .sentence:nth-child(1) .value { transition-delay: 0.05s; }
-.effect-sentence.revealed .sentence:nth-child(2) .value { transition-delay: 0.1s; }
-.effect-sentence.revealed .sentence:nth-child(3) .value { transition-delay: 0.15s; }
-.effect-sentence.revealed .sentence:nth-child(4) .value { transition-delay: 0.2s; }
-.effect-sentence.revealed .sentence:nth-child(5) .value { transition-delay: 0.25s; }
-.effect-sentence.revealed .sentence:nth-child(6) .value { transition-delay: 0.3s; }
+.effect-sentence.revealed .sentence:nth-child(1) .value {
+    transition-delay: 0.05s;
+}
+.effect-sentence.revealed .sentence:nth-child(2) .value {
+    transition-delay: 0.1s;
+}
+.effect-sentence.revealed .sentence:nth-child(3) .value {
+    transition-delay: 0.15s;
+}
+.effect-sentence.revealed .sentence:nth-child(4) .value {
+    transition-delay: 0.2s;
+}
+.effect-sentence.revealed .sentence:nth-child(5) .value {
+    transition-delay: 0.25s;
+}
+.effect-sentence.revealed .sentence:nth-child(6) .value {
+    transition-delay: 0.3s;
+}
 
 /* Scroll indicator */
 .nav-scroller {

@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
 import Image from "next/image";
-import { Link } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 import { useLocale } from "next-intl";
 import { Menu, X } from "lucide-react";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
@@ -13,8 +13,10 @@ import { NAV_CONTENT, type NavKey } from "@/lib/navData";
 
 export function Header() {
     const locale = useLocale();
+    const pathname = usePathname();
     const isKorean = locale === "ko";
-    const [isScrolled, setIsScrolled] = useState(false);
+    const forceGlass = pathname.includes("/services");
+    const [isScrolled, setIsScrolled] = useState(forceGlass);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [headerOffset, setHeaderOffset] = useState(88);
@@ -27,12 +29,12 @@ export function Header() {
 
     useEffect(() => {
         const handleScroll = () => {
-            setIsScrolled(window.scrollY > 20);
+            setIsScrolled(window.scrollY > 20 || forceGlass);
         };
         handleScroll();
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+    }, [forceGlass]);
 
     useEffect(() => {
         if (!headerRef.current) return;
